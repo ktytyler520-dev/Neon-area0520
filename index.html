@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#070c1b">
-<title>NEON ARENA v1.5 — 1인칭/3인칭 · PVP</title>
+<title>NEON ARENA v1.5.1 — 고정 경사로 · 폭격자</title>
 <style>
 :root{--cyan:#5beeff;--blue:#5b8cff;--pink:#ff5cad;--ink:#080e1e;--line:rgba(145,219,255,.24)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -197,7 +197,7 @@ h1 span{color:#69eaff}
   <div id="controls"><button id="jumpBtn" aria-label="점프">⬆<small>JUMP</small></button><button id="slideBtn" aria-label="슬라이딩">➤<small>SLIDE</small></button><button id="swapBtn" aria-label="결투 무기 변경">⚔<small>무기</small></button><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
   <section id="menu" role="dialog" aria-modal="true" aria-label="게임 메뉴"><div class="menu-inner">
     <div id="homeScreen" class="menu-screen active">
-      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 1.5 · 폭격자 2페이즈</div>
+      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 1.5.1 · 폭격자 2페이즈</div>
       <h1>NEON<br><span>ARENA</span></h1>
       <p id="menuDesc">우주 정거장 생존전 · 3인칭 시점 · 온라인 1:1 아레나</p>
       <div id="menuMeta"><span class="meta">◉ 1인칭 / 3인칭</span><span class="meta">◈ 웨이브 강화</span><span class="meta" id="bestScoreText">🏆 최고 0점</span></div>
@@ -212,7 +212,7 @@ h1 span{color:#69eaff}
       <div id="menuFoot">📱 가로 화면 · 생존전(로봇) / 사격장(PVP, 로봇 없음) · V 키로 시점 전환<br>PC: WASD · 마우스 · 클릭/Space · R · V · Esc</div>
     </div>
     <div id="settingsScreen" class="menu-screen">
-      <div class="eyebrow">CUSTOMIZE · VERSION 1.5</div><h2 class="menu-title">⚙️ 게임 설정</h2>
+      <div class="eyebrow">CUSTOMIZE · VERSION 1.5.1</div><h2 class="menu-title">⚙️ 게임 설정</h2>
       <p class="menu-sub">우주 정거장 그래픽과 카메라 감도를 조절합니다. 자동으로 저장됩니다.</p>
       <div class="settings-stack">
         <div class="setting-card"><label for="graphicsSelect">그래픽 품질</label><select id="graphicsSelect"><option value="low">낮음 · 프레임 우선</option><option value="medium">보통 · 균형</option><option value="high">높음 · 화질 우선</option></select><p>낮음: 빠르게 · 높음: 고해상도·디테일·조명 강화 (성능에 따라 조절)</p></div>
@@ -375,8 +375,8 @@ function populateDuelWeapons(){const select=$('duelWeaponSelect');select.innerHT
 function swapDuelWeapon(){if(gameMode!=='duel'||state!=='play')return;const list=Object.keys(WEAPONS).filter(id=>save.owned[id]);save.equipped=list[(list.indexOf(save.equipped)+1)%list.length];player.ammo=activeWeapon().mag;reloadingUntil=0;persist();updateHUD();showNotice('⚔ '+activeWeapon().name,1);netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:player.hp,w:save.equipped})}
 let jumpZ=0,jumpVelocity=0,slideRemaining=0,lookPitch=0,lookY=0,rampElevation=0,bossIntroUntil=0,bossIntroStart=0,phaseFlashUntil=0;
 const RAMP_AREAS=[
- {x:5.8,y:5.5,axis:'x',length:2.6,width:1.0,height:1.05,wallX:4.5},
- {x:14.2,y:13.5,axis:'x',length:2.6,width:1.0,height:1.05,wallX:15.5}
+ {x:5.85,y:5.5,axis:'x',length:2.7,width:1.0,height:1.05,wallX:4.5},
+ {x:14.15,y:13.5,axis:'x',length:2.7,width:1.0,height:1.05,wallX:15.5}
 ];
 function rampHeight(x,y){let h=0;for(const r of RAMP_AREAS){const along=r.wallX<r.x?(r.x+r.length/2-x)/r.length:(x-(r.x-r.length/2))/r.length;if(Math.abs(y-r.y)<=r.width/2&&along>=0&&along<=1)h=Math.max(h,along*r.height)}return h}
 function jump(){if(state!=='play'||jumpZ>.03||jumpVelocity>0||slideRemaining>0)return;jumpZ=.02;jumpVelocity=6.9;showNotice('⬆ JUMP',.4)}function slide(){if(state!=='play'||slideRemaining>0||jumpZ>0)return;slideRemaining=.75;showNotice('➤ SLIDE',.4)}
@@ -391,7 +391,7 @@ function drawDuelStructures(){
   const side=-dx*Math.sin(player.angle)+dy*Math.cos(player.angle);
   if(f<=.12)return null;
   const scale=sceneH/f;
-  return {x:sceneW*.5+side*scale*.85,y:sceneH*.62-(z-rampElevation-jumpZ)*scale*.82,depth:f};
+  return {x:sceneW*.5+side*scale*.85,y:sceneH*.5+scale*.50-z*scale*.82,depth:f};
  };
  for(const r of ramps){
   const left=r.x-r.length/2,right=r.x+r.length/2;
@@ -461,7 +461,7 @@ function pickUpgrade(id){if(state!=='upgrade')return;switch(id){case 'damage':up
  $('upgradeOverlay').classList.remove('active');player.wave++;player.ammo=activeWeapon().mag;reloadingUntil=0;state='play';controls.classList.add('active');lastTime=performance.now();spawnWave();if(pendingFreeze){freezeUntil=clock+5;pendingFreeze=false;showNotice('⏳ 적 시간 정지! 5초',1.8)}updateHUD();}
 function hitEnemy(e,amount){if(!enemies.includes(e))return;
  if(e.type==='boss'&&!e.phaseTwo&&e.hp-amount<=0){
-  e.phaseTwo=true;e.hp=e.phaseOneMax*2;e.maxhp=e.phaseOneMax*2;
+  e.phaseTwo=true;e.hp=e.phaseOneMax*1.65;e.maxhp=e.phaseOneMax*1.65;
   e.attackAt=clock-5;e.chargeAt=clock+1.1;e.chargeUntil=0;e.blastAt=0;e.blastZones=[];
   phaseFlashUntil=clock+3;showNotice('⚠ 폭격자 — PHASE 2 · 폭주!',2.8);
   sound(100,.85,'sawtooth',.14,240);updateBossHUD();return;
@@ -578,7 +578,7 @@ function render(){if(!sceneW||!sceneH)return;
  viewCam={x:player.x,y:player.y};if(viewMode==='third'&&(state==='play'||state==='duelbreak'||state==='duelover')){
  const back=2.4,px=player.x-Math.cos(player.angle)*back,py=player.y-Math.sin(player.angle)*back;
  for(let n=1;n<=32;n++){const t=n/32,cx=player.x+(px-player.x)*t,cy=player.y+(py-player.y)*t;if(!canStand(cx,cy,.12))break;viewCam={x:cx,y:cy};}}
- ctx.save();ctx.translate(0,(jumpZ+rampElevation)*sceneH*.19+(slideRemaining>0?sceneH*.055:0));if(clock<shakeUntil)ctx.translate(rand(-2,2),rand(-1.5,1.5));background();walls();drawDuelStructures();drawPropSprites();if(gameMode==='duel')drawRival();else drawEnemySprites();drawProjectiles();drawBossWarnings();if(viewMode==='third'&&(state==='play'||state==='duelbreak'||state==='duelover'))drawMyAvatar();ctx.restore();if(viewMode==='first'&&(state==='play'||state==='pause'))gun();
+ ctx.save();ctx.translate(0,(jumpZ+rampElevation)*sceneH*.12+(slideRemaining>0?sceneH*.055:0));if(clock<shakeUntil)ctx.translate(rand(-2,2),rand(-1.5,1.5));background();walls();drawDuelStructures();drawPropSprites();if(gameMode==='duel')drawRival();else drawEnemySprites();drawProjectiles();drawBossWarnings();if(viewMode==='third'&&(state==='play'||state==='duelbreak'||state==='duelover'))drawMyAvatar();ctx.restore();if(viewMode==='first'&&(state==='play'||state==='pause'))gun();
  if(clock<phaseFlashUntil){ctx.save();ctx.fillStyle='rgba(255,16,65,'+(.12+.12*Math.sin(clock*17)**2)+')';ctx.fillRect(0,0,sceneW,sceneH);ctx.restore();}
  drawBossCinematic();
 }
