@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#070c1b">
-<title>NEON ARENA v1.3 — 1인칭/3인칭 · PVP</title>
+<title>NEON ARENA v1.4 — 1인칭/3인칭 · PVP</title>
 <style>
 :root{--cyan:#5beeff;--blue:#5b8cff;--pink:#ff5cad;--ink:#080e1e;--line:rgba(145,219,255,.24)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -178,6 +178,7 @@ h1 span{color:#69eaff}
 #menu .menu-buttons{max-width:485px}
 #menu .menu-buttons #duelBtn{grid-column:1/-1;border:1px solid #ffb8e6;background:linear-gradient(125deg,rgba(82,47,121,.92),rgba(15,64,107,.93));font-size:13px}
 @media(max-height:430px){#cameraBtn{top:7px;height:34px}#duelResultTitle{font-size:25px}#duelScreen .menu-sub{margin:3px auto}#duelScreen .setting-card{padding:5px}#duelScreen .duel-note{font-size:9px;margin:4px auto}}
+#jumpBtn,#slideBtn,#swapBtn{position:absolute;z-index:20;border:1px solid #68d9f9;border-radius:50%;width:51px;height:51px;background:linear-gradient(145deg,#123c62dd,#09172ee8);color:#c9faff;font-weight:900;font-size:20px;box-shadow:0 0 14px #1bd5ff55;touch-action:none}#jumpBtn small,#slideBtn small,#swapBtn small{display:block;font-size:8px}#jumpBtn{right:20%;bottom:13px}#slideBtn{right:29%;bottom:13px}#swapBtn{right:38%;bottom:13px}#controls:not(.active) #jumpBtn,#controls:not(.active) #slideBtn,#controls:not(.active) #swapBtn{display:none}#swapBtn{display:none}#game:has(#duelResultOverlay) #swapBtn{display:block}@media(max-height:420px){#jumpBtn,#slideBtn,#swapBtn{width:42px;height:42px;bottom:8px}#jumpBtn{right:20%}#slideBtn{right:30%}#swapBtn{right:40%}}
 </style>
 </head>
 <body>
@@ -192,10 +193,10 @@ h1 span{color:#69eaff}
     <div id="ammoBox" class="hud-panel"><div id="ammoTitle" class="small-label">PLASMA CELLS</div><span id="ammoCount">20</span><span id="ammoMax"> / 20</span></div>
     <div id="bottomHint">LEFT: MOVE &nbsp;·&nbsp; RIGHT: LOOK &nbsp;·&nbsp; FIRE / RELOAD</div>
   </div>
-  <div id="controls"><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
+  <div id="controls"><button id="jumpBtn" aria-label="점프">⬆<small>JUMP</small></button><button id="slideBtn" aria-label="슬라이딩">➤<small>SLIDE</small></button><button id="swapBtn" aria-label="결투 무기 변경">⚔<small>무기</small></button><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
   <section id="menu" role="dialog" aria-modal="true" aria-label="게임 메뉴"><div class="menu-inner">
     <div id="homeScreen" class="menu-screen active">
-      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 1.3</div>
+      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 1.4</div>
       <h1>NEON<br><span>ARENA</span></h1>
       <p id="menuDesc">우주 정거장 생존전 · 3인칭 시점 · 온라인 1:1 아레나</p>
       <div id="menuMeta"><span class="meta">◉ 1인칭 / 3인칭</span><span class="meta">◈ 웨이브 강화</span><span class="meta" id="bestScoreText">🏆 최고 0점</span></div>
@@ -210,7 +211,7 @@ h1 span{color:#69eaff}
       <div id="menuFoot">📱 가로 화면 · 생존전(로봇) / 사격장(PVP, 로봇 없음) · V 키로 시점 전환<br>PC: WASD · 마우스 · 클릭/Space · R · V · Esc</div>
     </div>
     <div id="settingsScreen" class="menu-screen">
-      <div class="eyebrow">CUSTOMIZE · VERSION 1.3</div><h2 class="menu-title">⚙️ 게임 설정</h2>
+      <div class="eyebrow">CUSTOMIZE · VERSION 1.4</div><h2 class="menu-title">⚙️ 게임 설정</h2>
       <p class="menu-sub">우주 정거장 그래픽과 카메라 감도를 조절합니다. 자동으로 저장됩니다.</p>
       <div class="settings-stack">
         <div class="setting-card"><label for="graphicsSelect">그래픽 품질</label><select id="graphicsSelect"><option value="low">낮음 · 프레임 우선</option><option value="medium">보통 · 균형</option><option value="high">높음 · 화질 우선</option></select><p>낮음: 빠르게 · 높음: 고해상도·디테일·조명 강화 (성능에 따라 조절)</p></div>
@@ -238,7 +239,7 @@ h1 span{color:#69eaff}
     <div id="duelScreen" class="menu-screen">
       <div class="eyebrow">PRIVATE 1 : 1 · P2P DUEL</div><h2 class="menu-title">⚔️ 오비탈 사격장</h2>
       <p class="menu-sub">로봇 없는 별도 맵에서 친구와 실시간 1대1 대결! 3승 선취 · 골드 보상 없음</p>
-      <div class="menu-row"><button id="hostDuelBtn" class="menu-button primary-btn">＋ 새 방 만들기</button></div>
+      <div class="setting-card" style="max-width:460px;margin:4px auto"><label for="duelWeaponSelect">⚔ 결투에 사용할 무기 선택</label><select id="duelWeaponSelect" style="width:100%;min-height:35px;background:#102a47;color:white;border:1px solid #58b6dc;border-radius:9px;padding:5px"></select><p class="duel-note" style="margin:3px auto">보유한 무기만 선택 가능 · 경기 중 ⚔ 버튼으로 교체</p></div><div class="menu-row"><button id="hostDuelBtn" class="menu-button primary-btn">＋ 새 방 만들기</button></div>
       <div class="setting-card" style="max-width:430px;margin:6px auto;text-align:center"><label for="roomCodeInput">친구의 6자리 방 코드로 참여</label><div class="menu-row" style="margin:3px auto"><input id="roomCodeInput" maxlength="6" placeholder="예: AX7K2M" autocomplete="off" autocapitalize="characters" spellcheck="false"><button id="joinDuelBtn" class="menu-button">→ 참가</button></div>
       <div id="duelStatus" aria-live="polite">방을 만들거나 코드를 입력하세요.</div><div id="duelRoomCode"></div></div>
       <p class="duel-note">두 기기 모두 인터넷 연결이 필요하고, HTTPS로 배포한 동일 게임 페이지에 접속해야 합니다. 연결은 무료 공개 P2P 신호 서버 및 WebRTC를 사용하므로 일부 네트워크에서는 실패할 수 있습니다. 임의의 사용자와 자동 매칭하지 않아요.</p>
@@ -291,15 +292,15 @@ const DUEL_MAP=[
 '10000000000000000001',
 '10000000000000000001',
 '10000000000000000001',
+'10000300000000300001',
+'10000300000000300001',
 '10000000000000000001',
 '10000000000000000001',
 '10000000000000000001',
 '10000000000000000001',
 '10000000000000000001',
-'10000000000000000001',
-'10000000000000000001',
-'10000000000000000001',
-'10000000000000000001',
+'10000300000000300001',
+'10000300000000300001',
 '10000000000000000001',
 '10000000000000000001',
 '10000000000000000001',
@@ -315,7 +316,7 @@ const WEAPONS={
  ak74:{name:'AK74',grade:'고급',mag:24,delay:.235,damage:5.3,reload:1.5,speed:15.5,icon:'✴',ammo:'QUANTUM BURSTS',color:'#ff6ca1'}
 };
 const WAVE_GOLD=[10,30,40,50,60,80,100,120,140,150,200,250,280,350];
-const STORE_KEY='neon_arena_save_v13',OLD_STORE_KEY='neon_arena_save_v12';
+const STORE_KEY='neon_arena_save_v13',OLD_STORE_KEY='neon_arena_save_v12'; // v1.4: preserve v1.3 saves
 function loadSave(){let value={};try{value=JSON.parse(localStorage.getItem(STORE_KEY)||localStorage.getItem(OLD_STORE_KEY)||localStorage.getItem('neon_arena_save_v11')||'{}')||{}}catch(e){}const owned={cannon:true,bazooka:!!value.owned?.bazooka,k7:!!value.owned?.k7,ak74:!!value.owned?.ak74,bat:!!value.owned?.bat};return {gold:Number.isFinite(value.gold)?Math.max(0,Math.floor(value.gold)):0,graphics:['low','medium','high'].includes(value.graphics)?value.graphics:'high',camera:['first','third'].includes(value.camera)?value.camera:'third',sensitivity:Number.isFinite(value.sensitivity)?Math.min(2.5,Math.max(.4,value.sensitivity)):1,owned,equipped:owned[value.equipped]?value.equipped:'cannon',best:Number.isFinite(value.best)?value.best:0};}
 const save=loadSave();
 function persist(){try{localStorage.setItem(STORE_KEY,JSON.stringify(save))}catch(e){}}
@@ -362,6 +363,11 @@ function showNotice(msg,dur=1.3){$('centerNotice').textContent=msg;noticeUntil=c
 function updateHUD(){const hp=upgrades.maxHP;$('healthNum').textContent=Math.ceil(player.hp)+' / '+hp;$('healthFill').style.width=clamp(player.hp/hp*100,0,100)+'%';$('healthFill').style.background=player.hp/hp<=.3?'linear-gradient(90deg,#ff517d,#ffb569)':'linear-gradient(90deg,#4ff8d7,#63e7ff)';$('ammoCount').textContent=activeWeapon().melee?'∞':player.ammo;$('ammoMax').textContent=activeWeapon().melee?' / MELEE':reloadingUntil>clock?' / RELOADING':' / '+activeWeapon().mag;$('ammoTitle').textContent=activeWeapon().ammo;$('weaponHud').textContent=activeWeapon().icon+' '+activeWeapon().name;$('goldHud').textContent=save.gold.toLocaleString();$('scoreText').textContent=String(player.score).padStart(4,'0');$('waveText').textContent=gameMode==='duel'?String(duelRound).padStart(2,'0'):String(player.wave).padStart(2,'0');$('botsText').textContent=gameMode==='duel'?duelWins+' : '+duelLosses:String(enemies.length).padStart(2,'0');$('enemyLabel').textContent=gameMode==='duel'?'WIN : LOSS':'BOTS';$('waveText').parentElement.querySelector('.small-label').textContent=gameMode==='duel'?'ROUND':'WAVE';
  $('buffHud').textContent=['ATK ×'+upgrades.damage.toFixed(2),'SPD ×'+upgrades.speed.toFixed(2),'DEF -'+Math.round((1-upgrades.defense)*100)+'%','×'+upgrades.projectiles+' SHOT'].join('  ·  ');}
 function startGame(){leaveDuel();gameMode='survival';MAP=SURVIVAL_MAP;viewMode=save.camera;$('pauseBtn').textContent='Ⅱ';player={x:3.5,y:8,angle:0,hp:100,ammo:activeWeapon().mag,score:0,wave:1,kills:0};upgrades={damage:1,speed:1,defense:1,maxHP:100,projectiles:1};freezeUntil=0;pendingFreeze=false;projectiles=[];explosions=[];impactSparks=[];clock=0;lastTime=performance.now();reloadingUntil=0;shootLast=-100;fireHeld=false;stick={x:0,y:0};movePointer=null;lookPointer=null;state='play';$('upgradeOverlay').classList.remove('active');menu.classList.add('hidden');hud.classList.add('show');controls.classList.add('active');$('bottomHint').style.display=touchDevice?'none':'block';updateCameraButton();spawnWave();updateHUD();try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}if(touchDevice){try{game.requestFullscreen?.().then(()=>screen.orientation?.lock?.('landscape')).catch(()=>{})}catch(e){}}}
+function populateDuelWeapons(){const select=$('duelWeaponSelect');select.innerHTML='';for(const [id,w] of Object.entries(WEAPONS)){if(!save.owned[id])continue;const opt=document.createElement('option');opt.value=id;opt.textContent=w.icon+' '+w.name;select.append(opt)}select.value=save.equipped;}
+function swapDuelWeapon(){if(gameMode!=='duel'||state!=='play')return;const list=Object.keys(WEAPONS).filter(id=>save.owned[id]);save.equipped=list[(list.indexOf(save.equipped)+1)%list.length];player.ammo=activeWeapon().mag;reloadingUntil=0;persist();updateHUD();showNotice('⚔ '+activeWeapon().name,1);netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:player.hp,w:save.equipped})}
+let jumpZ=0,jumpVelocity=0,slideRemaining=0;function jump(){if(state!=='play'||jumpZ>0||jumpVelocity>0||slideRemaining>0)return;jumpVelocity=5.4;showNotice('⬆ JUMP',.4)}function slide(){if(state!=='play'||slideRemaining>0||jumpZ>0)return;slideRemaining=.75;showNotice('➤ SLIDE',.4)}
+function drawDuelStructures(){// Perspective-scaled ramp decks and cover indicators
+const items=[{x:8,y:5.8,type:'ramp'},{x:12,y:13.2,type:'ramp'},{x:5.5,y:6.2,type:'cover'},{x:14.5,y:6.2,type:'cover'},{x:5.5,y:12.7,type:'cover'},{x:14.5,y:12.7,type:'cover'}];for(const o of items){const p=projected(o.x,o.y);if(p.cd<.3||Math.abs(p.alpha)>FOV*.64)continue;const w=Math.min(sceneW*.6,sceneH/p.cd*(o.type==='ramp'?1.5:.9)),h=w*(o.type==='ramp'?.37:.85);const y=sceneH*.52+h*.1;ctx.save();ctx.globalAlpha=Math.max(.25,Math.min(.9,1-p.cd/35));const g=ctx.createLinearGradient(p.sx-w/2,y-h,p.sx+w/2,y);g.addColorStop(0,o.type==='ramp'?'#225879':'#1a3454');g.addColorStop(1,o.type==='ramp'?'#122137':'#13233c');ctx.fillStyle=g;ctx.strokeStyle=o.type==='ramp'?'#6eeaff':'#ffb95b';ctx.lineWidth=Math.max(1,w*.014);ctx.beginPath();if(o.type==='ramp'){ctx.moveTo(p.sx-w/2,y);ctx.lineTo(p.sx+w*.24,y-h);ctx.lineTo(p.sx+w/2,y-h);ctx.lineTo(p.sx+w/2,y);ctx.closePath()}else{ctx.rect(p.sx-w/2,y-h,w,h)}ctx.fill();ctx.stroke();ctx.restore()}}
 function refreshMenu(){document.querySelectorAll('.goldAmount').forEach(e=>e.textContent=save.gold.toLocaleString());$('equippedSummary').textContent='장착 · '+activeWeapon().name;$('bestScoreText').textContent='🏆 최고 '+save.best.toLocaleString()+'점';$('graphicsSelect').value=save.graphics;$('cameraSelect').value=save.camera;$('sensitivitySlider').value=save.sensitivity;$('sensitivityValue').textContent=save.sensitivity.toFixed(1)+'×';$('rollBtn').disabled=save.gold<100;}
 function openScreen(id){document.querySelectorAll('.menu-screen').forEach(e=>e.classList.toggle('active',e.id===id));refreshMenu();if(id==='armoryScreen')paintArmory();}
 function showMenu(kind){state=kind;$('upgradeOverlay').classList.remove('active');fireHeld=false;stick.x=stick.y=0;resetStick();controls.classList.remove('active');menu.classList.remove('hidden');hud.classList.toggle('show',kind==='pause');if(document.pointerLockElement)document.exitPointerLock?.();
@@ -388,7 +394,7 @@ document.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',(
 $('graphicsSelect').addEventListener('change',e=>{save.graphics=e.target.value;persist();resize();refreshMenu();toast('그래픽: '+({low:'낮음',medium:'보통',high:'높음'}[save.graphics]));});
 $('sensitivitySlider').addEventListener('input',e=>{save.sensitivity=Math.round(Number(e.target.value)*10)/10;persist();$('sensitivityValue').textContent=save.sensitivity.toFixed(1)+'×';});
 $('rollBtn').addEventListener('click',rollGacha);
-$('duelBtn').addEventListener('click',()=>{openScreen('duelScreen');$('duelStatus').textContent='새 방을 만들거나 친구의 코드를 입력하세요.'});
+$('duelBtn').addEventListener('click',()=>{populateDuelWeapons();openScreen('duelScreen');$('duelStatus').textContent='새 방을 만들거나 친구의 코드를 입력하세요.'});
 $('cameraSelect').addEventListener('change',e=>{viewMode=save.camera=e.target.value;persist();updateCameraButton()});
 $('cameraBtn').addEventListener('click',toggleCamera);
 $('cancelDuelBtn').addEventListener('click',()=>{leaveDuel();$('duelStatus').textContent='연결을 취소했습니다.';$('duelRoomCode').textContent=''});
@@ -409,12 +415,12 @@ function shoot(){if(state!=='play'||reloadingUntil>clock)return;const weapon=act
  if(projectiles.length>140)projectiles.splice(0,projectiles.length-140);if(gameMode==='duel')netSend({t:'shot',x:player.x,y:player.y,angle:player.angle,weapon:save.equipped,number:num});if(player.ammo===0)reload();updateHUD()}
 function damage(n){if(state!=='play')return;player.hp=Math.max(0,player.hp-n*upgrades.defense);hurtUntil=clock+.4;shakeUntil=clock+.24;sound(95,.22,'triangle',.07,50);updateHUD();if(player.hp<=0){if(gameMode==='duel'){netSend({t:'defeated'});finishDuelRound(false)}else showMenu('over')}}
 function moveProjectiles(dt){for(let i=projectiles.length-1;i>=0;i--){const p=projectiles[i],total=p.speed*dt,steps=Math.max(1,Math.ceil(total/.15));let collided=false;for(let k=0;k<steps;k++){p.px=p.x;p.py=p.y;p.x+=p.dx*total/steps;p.y+=p.dy*total/steps;if(solid(p.x,p.y)){p.x=p.px;p.y=p.py;collided=true;break}if(enemies.some(e=>Math.hypot(e.x-p.x,e.y-p.y)<.32)||gameMode==='duel'&&!p.fromRemote&&Math.hypot(remote.x-p.x,remote.y-p.y)<.37){collided=true;break}}p.age+=dt;if(collided){projectiles.splice(i,1);impact(p)}else if(p.age>p.ttl){projectiles.splice(i,1)}}for(let i=explosions.length-1;i>=0;i--){explosions[i].age+=dt;if(explosions[i].age>explosions[i].ttl)explosions.splice(i,1)}for(let i=impactSparks.length-1;i>=0;i--){const p=impactSparks[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.age+=dt;if(p.age>p.ttl)impactSparks.splice(i,1)}}
-function update(dt){clock+=dt;if(reloadingUntil>0&&clock>=reloadingUntil){reloadingUntil=0;player.ammo=activeWeapon().mag;sound(620,.18,'triangle',.07,900);updateHUD()}if(fireHeld)shoot();
- let forward=0,strafe=0;if(keys.KeyW||keys.ArrowUp)forward++;if(keys.KeyS||keys.ArrowDown)forward--;if(keys.KeyA)strafe--;if(keys.KeyD)strafe++;forward-=stick.y;strafe+=stick.x;let len=Math.hypot(forward,strafe);if(len>1){forward/=len;strafe/=len}const speed=3*upgrades.speed*(keys.ShiftLeft?1.32:1);moveEntity(player,(Math.cos(player.angle)*forward-Math.sin(player.angle)*strafe)*speed*dt,(Math.sin(player.angle)*forward+Math.cos(player.angle)*strafe)*speed*dt,.22);
+function update(dt){clock+=dt; if(jumpZ>0||jumpVelocity>0){jumpZ=Math.max(0,jumpZ+jumpVelocity*dt);jumpVelocity-=14*dt;if(jumpZ===0)jumpVelocity=0;}if(slideRemaining>0)slideRemaining=Math.max(0,slideRemaining-dt);if(reloadingUntil>0&&clock>=reloadingUntil){reloadingUntil=0;player.ammo=activeWeapon().mag;sound(620,.18,'triangle',.07,900);updateHUD()}if(fireHeld)shoot();
+ let forward=0,strafe=0;if(keys.KeyW||keys.ArrowUp)forward++;if(keys.KeyS||keys.ArrowDown)forward--;if(keys.KeyA)strafe--;if(keys.KeyD)strafe++;forward-=stick.y;strafe+=stick.x;let len=Math.hypot(forward,strafe);if(len>1){forward/=len;strafe/=len}const speed=3*upgrades.speed*(slideRemaining>0?2.05:keys.ShiftLeft?1.32:1);moveEntity(player,(Math.cos(player.angle)*forward-Math.sin(player.angle)*strafe)*speed*dt,(Math.sin(player.angle)*forward+Math.cos(player.angle)*strafe)*speed*dt,.22);
  if(keys.ArrowLeft)player.angle-=dt*1.8*save.sensitivity;if(keys.ArrowRight)player.angle+=dt*1.8*save.sensitivity;player.angle=normalize(player.angle);
  moveProjectiles(dt);
  if(gameMode!=='duel'&&clock>=freezeUntil){for(const e of enemies){const dist=Math.hypot(player.x-e.x,player.y-e.y);if(dist>1.04&&clock>e.stunUntil){const dx=(player.x-e.x)/dist*dt*e.speed,dy=(player.y-e.y)/dist*dt*e.speed;const beforeX=e.x,beforeY=e.y;moveEntity(e,dx,dy,.27);if(Math.hypot(beforeX-e.x,beforeY-e.y)<dt*.07){const sign=Math.sin(clock*1.7+e.phase)>0?1:-1;moveEntity(e,-dy*sign,dx*sign,.27)}}else if(dist<1.15&&clock-e.attackAt>1.25){e.attackAt=clock;damage(player.wave>6?14:9);if(state!=='play')break}}}
- if(gameMode!=='duel'&&roundDelay&&clock>roundDelay)endWave();if(gameMode==='duel'&&clock-duelSentAt>.07){duelSentAt=clock;netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:Math.ceil(player.hp),w:save.equipped});}$('freezeHud').style.display=clock<freezeUntil?'block':'none';if(clock<freezeUntil)$('freezeTime').textContent=Math.max(0,freezeUntil-clock).toFixed(1);
+ if(gameMode!=='duel'&&roundDelay&&clock>roundDelay)endWave();$('swapBtn').style.display=gameMode==='duel'?'block':'none';if(gameMode==='duel'&&clock-duelSentAt>.07){duelSentAt=clock;netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:Math.ceil(player.hp),w:save.equipped});}$('freezeHud').style.display=clock<freezeUntil?'block':'none';if(clock<freezeUntil)$('freezeTime').textContent=Math.max(0,freezeUntil-clock).toFixed(1);
  if(clock>noticeUntil)$('centerNotice').style.opacity='0';if(clock>hitUntil)$('crosshair').classList.remove('hit');$('hurt').style.opacity=clock<hurtUntil?String(.25+(hurtUntil-clock)*.7):'0';$('flash').style.opacity=clock<flashUntil?'1':'0';}
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
 function cast(dx,dy){let mx=Math.floor(viewCam.x),my=Math.floor(viewCam.y);const deltaX=Math.abs(1/dx),deltaY=Math.abs(1/dy);let stepX=dx<0?-1:1,stepY=dy<0?-1:1;let sx=dx<0?(viewCam.x-mx)*deltaX:(mx+1-viewCam.x)*deltaX;let sy=dy<0?(viewCam.y-my)*deltaY:(my+1-viewCam.y)*deltaY;let side=0;for(let i=0;i<40;i++){if(sx<sy){sx+=deltaX;mx+=stepX;side=0}else{sy+=deltaY;my+=stepY;side=1}if(mx<0||my<0||mx>=W||my>=H||MAP[my][mx]!=='0')break}let dist=side===0?(mx-viewCam.x+(1-stepX)*.5)/dx:(my-viewCam.y+(1-stepY)*.5)/dy;dist=Math.max(.08,dist);let texture=side===0?viewCam.y+dist*dy:viewCam.x+dist*dx;texture-=Math.floor(texture);return {dist,side,texture,mx,my,tile:MAP[my]?.[mx]||'1'}}
@@ -476,7 +482,7 @@ function render(){if(!sceneW||!sceneH)return;
  viewCam={x:player.x,y:player.y};if(viewMode==='third'&&(state==='play'||state==='duelbreak'||state==='duelover')){
  const back=2.4,px=player.x-Math.cos(player.angle)*back,py=player.y-Math.sin(player.angle)*back;
  for(let n=1;n<=32;n++){const t=n/32,cx=player.x+(px-player.x)*t,cy=player.y+(py-player.y)*t;if(!canStand(cx,cy,.12))break;viewCam={x:cx,y:cy};}}
- ctx.save();if(clock<shakeUntil)ctx.translate(rand(-2,2),rand(-1.5,1.5));background();walls();drawPropSprites();if(gameMode==='duel')drawRival();else drawEnemySprites();drawProjectiles();if(viewMode==='third'&&(state==='play'||state==='duelbreak'||state==='duelover'))drawMyAvatar();else if(state==='play'||state==='pause')gun();ctx.restore()}
+ ctx.save();if(jumpZ>0||slideRemaining>0)ctx.translate(0,jumpZ*sceneH*.12+(slideRemaining>0?sceneH*.055:0));if(clock<shakeUntil)ctx.translate(rand(-2,2),rand(-1.5,1.5));background();walls();drawPropSprites();if(gameMode==='duel')drawRival();else drawEnemySprites();drawProjectiles();if(viewMode==='third'&&(state==='play'||state==='duelbreak'||state==='duelover'))drawMyAvatar();else if(state==='play'||state==='pause')gun();ctx.restore();if(gameMode==='duel')drawDuelStructures()}
 
 
 function updateCameraButton(){$('cameraBtn').textContent=viewMode==='third'?'📷 3P':'📷 1P'}
@@ -520,9 +526,9 @@ function peerError(e){duelStatus('연결 실패: '+(e?.type==='unavailable-id'?'
 async function hostDuel(){leaveDuel();const code=randomRoomCode();duelCode=code;duelRole='host';duelStatus('서버 연결 중...');$('duelRoomCode').textContent='';try{await loadPeerLib();if(duelRole!=='host'||duelCode!==code)return;peer=new Peer('neon-arena-v13-'+code);peer.on('open',()=>{duelStatus('친구에게 이 방 코드를 알려주세요. 입장 대기 중...');$('duelRoomCode').textContent=code});peer.on('connection',c=>{if(conn&&conn.open){c.close();return}bindDuelConn(c)});peer.on('error',peerError)}catch(e){peerError(e)}}
 async function joinDuel(){leaveDuel();const code=$('roomCodeInput').value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);$('roomCodeInput').value=code;if(code.length!==6){duelStatus('방 코드를 6자리로 입력하세요.');return}duelRole='guest';duelCode=code;duelStatus('방 '+code+' 연결 시도 중...');$('duelRoomCode').textContent='';try{await loadPeerLib();if(duelRole!=='guest'||duelCode!==code)return;peer=new Peer();peer.on('open',()=>{bindDuelConn(peer.connect('neon-arena-v13-'+code,{reliable:true,serialization:'json'}))});peer.on('error',peerError)}catch(e){peerError(e)}}
 function bindDuelConn(c){conn=c;duelStatus('친구와 연결 중...');c.on('open',()=>{remote.connected=true;duelStatus('연결 성공!');startDuel()});c.on('data',onDuelData);c.on('close',()=>{if(gameMode==='duel'){exitDuel();toast('상대방 연결이 끊어졌습니다.')}else{duelStatus('연결이 종료되었습니다.');leaveDuel()}});c.on('error',peerError)}
-function startDuel(){if(!conn?.open)return;gameMode='duel';MAP=DUEL_MAP;viewMode=save.camera;duelRound=1;duelWins=0;duelLosses=0;remote.connected=true;rematchMe=rematchThem=false;
+function startDuel(){if(!conn?.open)return;const chosen=$('duelWeaponSelect').value;if(save.owned[chosen]){save.equipped=chosen;persist()}gameMode='duel';MAP=DUEL_MAP;viewMode=save.camera;duelRound=1;duelWins=0;duelLosses=0;remote.connected=true;rematchMe=rematchThem=false;
  upgrades={damage:1,speed:1,defense:1,maxHP:100,projectiles:1};projectiles=[];explosions=[];impactSparks=[];clock=0;lastTime=performance.now();state='play';menu.classList.add('hidden');hud.classList.add('show');controls.classList.add('active');$('duelResultOverlay').classList.remove('active');$('bottomHint').style.display=touchDevice?'none':'block';$('pauseBtn').textContent='⌂';updateCameraButton();beginDuelRound();if(touchDevice){try{game.requestFullscreen?.().then(()=>screen.orientation?.lock?.('landscape')).catch(()=>{})}catch(e){}}}
-function beginDuelRound(){if(gameMode!=='duel'||!conn?.open)return;state='play';player={x:duelRole==='host'?4.5:15.5,y:9.5,angle:duelRole==='host'?0:Math.PI,hp:100,ammo:activeWeapon().mag,score:0,wave:1,kills:0};remote.x=duelRole==='host'?15.5:4.5;remote.y=9.5;remote.angle=duelRole==='host'?Math.PI:0;remote.hp=100;projectiles=[];explosions=[];impactSparks=[];shootLast=-100;reloadingUntil=0;fireHeld=false;clock=0;duelSentAt=-2;lastTime=performance.now();controls.classList.add('active');showNotice('ROUND '+duelRound+' · 결투 시작!',1.65);updateHUD();netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:100,w:save.equipped})}
+function beginDuelRound(){jumpZ=jumpVelocity=slideRemaining=0;if(gameMode!=='duel'||!conn?.open)return;state='play';player={x:duelRole==='host'?4.5:15.5,y:9.5,angle:duelRole==='host'?0:Math.PI,hp:100,ammo:activeWeapon().mag,score:0,wave:1,kills:0};remote.x=duelRole==='host'?15.5:4.5;remote.y=9.5;remote.angle=duelRole==='host'?Math.PI:0;remote.hp=100;projectiles=[];explosions=[];impactSparks=[];shootLast=-100;reloadingUntil=0;fireHeld=false;clock=0;duelSentAt=-2;lastTime=performance.now();controls.classList.add('active');showNotice('ROUND '+duelRound+' · 결투 시작!',1.65);updateHUD();netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:100,w:save.equipped})}
 function finishDuelRound(won){if(gameMode!=='duel'||state!=='play')return;state='duelbreak';fireHeld=false;controls.classList.remove('active');if(won)duelWins++;else duelLosses++;updateHUD();const matchEnd=duelWins>=3||duelLosses>=3;showNotice(won?'✦ ROUND WIN':'✦ ROUND LOSE',2);
  if(matchEnd){state='duelover';$('duelResultTitle').textContent=duelWins>=3?'🏆 최종 승리!':'다음에는 승리!';$('duelResultDesc').textContent='라운드 결과 '+duelWins+' : '+duelLosses+' · 로봇 없는 1:1 대결';$('duelResultOverlay').classList.add('active');$('rematchStatus').textContent='두 플레이어가 재대결을 신청하면 다시 시작됩니다.'}
  else if(duelRole==='host')duelRoundTimer=setTimeout(()=>{duelRound++;netSend({t:'next'});beginDuelRound()},2550);
@@ -551,9 +557,9 @@ lookZone.addEventListener('pointerdown',e=>{if(state!=='play'||lookPointer!==nul
 lookZone.addEventListener('pointermove',e=>{if(e.pointerId===lookPointer){const delta=e.clientX-lookX;player.angle=normalize(player.angle+delta*.006*save.sensitivity);lookX=e.clientX;e.preventDefault()}});
 function stopLook(e){if(e.pointerId===lookPointer)lookPointer=null}lookZone.addEventListener('pointerup',stopLook);lookZone.addEventListener('pointercancel',stopLook);
 fireBtn.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();fireHeld=true;fireBtn.classList.add('pressed');shoot();try{fireBtn.setPointerCapture(e.pointerId)}catch(err){}});
-function stopFire(e){fireHeld=false;fireBtn.classList.remove('pressed');e.preventDefault()}fireBtn.addEventListener('pointerup',stopFire);fireBtn.addEventListener('pointercancel',stopFire);$('reloadBtn').addEventListener('pointerdown',e=>{e.stopPropagation();e.preventDefault();reload()});
+function stopFire(e){fireHeld=false;fireBtn.classList.remove('pressed');e.preventDefault()}fireBtn.addEventListener('pointerup',stopFire);fireBtn.addEventListener('pointercancel',stopFire);$('jumpBtn').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();jump()});$('slideBtn').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();slide()});$('swapBtn').addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();swapDuelWeapon()});$('reloadBtn').addEventListener('pointerdown',e=>{e.stopPropagation();e.preventDefault();reload()});
 // Desktop controls
-window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();keys[e.code]=true;if(e.code==='Space'){if(state==='play'){fireHeld=true;shoot()}}if(e.code==='KeyR')reload();if(e.code==='KeyV'&&(state==='play'||state==='pause'))toggleCamera();if(e.code==='Escape'&&state==='play'){if(gameMode==='duel')exitDuel();else showMenu('pause');}if(e.code==='Enter'&&state==='menu')startGame()});
+window.addEventListener('keydown',e=>{if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();keys[e.code]=true;if(e.code==='Space'){if(state==='play'){fireHeld=true;shoot()}}if(e.code==='KeyR')reload();if(e.code==='KeyJ'||e.code==='KeyE')jump();if(e.code==='KeyC'||e.code==='ControlLeft')slide();if(e.code==='KeyQ')swapDuelWeapon();if(e.code==='KeyV'&&(state==='play'||state==='pause'))toggleCamera();if(e.code==='Escape'&&state==='play'){if(gameMode==='duel')exitDuel();else showMenu('pause');}if(e.code==='Enter'&&state==='menu')startGame()});
 window.addEventListener('keyup',e=>{keys[e.code]=false;if(e.code==='Space')fireHeld=false});
 canvas.addEventListener('pointerdown',e=>{if(state!=='play'||touchDevice)return;if(!document.pointerLockElement)canvas.requestPointerLock?.();fireHeld=true;shoot()});
 window.addEventListener('pointerup',e=>{if(e.pointerType==='mouse')fireHeld=false});
