@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#070c1b">
-<title>NEON ARENA v1.6.0 — 고정 경사로 · 폭격자</title>
+<title>NEON ARENA v1.7 — 고정 경사로 · 폭격자</title>
 <style>
 :root{--cyan:#5beeff;--blue:#5b8cff;--pink:#ff5cad;--ink:#080e1e;--line:rgba(145,219,255,.24)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -197,7 +197,7 @@ h1 span{color:#69eaff}
   <div id="controls"><button id="jumpBtn" aria-label="점프">⬆<small>JUMP</small></button><button id="slideBtn" aria-label="슬라이딩">➤<small>SLIDE</small></button><button id="swapBtn" aria-label="결투 무기 변경">⚔<small>무기</small></button><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
   <section id="menu" role="dialog" aria-modal="true" aria-label="게임 메뉴"><div class="menu-inner">
     <div id="homeScreen" class="menu-screen active">
-      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 1.6.0</div>
+      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 1.7</div>
       <h1>NEON<br><span>ARENA</span></h1>
       <p id="menuDesc">우주 정거장 생존전 · 3인칭 시점 · 온라인 1:1 아레나</p>
       <div id="menuMeta"><span class="meta">◉ 1인칭 / 3인칭</span><span class="meta">◈ 웨이브 강화</span><span class="meta" id="bestScoreText">🏆 최고 0점</span></div>
@@ -212,7 +212,7 @@ h1 span{color:#69eaff}
       <div id="menuFoot">📱 가로 화면 · 생존전(로봇) / 사격장(PVP, 로봇 없음) · V 키로 시점 전환<br>PC: WASD · 마우스 · 클릭/Space · R · V · Esc</div>
     </div>
     <div id="practiceScreen" class="menu-screen">
- <div class="eyebrow">BOSS TRAINING · VERSION 1.6.0</div>
+ <div class="eyebrow">BOSS TRAINING · VERSION 1.7</div>
  <h2 class="menu-title">🎯 보스 연습장</h2>
  <p class="menu-sub">원하는 보스를 선택해 바로 연습하세요. 일반 웨이브는 생략하며, 연습 기록은 생존전 보상에 반영되지 않습니다.</p>
  <div class="settings-stack">
@@ -223,7 +223,7 @@ h1 span{color:#69eaff}
  <div class="menu-buttons"><button id="practiceStartBtn" class="menu-button primary-btn">▶ 연습 시작</button><button id="practiceBackBtn" class="menu-button">← 메인 메뉴</button></div>
  </div>
  <div id="settingsScreen" class="menu-screen">
-      <div class="eyebrow">CUSTOMIZE · VERSION 1.6.0</div><h2 class="menu-title">⚙️ 게임 설정</h2>
+      <div class="eyebrow">CUSTOMIZE · VERSION 1.7</div><h2 class="menu-title">⚙️ 게임 설정</h2>
       <p class="menu-sub">우주 정거장 그래픽과 카메라 감도를 조절합니다. 자동으로 저장됩니다.</p>
       <div class="settings-stack">
         <div class="setting-card"><label for="graphicsSelect">그래픽 품질</label><select id="graphicsSelect"><option value="low">낮음 · 프레임 우선</option><option value="medium">보통 · 균형</option><option value="high">높음 · 화질 우선</option></select><p>낮음: 빠르게 · 높음: 고해상도·디테일·조명 강화 (성능에 따라 조절)</p></div>
@@ -271,6 +271,25 @@ h1 span{color:#69eaff}
     <h2>✦ 강화 선택</h2><p id="upgradeWaveInfo">웨이브 클리어! 강화 카드 하나를 선택하세요.</p></div>
     <div id="upgradeOptions" class="upgrade-cards"></div>
     <p class="upgrade-foot">무작위로 나타난 3개 중 1개를 선택하면 다음 웨이브로 이동합니다.</p>
+  </section>
+  <section id="adminOverlay" aria-label="운영자 코드" style="display:none;position:absolute;inset:0;z-index:100;background:rgba(1,7,18,.92);align-items:center;justify-content:center;padding:16px;overflow:auto">
+    <div style="width:min(94%,460px);background:#10243e;border:1px solid #68dfff;border-radius:15px;padding:18px;text-align:center;color:#e8faff">
+      <h2 style="margin:0 0 8px;font-size:21px">🔐 운영자 모드</h2>
+      <p id="adminMessage" style="font-size:12px;color:#a9d9ef">운영자 코드를 입력하세요.</p>
+      <div id="adminLogin">
+        <input id="adminCode" type="password" autocomplete="off" placeholder="운영자 코드" style="box-sizing:border-box;width:100%;padding:12px;border-radius:8px;background:#061527;color:white;border:1px solid #4c9fcb">
+        <button id="adminUnlock" class="menu-button primary-btn" style="margin-top:10px;width:100%">확인</button>
+      </div>
+      <div id="adminTools" style="display:none">
+        <label style="font-size:12px">보유 골드</label>
+        <input id="adminGold" type="number" min="0" max="999999999" step="1" style="box-sizing:border-box;width:100%;padding:10px;margin:6px 0;background:#061527;color:white;border:1px solid #4c9fcb;border-radius:8px">
+        <button id="adminSetGold" class="menu-button" style="width:100%">골드 변경 및 저장</button>
+        <label style="display:block;margin-top:10px;font-size:12px">지급할 무기</label>
+        <select id="adminWeapon" style="box-sizing:border-box;width:100%;padding:10px;margin:6px 0;background:#061527;color:white;border:1px solid #4c9fcb;border-radius:8px"></select>
+        <button id="adminGrantWeapon" class="menu-button" style="width:100%">무기 지급 및 장착</button>
+      </div>
+      <button id="adminClose" class="menu-button" style="margin-top:10px;width:100%">닫기</button>
+    </div>
   </section>
   <div id="toast" role="status" aria-live="polite"></div>
   <div id="portrait"><div class="rotate">📱↻</div><strong>가로 화면으로 돌려주세요</strong><p>이 게임은 모바일 가로 모드에 맞춰 제작됐습니다.</p><button id="portraitStart">전체 화면 켜기</button></div>
@@ -336,6 +355,52 @@ const WAVE_GOLD=[10,30,40,50,60,80,100,120,140,150,200,250,280,350];
 const STORE_KEY='neon_arena_save_v13',OLD_STORE_KEY='neon_arena_save_v12'; // v1.5: preserve v1.3 saves
 function loadSave(){let value={};try{value=JSON.parse(localStorage.getItem(STORE_KEY)||localStorage.getItem(OLD_STORE_KEY)||localStorage.getItem('neon_arena_save_v11')||'{}')||{}}catch(e){}const owned={cannon:true,bazooka:!!value.owned?.bazooka,k7:!!value.owned?.k7,ak74:!!value.owned?.ak74,bat:!!value.owned?.bat,tommy:!!value.owned?.tommy,minigun:!!value.owned?.minigun,laser:!!value.owned?.laser,flame:!!value.owned?.flame};return {gold:Number.isFinite(value.gold)?Math.max(0,Math.floor(value.gold)):0,graphics:['low','medium','high'].includes(value.graphics)?value.graphics:'high',camera:['first','third'].includes(value.camera)?value.camera:'third',sensitivity:Number.isFinite(value.sensitivity)?Math.min(2.5,Math.max(.4,value.sensitivity)):1,owned,equipped:owned[value.equipped]?value.equipped:'cannon',best:Number.isFinite(value.best)?value.best:0};}
 const save=loadSave();
+let adminTapTimes=[];
+let adminUnlocked=false;
+function openAdmin(){
+ adminTapTimes=[];
+ $('adminOverlay').style.display='flex';
+ $('adminLogin').style.display=adminUnlocked?'none':'block';
+ $('adminTools').style.display=adminUnlocked?'block':'none';
+ $('adminMessage').textContent=adminUnlocked?'골드와 무기를 설정할 수 있습니다.':'운영자 코드를 입력하세요.';
+ $('adminGold').value=save.gold;
+}
+document.addEventListener('pointerdown',e=>{
+ if($('adminOverlay').style.display==='flex')return;
+ const now=performance.now();
+ adminTapTimes.push(now);
+ adminTapTimes=adminTapTimes.filter(t=>now-t<=2400);
+ if(adminTapTimes.length>=7){adminTapTimes=[];openAdmin();}
+},{capture:true});
+$('adminClose').addEventListener('click',()=>{$('adminOverlay').style.display='none';});
+$('adminUnlock').addEventListener('click',()=>{
+ if($('adminCode').value!=='1109neonv1'){
+  $('adminMessage').textContent='코드가 올바르지 않습니다.';return;
+ }
+ adminUnlocked=true;
+ $('adminCode').value='';
+ $('adminLogin').style.display='none';
+ $('adminTools').style.display='block';
+ $('adminMessage').textContent='운영자 모드 활성화';
+});
+for(const [id,w] of Object.entries(WEAPONS)){
+ const o=document.createElement('option');o.value=id;o.textContent=w.grade+' · '+w.name;
+ $('adminWeapon').appendChild(o);
+}
+$('adminSetGold').addEventListener('click',()=>{
+ const value=Number($('adminGold').value);
+ if(!Number.isSafeInteger(value)||value<0||value>999999999){$('adminMessage').textContent='0~999,999,999 사이의 정수를 입력하세요.';return;}
+ save.gold=value;persist();refreshMenu();updateHUD();
+ $('adminMessage').textContent='골드가 저장되었습니다.';
+});
+$('adminGrantWeapon').addEventListener('click',()=>{
+ const id=$('adminWeapon').value;
+ if(!WEAPONS[id])return;
+ save.owned[id]=true;save.equipped=id;player.ammo=WEAPONS[id].mag;reloadingUntil=0;
+ persist();refreshMenu();updateHUD();
+ $('adminMessage').textContent=WEAPONS[id].name+' 지급 및 장착 완료';
+});
+
 function persist(){try{localStorage.setItem(STORE_KEY,JSON.stringify(save))}catch(e){}}
 const activeWeapon=()=>WEAPONS[save.equipped];
 let zStep=3,toaster=null;
@@ -354,6 +419,23 @@ const touchDevice=('ontouchstart' in window)||navigator.maxTouchPoints>0;
 function resize(){const r=game.getBoundingClientRect();if(!r.width||!r.height)return;const dpr=Math.min(2.4,window.devicePixelRatio||1),mul={low:.7,medium:1,high:1.18}[save.graphics],max={low:800,medium:1350,high:2100}[save.graphics];sceneW=Math.min(max,Math.max(260,Math.round(r.width*mul*dpr)));sceneH=Math.max(145,Math.round(sceneW*r.height/r.width));zStep=save.graphics==='low'?4:save.graphics==='medium'?3:2;canvas.width=sceneW;canvas.height=sceneH;ctx.imageSmoothingEnabled=save.graphics!=='low';}
 window.addEventListener('resize',resize);window.addEventListener('orientationchange',()=>setTimeout(resize,160));resize();
 function solid(x,y){const ix=Math.floor(x),iy=Math.floor(y);return ix<0||iy<0||iy>=H||ix>=W||MAP[iy][ix]!=='0'}
+function clearLineOfSight(x1,y1,x2,y2){
+ const distance=Math.hypot(x2-x1,y2-y1);
+ const steps=Math.max(1,Math.ceil(distance/.08));
+ for(let i=1;i<steps;i++){
+  const t=i/steps;
+  if(solid(x1+(x2-x1)*t,y1+(y2-y1)*t))return false;
+ }
+ return true;
+}
+function visibleRayEnd(x,y,angle,maxLength){
+ const step=.08;
+ let d=0;
+ for(;d<maxLength;d+=step){
+  if(solid(x+Math.cos(angle)*(d+step),y+Math.sin(angle)*(d+step)))break;
+ }
+ return {x:x+Math.cos(angle)*d,y:y+Math.sin(angle)*d};
+}
 function canStand(x,y,r=.23){return !solid(x-r,y-r)&&!solid(x+r,y-r)&&!solid(x-r,y+r)&&!solid(x+r,y+r)}
 function moveEntity(o,dx,dy,r=.23){
  if(canStand(o.x+dx,o.y,r))o.x+=dx;
@@ -475,13 +557,13 @@ function update(dt){clock+=dt;updateBossHUD();if(clock<bossIntroUntil){fireHeld=
  moveProjectiles(dt);
  if(gameMode!=='duel'&&clock>=freezeUntil){for(const e of enemies){if(e.type==='octopus'){
  const dist=Math.hypot(player.x-e.x,player.y-e.y);
- if(clock>=e.inkAt){e.inkAt=clock+10;inkUntil=clock+3.2;showNotice('⚠ 먹물! 시야가 흐려집니다',1.3);}
+ if(clock>=e.inkAt){e.inkAt=clock+10;if(clearLineOfSight(e.x,e.y,player.x,player.y)){inkUntil=clock+3.2;showNotice('⚠ 먹물! 시야가 흐려집니다',1.3);}}
  if(clock>=e.tentacleAt){e.tentacleAt=clock+(e.phaseTwo?3.1:4.6);e.lashAngle=Math.atan2(player.y-e.y,player.x-e.x);e.lashUntil=clock+1.45;e.lashHit=false;}
- if(e.lashUntil>clock&&!e.lashHit&&clock>e.lashUntil-.38){const dx=player.x-e.x,dy=player.y-e.y;const along=dx*Math.cos(e.lashAngle)+dy*Math.sin(e.lashAngle);const across=Math.abs(-dx*Math.sin(e.lashAngle)+dy*Math.cos(e.lashAngle));if(along>0&&along<9&&across<.65){damage(16);e.lashHit=true;}}
+ if(e.lashUntil>clock&&!e.lashHit&&clock>e.lashUntil-.38){const dx=player.x-e.x,dy=player.y-e.y;const along=dx*Math.cos(e.lashAngle)+dy*Math.sin(e.lashAngle);const across=Math.abs(-dx*Math.sin(e.lashAngle)+dy*Math.cos(e.lashAngle));if(along>0&&along<9&&across<.65&&clearLineOfSight(e.x,e.y,player.x,player.y)){damage(16);e.lashHit=true;}}
  if(e.phaseTwo){
  if(clock>=e.summonAt){e.summonAt=clock+9;for(let k=0;k<3;k++){const a=k*2*Math.PI/3+clock,xx=e.x+Math.cos(a)*1.8,yy=e.y+Math.sin(a)*1.8;if(canStand(xx,yy,.3))enemies.push({x:xx,y:yy,hp:5+player.wave*.4,maxhp:5+player.wave*.4,speed:1.1,type:'cyan',phase:0,hitAt:0,attackAt:0,stunUntil:0,octoMinion:true});}showNotice('⚠ 심연의 하수인 소환!',1.1);}
  if(clock>=e.laserAt){e.laserAt=clock+5;e.eyeAt=clock+1.5;e.laserAngle=Math.atan2(player.y-e.y,player.x-e.x);e.laserHit=false;}
- if(e.eyeAt>clock&&!e.laserHit&&clock>e.eyeAt-.3){const dx=player.x-e.x,dy=player.y-e.y,along=dx*Math.cos(e.laserAngle)+dy*Math.sin(e.laserAngle),across=Math.abs(-dx*Math.sin(e.laserAngle)+dy*Math.cos(e.laserAngle));if(along>0&&along<14&&across<.5){damage(19);e.laserHit=true;}}
+ if(e.eyeAt>clock&&!e.laserHit&&clock>e.eyeAt-.3){const dx=player.x-e.x,dy=player.y-e.y,along=dx*Math.cos(e.laserAngle)+dy*Math.sin(e.laserAngle),across=Math.abs(-dx*Math.sin(e.laserAngle)+dy*Math.cos(e.laserAngle));if(along>0&&along<14&&across<.5&&clearLineOfSight(e.x,e.y,player.x,player.y)){damage(19);e.laserHit=true;}}
  }
  continue;
  }
@@ -588,7 +670,7 @@ function drawBossCinematic(){
  if(t>4.2){ctx.fillStyle='rgba(255,255,255,'+clamp((t-4.2)*.22,0,.15)+')';ctx.fillRect(0,0,w,h)}
  ctx.restore();
 }
-function drawOctopusAttacks(){for(const e of enemies){if(e.type!=='octopus')continue;const origin=projected(e.x,e.y);if(origin.cd<.2)continue;const ray=(angle,color)=>{const end=projected(e.x+Math.cos(angle)*9,e.y+Math.sin(angle)*9);ctx.save();ctx.strokeStyle=color;ctx.lineWidth=Math.max(4,sceneH*.025);ctx.shadowColor=color;ctx.shadowBlur=16;ctx.beginPath();ctx.moveTo(origin.sx,sceneH*.50);ctx.lineTo(end.sx,sceneH*.55);ctx.stroke();ctx.restore();};if(e.lashUntil>clock)ray(e.lashAngle,'rgba(83,219,228,.8)');if(e.phaseTwo&&e.eyeAt>clock)ray(e.laserAngle,'rgba(255,72,204,.83)');}}
+function drawOctopusAttacks(){for(const e of enemies){if(e.type!=='octopus')continue;const origin=projected(e.x,e.y);if(origin.cd<.2)continue;const ray=(angle,color)=>{const stop=visibleRayEnd(e.x,e.y,angle,9),end=projected(stop.x,stop.y);ctx.save();ctx.strokeStyle=color;ctx.lineWidth=Math.max(4,sceneH*.025);ctx.shadowColor=color;ctx.shadowBlur=16;ctx.beginPath();ctx.moveTo(origin.sx,sceneH*.50);ctx.lineTo(end.sx,sceneH*.55);ctx.stroke();ctx.restore();};if(e.lashUntil>clock)ray(e.lashAngle,'rgba(83,219,228,.8)');if(e.phaseTwo&&e.eyeAt>clock)ray(e.laserAngle,'rgba(255,72,204,.83)');}}
 function drawInk(){if(clock>=inkUntil)return;const t=Math.min(1,(inkUntil-clock)/.65);ctx.save();ctx.fillStyle='rgba(5,2,22,'+(t*.78)+')';ctx.fillRect(0,0,sceneW,sceneH);for(let i=0;i<18;i++){const x=(Math.sin(i*43+clock*.6)*.5+.5)*sceneW,y=(Math.cos(i*19+clock*.3)*.5+.5)*sceneH;ctx.fillStyle='rgba(29,12,63,'+(t*.27)+')';ctx.beginPath();ctx.arc(x,y,sceneH*(.09+(i%4)*.03),0,Math.PI*2);ctx.fill();}ctx.restore();}
 function drawBossWarnings(){for(const e of enemies){if(e.type!=='boss'||!e.blastAt)continue;for(const z of (e.blastZones?.length?e.blastZones:[{x:e.blastX,y:e.blastY}])){const p=projected(z.x,z.y);if(p.cd<=.2||Math.abs(p.alpha)>FOV*.72){ctx.save();ctx.fillStyle='#ffcc81';ctx.textAlign='center';ctx.font=`bold ${Math.max(15,sceneH*.055)}px sans-serif`;ctx.fillText('⚠ 폭격 '+Math.max(0,e.blastAt-clock).toFixed(1)+'초 · 이동!',sceneW/2,sceneH*.22);ctx.restore();continue;}const r=clamp(sceneH/p.cd*.82,12,sceneW);const yy=sceneH*.68;ctx.save();ctx.globalAlpha=.5+.4*Math.sin(clock*12)**2;ctx.fillStyle='rgba(255,48,30,.23)';ctx.strokeStyle='#ff5e35';ctx.lineWidth=Math.max(2,sceneH*.007);ctx.beginPath();ctx.ellipse(p.sx,yy,r,r*.3,0,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#fff2a2';ctx.font=`bold ${Math.max(14,sceneH*.045)}px sans-serif`;ctx.textAlign='center';ctx.fillText('⚠ '+Math.max(0,e.blastAt-clock).toFixed(1)+'s',p.sx,yy-r*.32);ctx.restore();}}}
 function drawProjectiles(){for(const p of projectiles){const v=spriteVisible(p);if(!v)continue;const rr=clamp(sceneH/v.cd*(p.weapon==='bazooka'?.13:p.weapon==='flame'?.10:.06),2,sceneH*.3);ctx.save();ctx.globalCompositeOperation='lighter';ctx.strokeStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=save.graphics==='high'?26:11;ctx.lineWidth=Math.max(1,rr*.5);const tail=projected(p.x-p.dx*.45,p.y-p.dy*.45);ctx.beginPath();ctx.moveTo(tail.sx,sceneH*.5);ctx.lineTo(v.sx,sceneH*.5);ctx.stroke();const gr=ctx.createRadialGradient(v.sx,sceneH*.5,.2,v.sx,sceneH*.5,rr*2.8);gr.addColorStop(0,'#ffffff');gr.addColorStop(.25,p.color);gr.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=gr;ctx.beginPath();ctx.arc(v.sx,sceneH*.5,rr*2.8,0,Math.PI*2);ctx.fill();ctx.restore()}
