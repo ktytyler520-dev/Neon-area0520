@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#070c1b">
-<title>NEON ARENA v3.7 — 오류 수정</title>
+<title>NEON ARENA v4.0.3 — 오류 수정</title>
 <style>
 :root{--cyan:#5beeff;--blue:#5b8cff;--pink:#ff5cad;--ink:#080e1e;--line:rgba(145,219,255,.24)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -180,6 +180,7 @@ h1 span{color:#69eaff}
 @media(max-height:430px){#cameraBtn{top:7px;height:34px}#duelResultTitle{font-size:25px}#duelScreen .menu-sub{margin:3px auto}#duelScreen .setting-card{padding:5px}#duelScreen .duel-note{font-size:9px;margin:4px auto}}
 #jumpBtn,#slideBtn,#swapBtn{position:absolute;z-index:20;border:1px solid #68d9f9;border-radius:50%;width:51px;height:51px;background:linear-gradient(145deg,#123c62dd,#09172ee8);color:#c9faff;font-weight:900;font-size:20px;box-shadow:0 0 14px #1bd5ff55;touch-action:none}#jumpBtn small,#slideBtn small,#swapBtn small{display:block;font-size:8px}#jumpBtn{right:20%;bottom:13px}#slideBtn{right:29%;bottom:13px}#swapBtn{right:38%;bottom:13px}#controls:not(.active) #jumpBtn,#controls:not(.active) #slideBtn,#controls:not(.active) #swapBtn{display:none}#swapBtn{display:none}#game:has(#duelResultOverlay) #swapBtn{display:block}@media(max-height:420px){#jumpBtn,#slideBtn,#swapBtn{width:42px;height:42px;bottom:8px}#jumpBtn{right:20%}#slideBtn{right:30%}#swapBtn{right:40%}}
 #bossStatus{display:none;position:absolute;z-index:12;top:3.5%;left:50%;transform:translateX(-50%);width:min(50vw,470px);min-width:210px;text-align:center;pointer-events:none;color:#fff;font-weight:900;text-shadow:0 2px 5px #000}#bossHeading{font-size:clamp(12px,1.8vw,20px);letter-spacing:.13em}#bossPhaseLabel{font-size:.65em;color:#ffdb8a;margin-left:12px}#bossBarOuter{height:clamp(10px,1.7vw,17px);border:2px solid #ffc16a;border-radius:7px;background:#150d1c;overflow:hidden;box-shadow:0 0 14px #ff593d77;margin-top:5px}#bossBarFill{height:100%;width:100%;background:linear-gradient(90deg,#d74b24,#ffb65a);transition:width .12s}#bossHpText{font-size:11px;margin-top:2px}#bossStatus.phase2 #bossBarOuter{border-color:#ff4e8b;box-shadow:0 0 22px #f03778}#bossStatus.phase2 #bossBarFill{background:linear-gradient(90deg,#a00054,#ff2b56,#ff9d39)}
+.loadout-columns{display:grid;grid-template-columns:minmax(0,2fr) minmax(220px,1fr);gap:12px;max-width:970px;margin:auto}.loadout-columns>div{min-width:0}.loadout-columns h3{font-size:14px;color:#bceeff;margin:5px 0}.loadout-columns .weapon-cards{justify-content:center}.loadout-columns #utilityCards .weapon-card{min-width:180px}@media(max-width:700px){.loadout-columns{grid-template-columns:1fr}.loadout-columns #utilityCards .weapon-card{min-width:145px}}
 </style>
 </head>
 <body>
@@ -194,10 +195,10 @@ h1 span{color:#69eaff}
     <div id="ammoBox" class="hud-panel"><div id="ammoTitle" class="small-label">PLASMA CELLS</div><span id="ammoCount">20</span><span id="ammoMax"> / 20</span></div>
     <div id="bottomHint">LEFT: MOVE &nbsp;·&nbsp; RIGHT: LOOK &nbsp;·&nbsp; FIRE / RELOAD</div>
   </div>
-  <div id="controls"><button id="jumpBtn" aria-label="점프">⬆<small>JUMP</small></button><button id="slideBtn" aria-label="슬라이딩">➤<small>SLIDE</small></button><button id="swapBtn" aria-label="결투 무기 변경">⚔<small>무기</small></button><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
+  <button id="utilityBtn" aria-label="시간 정지 사용" style="display:none;position:absolute;right:max(12px,env(safe-area-inset-right));top:max(150px,calc(env(safe-area-inset-top) + 145px));bottom:auto;z-index:35;pointer-events:auto;touch-action:manipulation;flex-direction:column;align-items:center;justify-content:center;border:2px solid #7cd7ff;border-radius:12px;background:#15375c;color:#fff;font-weight:900;padding:8px;min-width:85px">⏳ 정지<small id="utilityCooldown" style="display:block;font-size:10px">준비 완료</small></button><div id="controls"><button id="jumpBtn" aria-label="점프">⬆<small>JUMP</small></button><button id="slideBtn" aria-label="슬라이딩">➤<small>SLIDE</small></button><button id="swapBtn" aria-label="결투 무기 변경">⚔<small>무기</small></button><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
   <section id="menu" role="dialog" aria-modal="true" aria-label="게임 메뉴"><div class="menu-inner">
     <div id="homeScreen" class="menu-screen active"><button id="adminCornerBtn" aria-label="운영자 모드" title="운영자 모드" style="position:absolute;right:12px;top:12px;z-index:8;background:#11253b;border:1px solid #426783;border-radius:8px;color:#aac7d8;font-size:12px;padding:7px 10px;cursor:pointer">⚙ ADMIN</button>
-      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 3.7</div>
+      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 4.0</div>
       <h1>NEON<br><span>ARENA</span></h1>
       <p id="menuDesc">우주 정거장 생존전 · 3인칭 시점 · 온라인 1:1 아레나</p>
       <div id="menuMeta"><span class="meta">◉ 1인칭 / 3인칭</span><span class="meta">◈ 웨이브 강화</span><span class="meta" id="bestScoreText">🏆 최고 0점</span></div>
@@ -212,7 +213,7 @@ h1 span{color:#69eaff}
       <div id="menuFoot">📱 가로 화면 · 생존전(로봇) / 사격장(PVP, 로봇 없음) · V 키로 시점 전환<br>PC: WASD · 마우스 · 클릭/Space · R · V · Esc</div>
     </div>
     <div id="rankingScreen" class="menu-screen">
-      <div class="eyebrow">GLOBAL LEADERBOARD · VERSION 3.7</div>
+      <div class="eyebrow">GLOBAL LEADERBOARD · VERSION 4.0</div>
       <h2 class="menu-title">🏆 전체 유저 랭킹</h2>
       <p class="menu-sub">최종 클리어 시간 / 현재 보유 골드 · 보스 연습 기록 제외 · 클라이언트 기록은 조작 가능</p>
       <div class="settings-stack">
@@ -222,7 +223,7 @@ h1 span{color:#69eaff}
       </div><button class="menu-button" data-back>← 메인 메뉴로</button>
     </div>
     <div id="practiceScreen" class="menu-screen">
- <div class="eyebrow">BOSS TRAINING · VERSION 3.7</div>
+ <div class="eyebrow">BOSS TRAINING · VERSION 4.0</div>
  <h2 class="menu-title">🎯 보스 연습장</h2>
  <p class="menu-sub">원하는 보스를 선택해 바로 연습하세요. 일반 웨이브는 생략하며, 연습 기록은 생존전 보상에 반영되지 않습니다.</p>
  <div class="settings-stack">
@@ -234,7 +235,7 @@ h1 span{color:#69eaff}
  <div class="menu-buttons"><button id="practiceStartBtn" class="menu-button primary-btn">▶ 연습 시작</button><button id="practiceBackBtn" class="menu-button">← 메인 메뉴</button></div>
  </div>
  <div id="settingsScreen" class="menu-screen">
-      <div class="eyebrow">CUSTOMIZE · VERSION 3.7</div><h2 class="menu-title">⚙️ 게임 설정</h2>
+      <div class="eyebrow">CUSTOMIZE · VERSION 4.0</div><h2 class="menu-title">⚙️ 게임 설정</h2>
       <p class="menu-sub">우주 정거장 그래픽과 카메라 감도를 조절합니다. 자동으로 저장됩니다.</p>
       <div class="settings-stack">
         <div class="setting-card"><label for="graphicsSelect">그래픽 품질</label><select id="graphicsSelect"><option value="low">낮음 · 프레임 우선</option><option value="medium">보통 · 균형</option><option value="high">높음 · 화질 우선</option></select><p>낮음: 빠르게 · 높음: 고해상도·디테일·조명 강화 (성능에 따라 조절)</p></div>
@@ -257,7 +258,7 @@ h1 span{color:#69eaff}
       <div class="weapon-card"><span class="symbol">💠</span><b>토미건</b><p>희귀 등급 · 신규 무기</p><div class="rate">5%</div></div><div class="weapon-card"><span class="symbol">🗡️</span><b>카타나</b><p>희귀 등급 · 근거리 검</p><div class="rate">5%</div></div><div class="weapon-card"><span class="symbol">🌀</span><b>미니건</b><p>에픽 등급 · 신규 무기</p><div class="rate">5%</div></div><div class="weapon-card"><span class="symbol">🌟</span><b>레이저 건</b><p>전설 등급 · 신규 무기</p><div class="rate">3%</div></div><div class="weapon-card"><span class="symbol">🔥</span><b>화염방사기</b><p>신화 등급 · 신규 무기</p><div class="rate">1%</div></div>
       <div class="weapon-card"><span class="symbol">💥</span><b>슈퍼 미니건</b><p>얼티밋 등급 · 무한 탄약 · 장전 없음 · 0.1초마다 발사</p><div class="rate">1%</div></div><p class="gacha-foot">얼티밋 슈퍼 미니건 1% · 중복 무기 보상 +30골드</p>
       <div class="menu-row" style="display:flex;flex-wrap:wrap;justify-content:center;gap:7px"><button id="rollBtn" class="menu-button gold-btn">🪙 100 골드 · 1회 뽑기</button><button id="roll10Btn" class="menu-button gold-btn">🪙 1,000 골드 · 10회 뽑기</button><button id="roll25Btn" class="menu-button gold-btn">🪙 2,500 골드 · 25회 뽑기</button></div>
-      <p id="rollResult" aria-live="polite">획득한 무기는 내 무기에서 장착할 수 있어요.</p>
+      <p id="rollResult" aria-live="polite">획득한 무기와 유틸리티는 장착 메뉴에서 사용할 수 있어요.</p>
       <div class="menu-row"><button id="gachaArmoryBtn" class="menu-button">▣ 내 무기 확인</button><button class="menu-button" data-back>← 메인 메뉴</button></div>
     </div>
     <div id="duelScreen" class="menu-screen">
@@ -272,7 +273,7 @@ h1 span{color:#69eaff}
     <div id="armoryScreen" class="menu-screen">
       <div class="eyebrow">LOADOUT · COLLECTION</div><h2 class="menu-title">▣ 내 무기</h2>
       <p class="menu-sub">보유한 무기를 장착하면 다음 전투에서 사용할 수 있어요.</p>
-      <div id="weaponCards" class="weapon-cards"></div>
+      <div class="loadout-columns"><div><h3>⚔ 무기 전용칸</h3><div id="weaponCards" class="weapon-cards"></div></div><div><h3>🧰 유틸리티 전용칸</h3><div id="utilityCards" class="weapon-cards"></div></div></div>
       <button class="menu-button" data-back>← 메인 메뉴로</button>
     </div>
   </div></section>
@@ -417,7 +418,7 @@ const WEAPONS={
 };
 const WAVE_GOLD=[10,30,40,50,60,80,100,120,140,150,200,250,280,350];
 const STORE_KEY='neon_arena_save_v13',OLD_STORE_KEY='neon_arena_save_v12'; // v1.5: preserve v1.3 saves
-function loadSave(){let value={};try{value=JSON.parse(localStorage.getItem(STORE_KEY)||localStorage.getItem(OLD_STORE_KEY)||localStorage.getItem('neon_arena_save_v11')||'{}')||{}}catch(e){}const owned={cannon:true,bazooka:!!value.owned?.bazooka,k7:!!value.owned?.k7,ak74:!!value.owned?.ak74,bat:!!value.owned?.bat,tommy:!!value.owned?.tommy,minigun:!!value.owned?.minigun,laser:!!value.owned?.laser,flame:!!value.owned?.flame,supermini:!!value.owned?.supermini,katana:!!value.owned?.katana,burst:!!value.owned?.burst};return {gold:Number.isFinite(value.gold)?Math.max(0,Math.floor(value.gold)):0,graphics:['low','medium','high'].includes(value.graphics)?value.graphics:'high',camera:['first','third'].includes(value.camera)?value.camera:'third',sensitivity:Number.isFinite(value.sensitivity)?Math.min(2.5,Math.max(.4,value.sensitivity)):1,owned,equipped:owned[value.equipped]?value.equipped:'cannon',best:Number.isFinite(value.best)?value.best:0};}
+function loadSave(){let value={};try{value=JSON.parse(localStorage.getItem(STORE_KEY)||localStorage.getItem(OLD_STORE_KEY)||localStorage.getItem('neon_arena_save_v11')||'{}')||{}}catch(e){}const owned={cannon:true,bazooka:!!value.owned?.bazooka,k7:!!value.owned?.k7,ak74:!!value.owned?.ak74,bat:!!value.owned?.bat,tommy:!!value.owned?.tommy,minigun:!!value.owned?.minigun,laser:!!value.owned?.laser,flame:!!value.owned?.flame,supermini:!!value.owned?.supermini,katana:!!value.owned?.katana,burst:!!value.owned?.burst};return {gold:Number.isFinite(value.gold)?Math.max(0,Math.floor(value.gold)):0,graphics:['low','medium','high'].includes(value.graphics)?value.graphics:'high',camera:['first','third'].includes(value.camera)?value.camera:'third',sensitivity:Number.isFinite(value.sensitivity)?Math.min(2.5,Math.max(.4,value.sensitivity)):1,owned,equipped:owned[value.equipped]?value.equipped:'cannon',best:Number.isFinite(value.best)?value.best:0,utility:['bandage','timefreeze','medkit'].includes(value.utility)?value.utility:'bandage',ownedUtilities:{bandage:true,timefreeze:!!value.ownedUtilities?.timefreeze||value.utility==='timefreeze',medkit:!!value.ownedUtilities?.medkit||value.utility==='medkit'}};}
 const save=loadSave();
 window.neonRankingGold=()=>save.gold;
 window.neonRankingMode=()=>gameMode;
@@ -463,6 +464,7 @@ function persist(){try{localStorage.setItem(STORE_KEY,JSON.stringify(save))}catc
 const activeWeapon=()=>WEAPONS[save.equipped];
 let zStep=3,toaster=null;
 let state='menu',player={x:3.5,y:8,angle:0,hp:100,ammo:activeWeapon().mag,score:0,wave:1,kills:0},enemies=[],keys={},stick={x:0,y:0},movePointer=null,lookPointer=null,lookX=0,lastTime=0,shootLast=-100,reloadingUntil=0,fireHeld=false,flashUntil=0,hitUntil=0,hurtUntil=0,noticeUntil=0,shakeUntil=0,roundDelay=0,clock=0,sceneW=640,sceneH=360,audio=null,spriteVariants=[],zBuffer=[],latestFrame=0;
+let utilityReadyAt=0,medkitReadyWave=1;
 let upgrades={damage:1,speed:1,defense:1,maxHP:100,projectiles:1,fireRate:1},freezeUntil=0,pendingFreeze=false,projectiles=[],explosions=[],impactSparks=[],gunTextures={},burstQueue=[];
 const BUFFS=[
  {id:'damage',icon:'💥',title:'공격력 +10%',desc:'모든 무기의 피해량이 10% 증가'},
@@ -562,7 +564,7 @@ function spawnWave(){const bossType=gameMode==='practice'?practiceBoss:player.wa
 function showNotice(msg,dur=1.3){$('centerNotice').textContent=msg;noticeUntil=clock+dur;$('centerNotice').style.opacity='1'}
 function updateHUD(){const hp=upgrades.maxHP;$('healthNum').textContent=Math.ceil(player.hp)+' / '+hp;$('healthFill').style.width=clamp(player.hp/hp*100,0,100)+'%';$('healthFill').style.background=player.hp/hp<=.3?'linear-gradient(90deg,#ff517d,#ffb569)':'linear-gradient(90deg,#4ff8d7,#63e7ff)';$('ammoCount').textContent=activeWeapon().melee||activeWeapon().infinite?'∞':player.ammo;$('ammoMax').textContent=activeWeapon().melee?' / MELEE':activeWeapon().infinite?' / ∞':reloadingUntil>clock?' / RELOADING':' / '+activeWeapon().mag;$('ammoTitle').textContent=activeWeapon().ammo;$('weaponHud').textContent=activeWeapon().icon+' '+activeWeapon().name;$('goldHud').textContent=save.gold.toLocaleString();$('scoreText').textContent=String(player.score).padStart(4,'0');$('waveText').textContent=gameMode==='duel'?String(duelRound).padStart(2,'0'):String(player.wave).padStart(2,'0');$('botsText').textContent=gameMode==='duel'?duelWins+' : '+duelLosses:String(enemies.length).padStart(2,'0');$('enemyLabel').textContent=gameMode==='duel'?'WIN : LOSS':'BOTS';$('waveText').parentElement.querySelector('.small-label').textContent=gameMode==='duel'?'ROUND':gameMode==='practice'?'PRACTICE':'WAVE';
  $('buffHud').textContent=['ATK ×'+upgrades.damage.toFixed(2),'SPD ×'+upgrades.speed.toFixed(2),'DEF -'+Math.round((1-upgrades.defense)*100)+'%','×'+upgrades.projectiles+' SHOT','ROF ×'+upgrades.fireRate.toFixed(2)].join('  ·  ');}
-function startGame(){rankRunStarted=performance.now();abyssFinalBoss=null;$('abyssFinalQuiz').style.display='none';abyssMusicActive=false;abyssMusicNext=0;clearAbyssTrials();$('abyssEnding').style.display='none';clearDrillShell();drillMemory=null;$('drillMemoryOverlay').style.display='none';leaveDuel();gameMode='survival';MAP=SURVIVAL_MAP;viewMode=save.camera;$('pauseBtn').textContent='Ⅱ';player={x:3.5,y:8,angle:0,hp:100,ammo:activeWeapon().mag,score:0,wave:1,kills:0};upgrades={damage:1,speed:1,defense:1,maxHP:100,projectiles:1,fireRate:1};freezeUntil=0;pendingFreeze=false;projectiles=[];explosions=[];impactSparks=[];burstQueue=[];clock=0;lookPitch=0;rampElevation=0;jumpZ=0;jumpVelocity=0;lastTime=performance.now();reloadingUntil=0;shootLast=-100;fireHeld=false;stick={x:0,y:0};movePointer=null;lookPointer=null;state='play';$('upgradeOverlay').classList.remove('active');menu.classList.add('hidden');hud.classList.add('show');controls.classList.add('active');$('bottomHint').style.display=touchDevice?'none':'block';updateCameraButton();spawnWave();updateHUD();try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}if(touchDevice){try{game.requestFullscreen?.().then(()=>screen.orientation?.lock?.('landscape')).catch(()=>{})}catch(e){}}}
+function startGame(){rankRunStarted=performance.now();abyssFinalBoss=null;$('abyssFinalQuiz').style.display='none';abyssMusicActive=false;abyssMusicNext=0;clearAbyssTrials();$('abyssEnding').style.display='none';clearDrillShell();drillMemory=null;$('drillMemoryOverlay').style.display='none';leaveDuel();gameMode='survival';MAP=SURVIVAL_MAP;viewMode=save.camera;$('pauseBtn').textContent='Ⅱ';player={x:3.5,y:8,angle:0,hp:100,ammo:activeWeapon().mag,score:0,wave:1,kills:0};upgrades={damage:1,speed:1,defense:1,maxHP:100,projectiles:1,fireRate:1};freezeUntil=0;utilityReadyAt=0;medkitReadyWave=1;pendingFreeze=false;projectiles=[];explosions=[];impactSparks=[];burstQueue=[];clock=0;lookPitch=0;rampElevation=0;jumpZ=0;jumpVelocity=0;lastTime=performance.now();reloadingUntil=0;shootLast=-100;fireHeld=false;stick={x:0,y:0};movePointer=null;lookPointer=null;state='play';$('upgradeOverlay').classList.remove('active');menu.classList.add('hidden');hud.classList.add('show');controls.classList.add('active');$('bottomHint').style.display=touchDevice?'none':'block';updateCameraButton();spawnWave();updateHUD();updateUtilityButton();try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}if(touchDevice){try{game.requestFullscreen?.().then(()=>screen.orientation?.lock?.('landscape')).catch(()=>{})}catch(e){}}}
 function refreshPracticePhases(){
  const boss=$('practiceBossSelect').value,select=$('practicePhaseSelect'),prev=Number(select.value)||1;
  select.innerHTML='<option value="1">1페이즈 · 처음부터</option><option value="2">2페이즈 · '+(boss==='abyss'?'차원 시험':boss==='drill'?'야바위 미니게임':'강화 보스전')+'</option>'+((boss==='drill'||boss==='abyss')?'<option value="3">3페이즈 · 폭주 보스전</option>':'');
@@ -594,7 +596,7 @@ function startBossPractice(){
    }
   }
  }
- updateBossHUD();updateHUD();
+ updateBossHUD();updateHUD();updateUtilityButton();
 }
 function populateDuelWeapons(){const select=$('duelWeaponSelect');select.innerHTML='';for(const [id,w] of Object.entries(WEAPONS)){if(!save.owned[id])continue;const opt=document.createElement('option');opt.value=id;opt.textContent=w.icon+' '+w.name;select.append(opt)}select.value=save.equipped;}
 function swapDuelWeapon(){if(gameMode!=='duel'||state!=='play')return;const list=Object.keys(WEAPONS).filter(id=>save.owned[id]);save.equipped=list[(list.indexOf(save.equipped)+1)%list.length];player.ammo=activeWeapon().mag;reloadingUntil=0;persist();updateHUD();showNotice('⚔ '+activeWeapon().name,1);netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:player.hp,w:save.equipped})}
@@ -605,13 +607,53 @@ function jump(){
 }
 function slide(){if(state!=='play'||slideRemaining>0||jumpZ>0)return;slideRemaining=.75;showNotice('➤ SLIDE',.4)}
 function refreshMenu(){document.querySelectorAll('.goldAmount').forEach(e=>e.textContent=save.gold.toLocaleString());$('equippedSummary').textContent='장착 · '+activeWeapon().name;$('bestScoreText').textContent='🏆 최고 '+save.best.toLocaleString()+'점';$('graphicsSelect').value=save.graphics;$('cameraSelect').value=save.camera;$('sensitivitySlider').value=save.sensitivity;$('sensitivityValue').textContent=save.sensitivity.toFixed(1)+'×';$('rollBtn').disabled=save.gold<100;$('roll10Btn').disabled=save.gold<1000;$('roll25Btn').disabled=save.gold<2500;}
-function openScreen(id){document.querySelectorAll('.menu-screen').forEach(e=>e.classList.toggle('active',e.id===id));refreshMenu();if(id==='armoryScreen')paintArmory();}
+function openScreen(id){document.querySelectorAll('.menu-screen').forEach(e=>e.classList.toggle('active',e.id===id));refreshMenu();if(id==='armoryScreen'){paintArmory();paintUtilities();}}
 function showMenu(kind){abyssFinalBoss=null;$('abyssFinalQuiz').style.display='none';clearAbyssTrials();$('abyssEnding').style.display='none';if(drillShell)clearDrillShell();drillMemory=null;$('drillMemoryOverlay').style.display='none';state=kind;$('upgradeOverlay').classList.remove('active');fireHeld=false;stick.x=stick.y=0;resetStick();controls.classList.remove('active');menu.classList.remove('hidden');hud.classList.toggle('show',kind==='pause');if(document.pointerLockElement)document.exitPointerLock?.();
  if(kind==='over'){if(gameMode!=='practice'){save.best=Math.max(save.best,player.score);persist();}$('menuDesc').textContent='게임 종료! '+player.score.toLocaleString()+'점 · 웨이브 '+player.wave+' · 로봇 '+player.kills+'대';$('startBtn').textContent=gameMode==='practice'?'↻ 보스 다시 연습':'↻ 다시 도전';}
  else if(kind==='pause'){$('menuDesc').textContent='일시 정지 · 웨이브 '+player.wave+' · 언제든 이어하기 가능';$('startBtn').textContent='▶ 이어하기';}
  else{$('menuDesc').textContent='로봇 생존전 또는 친구와 온라인 1:1 결투에 도전하세요!';$('startBtn').textContent='▶ 게임 시작';}
  $('returnMainBtn').style.display=kind==='pause'||kind==='over'?'inline-flex':'none';$('menuMeta').style.display='flex';openScreen('homeScreen');}
 function resume(){viewMode=save.camera;updateCameraButton();state='play';menu.classList.add('hidden');hud.classList.add('show');controls.classList.add('active');lastTime=performance.now();}
+function paintUtilities(){
+ const root=$('utilityCards');root.innerHTML='';
+ const options=[{id:'medkit',icon:'🧰',name:'메디킷',grade:'고급',desc:'사용 시 체력 40 회복 · 사용 후 3웨이브 쿨타임'},{id:'bandage',icon:'🩹',name:'붕대',grade:'기본',desc:'3웨이브마다 체력 15 회복 (최대 체력 이내)'},{id:'timefreeze',icon:'⏳',name:'시간 정지',grade:'고급',desc:'전투 중 버튼을 누르면 적을 5초간 정지 · 재사용 대기 80초'}];
+ for(const u of options){
+  const card=document.createElement('div');card.className='weapon-card'+(u.id!=='bandage'?' rare':'');
+  const symbol=document.createElement('span');symbol.className='symbol';symbol.textContent=u.icon;
+  const title=document.createElement('b');title.textContent=u.name;
+  const desc=document.createElement('p');desc.textContent=u.grade+' 등급 · '+u.desc;
+  const btn=document.createElement('button');btn.className='menu-button'+(save.utility===u.id?' primary-btn':'');
+  const owned=!!save.ownedUtilities[u.id];btn.textContent=!owned?'🔒 미보유':save.utility===u.id?'✓ 장착 중':'장착하기';btn.disabled=!owned||save.utility===u.id;
+  btn.addEventListener('click',()=>{save.utility=u.id;persist();paintUtilities();updateUtilityButton();});
+  card.append(symbol,title,desc,btn);root.append(card);
+ }
+}
+function updateUtilityButton(){
+ const btn=$('utilityBtn');if(!btn)return;
+ const visible=(gameMode==='survival'||gameMode==='practice')&&state==='play';
+ btn.style.display=visible?'flex':'none';
+ if(!visible)return;
+ const isBandage=save.utility==='bandage',isMedkit=save.utility==='medkit';
+ const remain=isMedkit?Math.max(0,medkitReadyWave-player.wave):Math.max(0,utilityReadyAt-clock);
+ btn.firstChild.textContent=isBandage?'🩹 붕대':isMedkit?'🧰 메디킷':'⏳ 시간정지';
+ $('utilityCooldown').textContent=isBandage?'자동 발동':isMedkit?(remain?remain+'웨이브':'사용 가능'):(remain?Math.ceil(remain)+'초':'사용 가능');
+ btn.disabled=isBandage||remain>0;btn.style.opacity=btn.disabled?'.65':'1';
+}
+function activateUtility(){
+ if(state!=='play'||(gameMode!=='survival'&&gameMode!=='practice'))return;
+ if(save.utility==='medkit'){
+  if(player.wave<medkitReadyWave||player.hp>=upgrades.maxHP)return;
+  const healed=Math.min(40,upgrades.maxHP-player.hp);
+  player.hp+=healed;medkitReadyWave=player.wave+3;
+  showNotice('🧰 메디킷 체력 +'+Math.ceil(healed)+' · 3웨이브 쿨타임',1.8);updateHUD();
+ }else if(save.utility==='timefreeze'){
+  if(clock<utilityReadyAt)return;
+  freezeUntil=Math.max(freezeUntil,clock+5);utilityReadyAt=clock+80;
+  showNotice('⏳ 시간 정지 발동! 5초',1.8);
+ }
+ updateUtilityButton();
+}
+$('utilityBtn').addEventListener('click',activateUtility);
 function paintArmory(){const root=$('weaponCards');root.innerHTML='';for(const id of Object.keys(WEAPONS)){const w=WEAPONS[id],owned=!!save.owned[id],equipped=save.equipped===id,card=document.createElement('div');card.className='weapon-card'+(w.grade==='고급'?' rare':'');let symbol=document.createElement('span');symbol.className='symbol';symbol.textContent=w.icon;let title=document.createElement('b');title.textContent=w.name;let desc=document.createElement('p');desc.textContent=w.grade+' 등급 · '+(w.melee||w.infinite?'무한 사용':w.mag+'발')+' · '+(id==='bazooka'?'범위 폭발 공격':id==='k7'?'초고속 펄스':id==='ak74'?'고화력 양자 공격':id==='bat'?'근거리 타격 · 무한 사용':'균형형 에너지 무기');let b=document.createElement('button');b.className='menu-button'+(equipped?' primary-btn':'');b.textContent=equipped?'✓ 장착 중':owned?'장착하기':'🔒 미보유';b.disabled=!owned||equipped;b.addEventListener('click',()=>{if(!save.owned[id])return;save.equipped=id;player.ammo=activeWeapon().mag;reloadingUntil=0;persist();refreshMenu();updateHUD();paintArmory()});card.append(symbol,title,desc,b);root.append(card);}}
 function toast(t){let e=$('toast');e.textContent=t;e.style.opacity='1';clearTimeout(toaster);toaster=setTimeout(()=>e.style.opacity='0',1600);}
 function rollGacha(count=1){
@@ -620,16 +662,26 @@ function rollGacha(count=1){
  save.gold-=cost;
  const results=[];let duplicates=0;
  for(let i=0;i<count;i++){
-  const x=Math.random();const id=x<.20?'cannon':x<.40?'bazooka':x<.60?'bat':x<.65?'k7':x<.70?'burst':x<.80?'ak74':x<.85?'tommy':x<.90?'katana':x<.95?'minigun':x<.98?'laser':x<.99?'flame':'supermini';
-  const duplicate=!!save.owned[id];
-  if(!duplicate)save.owned[id]=true;else{save.gold+=30;duplicates++;}
-  results.push({weapon:WEAPONS[id],duplicate});
+  const x=Math.random();
+  if(x<.20){
+   const utilityId=x<.12?'bandage':x<.17?'medkit':'timefreeze';
+   const utilityInfo={bandage:{icon:'🩹',name:'붕대',grade:'기본'},medkit:{icon:'🧰',name:'메디킷',grade:'고급'},timefreeze:{icon:'⏳',name:'시간 정지',grade:'고급'}}[utilityId];
+   const duplicate=!!save.ownedUtilities[utilityId];
+   if(!duplicate)save.ownedUtilities[utilityId]=true;else{save.gold+=30;duplicates++;}
+   results.push({item:utilityInfo,duplicate,isUtility:true});
+  }else{
+   const w=(x-.20)/.80;
+   const id=w<.20?'cannon':w<.40?'bazooka':w<.60?'bat':w<.65?'k7':w<.70?'burst':w<.80?'ak74':w<.85?'tommy':w<.90?'katana':w<.95?'minigun':w<.98?'laser':w<.99?'flame':'supermini';
+   const duplicate=!!save.owned[id];
+   if(!duplicate)save.owned[id]=true;else{save.gold+=30;duplicates++;}
+   results.push({item:WEAPONS[id],duplicate,isUtility:false});
+  }
  }
  persist();refreshMenu();
  const resultEl=$('rollResult');resultEl.replaceChildren();
  const heading=document.createElement('div');heading.style.cssText='font-weight:800;margin-bottom:5px;color:#ffe29c';heading.textContent='✨ '+count+'회 뽑기 완료!'+(duplicates?' · 중복 '+duplicates+'개 (+ '+(duplicates*30)+'골드)':'');resultEl.append(heading);
  const grid=document.createElement('div');grid.style.cssText='display:flex;flex-wrap:wrap;gap:5px;justify-content:center;max-height:145px;overflow-y:auto;max-width:760px;margin:auto';
- for(const item of results){const chip=document.createElement('span');chip.style.cssText='padding:4px 7px;border:1px solid #497b94;border-radius:7px;background:#102638;color:#d9f5ff;font-size:11px';chip.textContent=item.weapon.icon+' '+item.weapon.name+(item.duplicate?' (중복)':'');if(item.weapon.grade==='얼티밋')chip.style.borderColor='#ffe26a';grid.append(chip);}
+ for(const item of results){const chip=document.createElement('span');chip.style.cssText='padding:4px 7px;border:1px solid #497b94;border-radius:7px;background:#102638;color:#d9f5ff;font-size:11px';chip.textContent=(item.isUtility?'🧰 유틸리티 · ':'')+item.item.icon+' '+item.item.name+(item.duplicate?' (중복)':'');if(item.isUtility)chip.style.borderColor='#b78cff';if(item.item.grade==='얼티밋')chip.style.borderColor='#ffe26a';grid.append(chip);}
  resultEl.append(grid);
  sound(880,.25,'triangle',.085,1300);
 }
@@ -669,7 +721,7 @@ function endWave(){if(state!=='play')return;roundDelay=0;
  }
 fireHeld=false;const reward=WAVE_GOLD[Math.min(player.wave-1,WAVE_GOLD.length-1)];save.gold+=reward;save.best=Math.max(save.best,player.score);persist();state='upgrade';controls.classList.remove('active');$('upgradeWaveInfo').textContent='WAVE '+player.wave+' 클리어! · +'+reward+'골드 획득 · 다음 웨이브 전 강화 선택';$('upgradeOptions').innerHTML='';const shuffled=[...BUFFS];for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];}const options=shuffled.slice(0,3);for(const buff of options){const btn=document.createElement('button');btn.className='upgrade-card';btn.innerHTML='<span class="u-icon">'+buff.icon+'</span><span class="u-title">'+buff.title+'</span><span class="u-desc">'+buff.desc+'</span>';btn.addEventListener('click',()=>pickUpgrade(buff.id));$('upgradeOptions').appendChild(btn)}$('upgradeOverlay').classList.add('active');sound(680,.38,'sine',.09,1180);updateHUD();}
 function pickUpgrade(id){if(state!=='upgrade')return;switch(id){case 'damage':upgrades.damage*=1.10;break;case 'damage25':upgrades.damage*=1.25;break;case 'fireRate15':upgrades.fireRate*=1.15;break;case 'speed':upgrades.speed*=1.10;break;case 'defense':upgrades.defense*=.9;break;case 'maxhp':upgrades.maxHP+=15;player.hp=Math.min(upgrades.maxHP,player.hp+15);break;case 'multishot':upgrades.projectiles=Math.min(12,upgrades.projectiles+1);break;case 'freeze':pendingFreeze=true;break;case 'heal':player.hp=Math.min(upgrades.maxHP,player.hp+upgrades.maxHP*.20);break;}
- $('upgradeOverlay').classList.remove('active');player.wave++;player.ammo=activeWeapon().mag;reloadingUntil=0;state='play';controls.classList.add('active');lastTime=performance.now();spawnWave();if(pendingFreeze){freezeUntil=clock+5;pendingFreeze=false;showNotice('⏳ 적 시간 정지! 5초',1.8)}updateHUD();}
+ $('upgradeOverlay').classList.remove('active');player.wave++;if(gameMode==='survival'&&save.utility==='bandage'&&player.wave%3===0){const healed=Math.min(15,Math.max(0,upgrades.maxHP-player.hp));player.hp+=healed;showNotice('🩹 붕대: 체력 +'+Math.ceil(healed),1.5);}player.ammo=activeWeapon().mag;reloadingUntil=0;state='play';controls.classList.add('active');lastTime=performance.now();spawnWave();updateUtilityButton();if(pendingFreeze){freezeUntil=clock+5;pendingFreeze=false;showNotice('⏳ 적 시간 정지! 5초',1.8)}updateHUD();}
 let drillShell=null,drillShellTimers=[],drillTapTimer=null;
 function shellLater(fn,ms){drillShellTimers.push(setTimeout(fn,ms));}
 function clearDrillShell(){
@@ -1031,16 +1083,16 @@ function update(dt){clock+=dt;updateBossHUD();if(clock<bossIntroUntil){fireHeld=
   e.drillZones=[];sound(95,.5,'sawtooth',.13,40);
  }
  if(!e.drillBlastAt&&clock>=e.drillAt&&clock<e.soilAt){
-  e.drillAt=clock+7;e.drillMode='burst';e.drillBlastAt=clock+(e.phaseThree?1.7:3);e.buriedUntil=e.drillBlastAt;e.drillDiveStart=clock;
-  e.drillZones=[{x:player.x,y:player.y}];showNotice('⚠ 지하 돌진! 큰 원을 '+(e.phaseThree?'1.7':'3')+'초 안에 벗어나세요',1.8);
+  e.drillAt=clock+7;e.drillMode='burst';e.drillBlastAt=clock+(e.abyssGuardian?1:e.phaseThree?1.7:3);e.buriedUntil=e.drillBlastAt;e.drillDiveStart=clock;
+  e.drillZones=[{x:player.x,y:player.y}];showNotice('⚠ 지하 돌진! 큰 원을 '+(e.abyssGuardian?'1':e.phaseThree?'1.7':'3')+'초 안에 벗어나세요',1.8);
  }
  if(!e.drillBlastAt&&clock>=e.soilAt){
-  e.soilAt=clock+10;e.drillMode='soil';e.drillBlastAt=clock+3;
+  e.soilAt=clock+10;e.drillMode='soil';e.drillBlastAt=clock+(e.abyssGuardian?2.0:3);
   e.drillZones=[];
-  for(let i=0;i<(e.phaseThree?16:9);i++){const a=i*Math.PI*2/(e.phaseThree?16:9)+clock*.31,r=i===0?0:2.4+(i%3)*1.3;
+  for(let i=0;i<(e.abyssGuardian?19:e.phaseThree?16:9);i++){const a=i*Math.PI*2/(e.abyssGuardian?19:e.phaseThree?16:9)+clock*.31,r=i===0?0:2.4+(i%3)*1.3;
    const x=clamp(player.x+Math.cos(a)*r,1.2,18.7),y=clamp(player.y+Math.sin(a)*r,1.2,17.7);
    e.drillZones.push({x,y});}
-  showNotice('⚠ 흙 투척! '+(e.phaseThree?16:9)+'개 위험 구역 · 3초',1.8);
+  showNotice('⚠ 흙 투척! '+(e.abyssGuardian?19:e.phaseThree?16:9)+'개 위험 구역 · '+(e.abyssGuardian?'2.0':'3')+'초',1.8);
  }
  continue;
 }
@@ -1048,11 +1100,11 @@ if(e.type==='octopus'){
  const dist=Math.hypot(player.x-e.x,player.y-e.y);
  if(clock>=e.inkAt){e.inkAt=clock+10;if(clearLineOfSight(e.x,e.y,player.x,player.y)){inkUntil=clock+3.2;showNotice('⚠ 먹물! 시야가 흐려집니다',1.3);}}
  if(clock>=e.tentacleAt){e.tentacleAt=clock+(e.phaseTwo?3.1:4.6);e.lashAngle=Math.atan2(player.y-e.y,player.x-e.x);e.lashUntil=clock+1.45;e.lashHit=false;}
- if(e.lashUntil>clock&&!e.lashHit&&clock>e.lashUntil-.38){const dx=player.x-e.x,dy=player.y-e.y;const along=dx*Math.cos(e.lashAngle)+dy*Math.sin(e.lashAngle);const across=Math.abs(-dx*Math.sin(e.lashAngle)+dy*Math.cos(e.lashAngle));if(along>0&&along<9&&across<.65&&clearLineOfSight(e.x,e.y,player.x,player.y)){damage(16);e.lashHit=true;}}
- if(e.phaseTwo){
- if(clock>=e.summonAt){e.summonAt=clock+9;for(let k=0;k<3;k++){const a=k*2*Math.PI/3+clock,xx=e.x+Math.cos(a)*1.8,yy=e.y+Math.sin(a)*1.8;if(canStand(xx,yy,.3))enemies.push({x:xx,y:yy,hp:5+player.wave*.4,maxhp:5+player.wave*.4,speed:1.1,type:'cyan',phase:0,hitAt:0,attackAt:0,stunUntil:0,octoMinion:true});}showNotice('⚠ 심연의 하수인 소환!',1.1);}
- if(clock>=e.laserAt){e.laserAt=clock+5;e.eyeAt=clock+1.5;e.laserAngle=Math.atan2(player.y-e.y,player.x-e.x);e.laserHit=false;}
- if(e.eyeAt>clock&&!e.laserHit&&clock>e.eyeAt-.3){const dx=player.x-e.x,dy=player.y-e.y,along=dx*Math.cos(e.laserAngle)+dy*Math.sin(e.laserAngle),across=Math.abs(-dx*Math.sin(e.laserAngle)+dy*Math.cos(e.laserAngle));if(along>0&&along<14&&across<.5&&clearLineOfSight(e.x,e.y,player.x,player.y)){damage(19);e.laserHit=true;}}
+ if(e.lashUntil>clock&&!e.lashHit&&clock>e.lashUntil-.38){const dx=player.x-e.x,dy=player.y-e.y;const along=dx*Math.cos(e.lashAngle)+dy*Math.sin(e.lashAngle);const across=Math.abs(-dx*Math.sin(e.lashAngle)+dy*Math.cos(e.lashAngle));if(along>0&&along<9&&(e.abyssGuardian?(Math.abs(across-1.15)<.65||Math.abs(across+1.15)<.65):across<.65)&&clearLineOfSight(e.x,e.y,player.x,player.y)){damage(16);e.lashHit=true;}}
+ if(e.phaseTwo||e.abyssGuardian){
+ if(clock>=e.summonAt){e.summonAt=clock+9;for(let k=0;k<(e.abyssGuardian?4:3);k++){const count=e.abyssGuardian?4:3;const a=k*2*Math.PI/count+clock,xx=e.x+Math.cos(a)*1.8,yy=e.y+Math.sin(a)*1.8;if(canStand(xx,yy,.3))enemies.push({x:xx,y:yy,hp:5+player.wave*.4,maxhp:5+player.wave*.4,speed:1.1,type:'cyan',phase:0,hitAt:0,attackAt:0,stunUntil:0,octoMinion:true});}showNotice('⚠ 심연의 하수인 소환!',1.1);}
+ if(e.phaseTwo&&clock>=e.laserAt){e.laserAt=clock+5;e.eyeAt=clock+1.5;e.laserAngle=Math.atan2(player.y-e.y,player.x-e.x);e.laserHit=false;}
+ if(e.phaseTwo&&e.eyeAt>clock&&!e.laserHit&&clock>e.eyeAt-.3){const dx=player.x-e.x,dy=player.y-e.y,along=dx*Math.cos(e.laserAngle)+dy*Math.sin(e.laserAngle),across=Math.abs(-dx*Math.sin(e.laserAngle)+dy*Math.cos(e.laserAngle));if(along>0&&along<14&&across<.5&&clearLineOfSight(e.x,e.y,player.x,player.y)){damage(19);e.laserHit=true;}}
  }
  continue;
  }
@@ -1063,15 +1115,15 @@ if(e.type==='octopus'){
  if(e.phaseTwo&&clock<e.chargeUntil&&dist>.65){const dx=(player.x-e.x)/Math.max(.01,dist)*dt*3.8,dy=(player.y-e.y)/Math.max(.01,dist)*dt*3.8;moveEntity(e,dx,dy,.35);if(dist<1.15&&clock-e.hitAt>.8){e.hitAt=clock;damage(23)}}
  if(e.blastAt>0&&clock>=e.blastAt){e.blastAt=0;for(const z of e.blastZones){explosions.push({x:z.x,y:z.y,age:0,ttl:.9,radius:2.1,color:'#ff7238'});if(Math.hypot(player.x-z.x,player.y-z.y)<2.1)damage(e.phaseTwo?20:30)}e.blastZones=[];sound(110,.5,'sawtooth',.12,45)}
  else if(!e.blastAt&&clock-e.attackAt>(e.phaseTwo?4.2:5)){
- e.attackAt=clock;e.blastAt=clock+3;
- const count=e.phaseTwo?6:1;e.blastZones=[];
+ e.attackAt=clock;e.blastAt=clock+(e.abyssGuardian?1.5:3);
+ const count=e.abyssGuardian?5:(e.phaseTwo?6:1);e.blastZones=[];
  for(let j=0;j<count;j++){const a=j*2*Math.PI/count+clock*.27,rad=j===0?0:2.4+(j%2)*1.3;const x=clamp(player.x+Math.cos(a)*rad,1.5,18.4),y=clamp(player.y+Math.sin(a)*rad,1.5,17.4);e.blastZones.push({x,y})}
  e.blastX=e.blastZones[0].x;e.blastY=e.blastZones[0].y;
- showNotice(e.phaseTwo?'⚠ 6개 폭격 구역! 3초 안에 피하세요':'⚠ 불도저 폭격! 원 밖으로 피하세요 · 3초',1.5)
+ showNotice(e.abyssGuardian?'⚠ 강화 폭격자! 5개 폭격 · 1.5초':e.phaseTwo?'⚠ 6개 폭격 구역! 3초 안에 피하세요':'⚠ 불도저 폭격! 원 밖으로 피하세요 · 3초',1.5)
  }
  continue;}const dist=Math.hypot(player.x-e.x,player.y-e.y);if(dist>1.04&&clock>e.stunUntil){const dx=(player.x-e.x)/dist*dt*e.speed,dy=(player.y-e.y)/dist*dt*e.speed;const beforeX=e.x,beforeY=e.y;moveEntity(e,dx,dy,.27);if(Math.hypot(beforeX-e.x,beforeY-e.y)<dt*.07){const sign=Math.sin(clock*1.7+e.phase)>0?1:-1;moveEntity(e,-dy*sign,dx*sign,.27)}}else if(dist<1.15&&clock-e.attackAt>1.25){e.attackAt=clock;damage(player.wave>6?14:9);if(state!=='play')break}}}
  if(gameMode!=='duel'&&roundDelay&&clock>roundDelay)endWave();$('swapBtn').style.display=gameMode==='duel'?'block':'none';if(gameMode==='duel'&&clock-duelSentAt>.07){duelSentAt=clock;netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:Math.ceil(player.hp),w:save.equipped});}$('freezeHud').style.display=clock<freezeUntil?'block':'none';if(clock<freezeUntil)$('freezeTime').textContent=Math.max(0,freezeUntil-clock).toFixed(1);
- if(clock>noticeUntil)$('centerNotice').style.opacity='0';if(clock>hitUntil)$('crosshair').classList.remove('hit');$('hurt').style.opacity=clock<hurtUntil?String(Math.min(.82,.18+(hurtUntil-clock)*.95)):'0';$('flash').style.opacity=clock<flashUntil?'1':'0';}
+ updateUtilityButton();if(clock>noticeUntil)$('centerNotice').style.opacity='0';if(clock>hitUntil)$('crosshair').classList.remove('hit');$('hurt').style.opacity=clock<hurtUntil?String(Math.min(.82,.18+(hurtUntil-clock)*.95)):'0';$('flash').style.opacity=clock<flashUntil?'1':'0';}
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
 function cast(dx,dy){let mx=Math.floor(viewCam.x),my=Math.floor(viewCam.y);const deltaX=Math.abs(dx)>1e-8?Math.abs(1/dx):1e10,deltaY=Math.abs(dy)>1e-8?Math.abs(1/dy):1e10;let stepX=dx<0?-1:1,stepY=dy<0?-1:1;let sx=dx<0?(viewCam.x-mx)*deltaX:(mx+1-viewCam.x)*deltaX;let sy=dy<0?(viewCam.y-my)*deltaY:(my+1-viewCam.y)*deltaY;let side=0;for(let i=0;i<40;i++){if(sx<sy){sx+=deltaX;mx+=stepX;side=0}else{sy+=deltaY;my+=stepY;side=1}if(mx<0||my<0||mx>=W||my>=H||MAP[my][mx]!=='0')break}let dist=side===0?(mx-viewCam.x+(1-stepX)*.5)/dx:(my-viewCam.y+(1-stepY)*.5)/dy;dist=Number.isFinite(dist)?Math.max(.08,dist):40;let texture=side===0?viewCam.y+dist*dy:viewCam.x+dist*dx;texture-=Math.floor(texture);return {dist,side,texture,mx,my,tile:MAP[my]?.[mx]||'1'}}
 // Procedural material maps and orbital window art: self-contained, no internet assets
