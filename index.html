@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#070c1b">
-<title>NEON ARENA v3.1 — 오류 수정</title>
+<title>NEON ARENA v3.3 — 오류 수정</title>
 <style>
 :root{--cyan:#5beeff;--blue:#5b8cff;--pink:#ff5cad;--ink:#080e1e;--line:rgba(145,219,255,.24)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -197,7 +197,7 @@ h1 span{color:#69eaff}
   <div id="controls"><button id="jumpBtn" aria-label="점프">⬆<small>JUMP</small></button><button id="slideBtn" aria-label="슬라이딩">➤<small>SLIDE</small></button><button id="swapBtn" aria-label="결투 무기 변경">⚔<small>무기</small></button><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
   <section id="menu" role="dialog" aria-modal="true" aria-label="게임 메뉴"><div class="menu-inner">
     <div id="homeScreen" class="menu-screen active"><button id="adminCornerBtn" aria-label="운영자 모드" title="운영자 모드" style="position:absolute;right:12px;top:12px;z-index:8;background:#11253b;border:1px solid #426783;border-radius:8px;color:#aac7d8;font-size:12px;padding:7px 10px;cursor:pointer">⚙ ADMIN</button>
-      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 3.1</div>
+      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 3.3</div>
       <h1>NEON<br><span>ARENA</span></h1>
       <p id="menuDesc">우주 정거장 생존전 · 3인칭 시점 · 온라인 1:1 아레나</p>
       <div id="menuMeta"><span class="meta">◉ 1인칭 / 3인칭</span><span class="meta">◈ 웨이브 강화</span><span class="meta" id="bestScoreText">🏆 최고 0점</span></div>
@@ -205,14 +205,24 @@ h1 span{color:#69eaff}
       <div class="menu-buttons">
        <button id="startBtn" class="menu-button primary-btn">▶ 게임 시작</button>
        <button id="practiceBtn" class="menu-button">🎯 보스 연습장</button><button id="duelBtn" class="menu-button">⚔️ 온라인 결투 · 사격장</button><button id="settingsBtn" class="menu-button">⚙️ 설정</button>
-       <button id="gachaBtn" class="menu-button">✨ 무기 뽑기</button>
+       <button id="rankingBtn" class="menu-button">🏆 전체 유저 랭킹</button><button id="gachaBtn" class="menu-button">✨ 무기 뽑기</button>
        <button id="armoryBtn" class="menu-button">▣ 내 무기 / 장착</button>
        <button id="returnMainBtn" class="menu-button">⌂ 메인 메뉴</button>
       </div>
       <div id="menuFoot">📱 가로 화면 · 생존전(로봇) / 사격장(PVP, 로봇 없음) · V 키로 시점 전환<br>PC: WASD · 마우스 · 클릭/Space · R · V · Esc</div>
     </div>
+    <div id="rankingScreen" class="menu-screen">
+      <div class="eyebrow">GLOBAL LEADERBOARD · VERSION 3.3</div>
+      <h2 class="menu-title">🏆 전체 유저 랭킹</h2>
+      <p class="menu-sub">최종 클리어 시간 / 현재 보유 골드 · 보스 연습 기록 제외 · 클라이언트 기록은 조작 가능</p>
+      <div class="settings-stack">
+        <div class="setting-card"><label>플레이어 닉네임 (2~16자)</label><input id="rankNickname" maxlength="16" placeholder="닉네임" style="width:100%;padding:9px;background:#0c1b36;color:white;border:1px solid #5b91bd;border-radius:8px"/><button id="rankSaveNick" class="menu-button">닉네임 저장</button></div>
+        <div class="setting-card"><label>Supabase 프로젝트 URL</label><input id="rankUrl" placeholder="https://xxxx.supabase.co" style="width:100%;padding:9px;background:#0c1b36;color:white;border:1px solid #5b91bd;border-radius:8px"/><label>Publishable / anon 키 (service_role 금지)</label><input id="rankKey" placeholder="sb_publishable_... 또는 anon key" style="width:100%;padding:9px;background:#0c1b36;color:white;border:1px solid #5b91bd;border-radius:8px"/><button id="rankConnect" class="menu-button primary-btn">🌐 온라인 랭킹 연결</button><p id="rankStatus" style="color:#b7d9ff">서버 연결 전 · 설정을 입력해 주세요.</p></div>
+        <div class="setting-card"><div class="menu-row"><button id="rankRefresh" class="menu-button">↻ 순위 새로고침</button><button id="rankGoldSync" class="menu-button">🪙 내 골드 기록 갱신</button></div><div class="menu-row"><button id="rankTabClear" class="menu-button primary-btn">🏁 클리어 시간 순위</button><button id="rankTabGold" class="menu-button">🪙 골드 순위</button></div><div id="rankList" style="padding:12px;min-height:70px;color:#e5f5ff">연결하면 순위가 표시됩니다.</div></div>
+      </div><button class="menu-button" data-back>← 메인 메뉴로</button>
+    </div>
     <div id="practiceScreen" class="menu-screen">
- <div class="eyebrow">BOSS TRAINING · VERSION 3.1</div>
+ <div class="eyebrow">BOSS TRAINING · VERSION 3.3</div>
  <h2 class="menu-title">🎯 보스 연습장</h2>
  <p class="menu-sub">원하는 보스를 선택해 바로 연습하세요. 일반 웨이브는 생략하며, 연습 기록은 생존전 보상에 반영되지 않습니다.</p>
  <div class="settings-stack">
@@ -224,7 +234,7 @@ h1 span{color:#69eaff}
  <div class="menu-buttons"><button id="practiceStartBtn" class="menu-button primary-btn">▶ 연습 시작</button><button id="practiceBackBtn" class="menu-button">← 메인 메뉴</button></div>
  </div>
  <div id="settingsScreen" class="menu-screen">
-      <div class="eyebrow">CUSTOMIZE · VERSION 3.1</div><h2 class="menu-title">⚙️ 게임 설정</h2>
+      <div class="eyebrow">CUSTOMIZE · VERSION 3.3</div><h2 class="menu-title">⚙️ 게임 설정</h2>
       <p class="menu-sub">우주 정거장 그래픽과 카메라 감도를 조절합니다. 자동으로 저장됩니다.</p>
       <div class="settings-stack">
         <div class="setting-card"><label for="graphicsSelect">그래픽 품질</label><select id="graphicsSelect"><option value="low">낮음 · 프레임 우선</option><option value="medium">보통 · 균형</option><option value="high">높음 · 화질 우선</option></select><p>낮음: 빠르게 · 높음: 고해상도·디테일·조명 강화 (성능에 따라 조절)</p></div>
@@ -531,7 +541,7 @@ function spawnWave(){const bossType=gameMode==='practice'?practiceBoss:player.wa
 function showNotice(msg,dur=1.3){$('centerNotice').textContent=msg;noticeUntil=clock+dur;$('centerNotice').style.opacity='1'}
 function updateHUD(){const hp=upgrades.maxHP;$('healthNum').textContent=Math.ceil(player.hp)+' / '+hp;$('healthFill').style.width=clamp(player.hp/hp*100,0,100)+'%';$('healthFill').style.background=player.hp/hp<=.3?'linear-gradient(90deg,#ff517d,#ffb569)':'linear-gradient(90deg,#4ff8d7,#63e7ff)';$('ammoCount').textContent=activeWeapon().melee||activeWeapon().infinite?'∞':player.ammo;$('ammoMax').textContent=activeWeapon().melee?' / MELEE':activeWeapon().infinite?' / ∞':reloadingUntil>clock?' / RELOADING':' / '+activeWeapon().mag;$('ammoTitle').textContent=activeWeapon().ammo;$('weaponHud').textContent=activeWeapon().icon+' '+activeWeapon().name;$('goldHud').textContent=save.gold.toLocaleString();$('scoreText').textContent=String(player.score).padStart(4,'0');$('waveText').textContent=gameMode==='duel'?String(duelRound).padStart(2,'0'):String(player.wave).padStart(2,'0');$('botsText').textContent=gameMode==='duel'?duelWins+' : '+duelLosses:String(enemies.length).padStart(2,'0');$('enemyLabel').textContent=gameMode==='duel'?'WIN : LOSS':'BOTS';$('waveText').parentElement.querySelector('.small-label').textContent=gameMode==='duel'?'ROUND':gameMode==='practice'?'PRACTICE':'WAVE';
  $('buffHud').textContent=['ATK ×'+upgrades.damage.toFixed(2),'SPD ×'+upgrades.speed.toFixed(2),'DEF -'+Math.round((1-upgrades.defense)*100)+'%','×'+upgrades.projectiles+' SHOT','ROF ×'+upgrades.fireRate.toFixed(2)].join('  ·  ');}
-function startGame(){abyssFinalBoss=null;$('abyssFinalQuiz').style.display='none';abyssMusicActive=false;abyssMusicNext=0;clearAbyssTrials();$('abyssEnding').style.display='none';clearDrillShell();drillMemory=null;$('drillMemoryOverlay').style.display='none';leaveDuel();gameMode='survival';MAP=SURVIVAL_MAP;viewMode=save.camera;$('pauseBtn').textContent='Ⅱ';player={x:3.5,y:8,angle:0,hp:100,ammo:activeWeapon().mag,score:0,wave:1,kills:0};upgrades={damage:1,speed:1,defense:1,maxHP:100,projectiles:1,fireRate:1};freezeUntil=0;pendingFreeze=false;projectiles=[];explosions=[];impactSparks=[];burstQueue=[];clock=0;lookPitch=0;rampElevation=0;jumpZ=0;jumpVelocity=0;lastTime=performance.now();reloadingUntil=0;shootLast=-100;fireHeld=false;stick={x:0,y:0};movePointer=null;lookPointer=null;state='play';$('upgradeOverlay').classList.remove('active');menu.classList.add('hidden');hud.classList.add('show');controls.classList.add('active');$('bottomHint').style.display=touchDevice?'none':'block';updateCameraButton();spawnWave();updateHUD();try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}if(touchDevice){try{game.requestFullscreen?.().then(()=>screen.orientation?.lock?.('landscape')).catch(()=>{})}catch(e){}}}
+function startGame(){rankRunStarted=performance.now();abyssFinalBoss=null;$('abyssFinalQuiz').style.display='none';abyssMusicActive=false;abyssMusicNext=0;clearAbyssTrials();$('abyssEnding').style.display='none';clearDrillShell();drillMemory=null;$('drillMemoryOverlay').style.display='none';leaveDuel();gameMode='survival';MAP=SURVIVAL_MAP;viewMode=save.camera;$('pauseBtn').textContent='Ⅱ';player={x:3.5,y:8,angle:0,hp:100,ammo:activeWeapon().mag,score:0,wave:1,kills:0};upgrades={damage:1,speed:1,defense:1,maxHP:100,projectiles:1,fireRate:1};freezeUntil=0;pendingFreeze=false;projectiles=[];explosions=[];impactSparks=[];burstQueue=[];clock=0;lookPitch=0;rampElevation=0;jumpZ=0;jumpVelocity=0;lastTime=performance.now();reloadingUntil=0;shootLast=-100;fireHeld=false;stick={x:0,y:0};movePointer=null;lookPointer=null;state='play';$('upgradeOverlay').classList.remove('active');menu.classList.add('hidden');hud.classList.add('show');controls.classList.add('active');$('bottomHint').style.display=touchDevice?'none':'block';updateCameraButton();spawnWave();updateHUD();try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}if(touchDevice){try{game.requestFullscreen?.().then(()=>screen.orientation?.lock?.('landscape')).catch(()=>{})}catch(e){}}}
 function refreshPracticePhases(){
  const boss=$('practiceBossSelect').value,select=$('practicePhaseSelect'),prev=Number(select.value)||1;
  select.innerHTML='<option value="1">1페이즈 · 처음부터</option><option value="2">2페이즈 · '+(boss==='abyss'?'차원 시험':boss==='drill'?'야바위 미니게임':'강화 보스전')+'</option>'+((boss==='drill'||boss==='abyss')?'<option value="3">3페이즈 · 폭주 보스전</option>':'');
@@ -546,7 +556,7 @@ function startBossPractice(){
  practicePhase=Math.max(1,Math.min((practiceBoss==='drill'||practiceBoss==='abyss')?3:2,Number($('practicePhaseSelect').value)||1));
  startGame();
  gameMode='practice';player.wave=practiceBoss==='abyss'?20:practiceBoss==='drill'?15:practiceBoss==='octopus'?10:5;
- enemies=[];roundDelay=0;projectiles=[];explosions=[];inkUntil=0;
+ enemies=[];roundDelay=0;projectiles=[];explosions=[];inkUntil=0;zBuffer=new Float32Array(Math.ceil(sceneW/zStep)).fill(999);
  spawnWave();
  if(practicePhase>1){
   const boss=enemies.find(e=>e.type===practiceBoss);
@@ -890,7 +900,7 @@ function submitAbyssFinalQuiz(){
 }
 $('abyssFinalSubmit').addEventListener('click',submitAbyssFinalQuiz);
 $('abyssFinalAnswer').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();submitAbyssFinalQuiz();}});
-function finishAbyss(boss){abyssMusicActive=false;abyssMusicNext=0;enemies.splice(enemies.indexOf(boss),1);for(let i=enemies.length-1;i>=0;i--)if(enemies[i].octoMinion)enemies.splice(i,1);state='abyssEnding';fireHeld=false;controls.classList.remove('active');$('abyssEnding').style.display='flex';player.score+=5000;updateHUD();}
+function finishAbyss(boss){rankSubmitClear();abyssMusicActive=false;abyssMusicNext=0;enemies.splice(enemies.indexOf(boss),1);for(let i=enemies.length-1;i>=0;i--)if(enemies[i].octoMinion)enemies.splice(i,1);state='abyssEnding';fireHeld=false;controls.classList.remove('active');$('abyssEnding').style.display='flex';player.score+=5000;updateHUD();}
 $('abyssEndingClose').onclick=()=>showMenu('menu');
 function abyssCrystalHit(x,y,damage){const boss=enemies.find(e=>e.type==='abyss'&&e.phaseThree);if(!boss||!boss.abyssCrystals.length)return false;const c=boss.abyssCrystals.find(c=>Math.hypot(c.x-x,c.y-y)<.58);if(!c)return false;c.hp-=damage;if(c.hp<=0){boss.abyssCrystals.splice(boss.abyssCrystals.indexOf(c),1);showNotice('💎 수정 파괴! 남은 수정 '+boss.abyssCrystals.length,1.1);if(!boss.abyssCrystals.length)showNotice('👁 방어 해제! 보스를 한 번 공격하면 최종 시험!',2.5);}return true;}
 function updateAbyss(boss){if(boss.phaseTwo)return;if(boss.phaseThree){
@@ -1063,8 +1073,8 @@ function drawDrillWarnings(){
   }
  }
 }
-function drawEnemySprites(){const visible=[...enemies].sort((a,b)=>Math.hypot(b.x-player.x,b.y-player.y)-Math.hypot(a.x-player.x,a.y-player.y));for(let e of visible){const p=projected(e.x,e.y);if(Math.abs(p.alpha)>FOV*.69||p.cd<.22||e.type==='drill'&&e.buriedUntil>clock+.55)continue;const img=e.type==='abyss'?abyssEyeSprite:e.type==='octopus'?octopusSprite:e.type==='drill'?drillSprite:e.type==='boss'?bossSprite:spriteVariants[(e.type==='yellow'?4:e.type==='pink'?1:0)+(clock<e.hitAt? (e.type==='yellow'?1:2):0)];const botHeight=clamp(sceneH/p.cd*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')?1.9:.91),10,sceneH*3),botWidth=botHeight*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')?.92:.763),center=p.sx,x0=center-botWidth/2,y0=sceneH/2-botHeight*.56+Math.sin(clock*3+e.phase)*Math.min(7,botHeight*.025)+(e.type==='drill'&&e.buriedUntil>clock?botHeight*Math.min(1,(clock-e.drillDiveStart)/.55):e.type==='drill'&&e.drillEmergeUntil>clock?botHeight*Math.max(0,(e.drillEmergeUntil-clock)/.65):0);
- const chunk=Math.max(2,Math.ceil(botWidth/25));for(let x=Math.floor(x0);x<Math.ceil(x0+botWidth);x+=chunk){const index=Math.floor(x/zStep);if(index<0||index>=zBuffer.length||p.cd>zBuffer[index]+.13)continue;const srcX=(x-x0)/botWidth*img.width,srcW=chunk/botWidth*img.width;try{if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree)){ctx.save();ctx.shadowColor='#ff244c';ctx.shadowBlur=22;ctx.filter='saturate(1.8) hue-rotate(-22deg)';}ctx.drawImage(img,clamp(srcX,0,img.width-1),0,Math.min(srcW,img.width-clamp(srcX,0,img.width-1)),img.height,x,y0,chunk+.5,botHeight);if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}catch(err){if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}}
+function drawEnemySprites(){const visible=[...enemies].sort((a,b)=>Math.hypot(b.x-player.x,b.y-player.y)-Math.hypot(a.x-player.x,a.y-player.y));for(let e of visible){const p=projected(e.x,e.y);if(Math.abs(p.alpha)>FOV*.69||p.cd<.22||e.type==='drill'&&e.buriedUntil>clock+.55)continue;const img=e.type==='abyss'?abyssEyeSprite:e.type==='octopus'?octopusSprite:e.type==='drill'?drillSprite:e.type==='boss'?bossSprite:spriteVariants[(e.type==='yellow'?4:e.type==='pink'?1:0)+(clock<e.hitAt? (e.type==='yellow'?1:2):0)];const botHeight=clamp(sceneH/p.cd*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')?1.9:.91),10,sceneH*3),botWidth=botHeight*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')?.92:.763),center=p.sx,x0=center-botWidth/2,y0=sceneH/2-botHeight*.56+Math.sin(clock*3+(e.phase||0))*Math.min(7,botHeight*.025)+(e.type==='drill'&&e.buriedUntil>clock?botHeight*Math.min(1,(clock-e.drillDiveStart)/.55):e.type==='drill'&&e.drillEmergeUntil>clock?botHeight*Math.max(0,(e.drillEmergeUntil-clock)/.65):0);
+ const chunk=Math.max(2,Math.ceil(botWidth/25));for(let x=Math.floor(x0);x<Math.ceil(x0+botWidth);x+=chunk){const index=Math.floor(x/zStep);if(index<0||index>=zBuffer.length)continue;if(p.cd>zBuffer[index]+.13){if(!(['boss','octopus','drill'].includes(e.type)&&clearLineOfSight(viewCam.x,viewCam.y,e.x,e.y)))continue;}const srcX=(x-x0)/botWidth*img.width,srcW=chunk/botWidth*img.width;try{if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree)){ctx.save();ctx.shadowColor='#ff244c';ctx.shadowBlur=22;ctx.filter='saturate(1.8) hue-rotate(-22deg)';}ctx.drawImage(img,clamp(srcX,0,img.width-1),0,Math.min(srcW,img.width-clamp(srcX,0,img.width-1)),img.height,x,y0,chunk+.5,botHeight);if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}catch(err){if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}}
  if(p.cd<5.1){const barW=botWidth*.65;ctx.fillStyle='rgba(10,17,36,.8)';ctx.fillRect(center-barW*.5,y0-8,barW,4);ctx.fillStyle=e.type==='abyss'?'#b36cff':e.type==='pink'?'#ff6eaf':'#6afaff';ctx.fillRect(center-barW*.5,y0-8,barW*Math.max(0,e.hp/e.maxhp),4)}if(clock<freezeUntil){ctx.strokeStyle='rgba(137,255,255,.7)';ctx.lineWidth=Math.max(1,botHeight*.02);ctx.beginPath();ctx.ellipse(center,y0+botHeight*.5,botWidth*.4,botHeight*.4,0,0,Math.PI*2);ctx.stroke()}
  }}
 function updateBossHUD(){
@@ -1170,7 +1180,7 @@ function render(){updateAbyssMusic();if(!sceneW||!sceneH)return;
  viewCam={x:player.x,y:player.y};if(viewMode==='third'&&(state==='play'||state==='duelbreak'||state==='duelover')){
  const back=2.4,px=player.x-Math.cos(player.angle)*back,py=player.y-Math.sin(player.angle)*back;
  for(let n=1;n<=32;n++){const t=n/32,cx=player.x+(px-player.x)*t,cy=player.y+(py-player.y)*t;if(!canStand(cx,cy,.12))break;viewCam={x:cx,y:cy};}}
- ctx.save();if(viewMode==='first')ctx.translate(0,(jumpZ)*sceneH*.14);if(clock<shakeUntil)ctx.translate(rand(-2,2),rand(-1.5,1.5));background();if(enemies.some(e=>e.type==='abyss')){ctx.fillStyle='rgba(0,0,13,.72)';ctx.fillRect(0,0,sceneW,sceneH);}if(!enemies.some(e=>e.type==='abyss'&&e.phaseThree))walls();drawPropSprites();if(gameMode==='duel')drawRival();else drawEnemySprites();drawProjectiles();drawBossWarnings();drawDrillWarnings();drawAbyss();drawOctopusAttacks();if(viewMode==='third'&&(state==='play'||state==='duelbreak'||state==='duelover'))drawMyAvatar();ctx.restore();if(viewMode==='first'&&(state==='play'||state==='pause'))gun();drawFlameStream();
+ ctx.save();if(viewMode==='first')ctx.translate(0,(jumpZ)*sceneH*.14);if(clock<shakeUntil)ctx.translate(rand(-2,2),rand(-1.5,1.5));background();if(enemies.some(e=>e.type==='abyss')){ctx.fillStyle='rgba(0,0,13,.72)';ctx.fillRect(0,0,sceneW,sceneH);}if(!(enemies.some(e=>e.type==='abyss'&&e.phaseThree)&&state!=='menu'))walls();else zBuffer=new Float32Array(Math.ceil(sceneW/zStep)).fill(999);drawPropSprites();if(gameMode==='duel')drawRival();else drawEnemySprites();drawProjectiles();drawBossWarnings();drawDrillWarnings();drawAbyss();drawOctopusAttacks();if(viewMode==='third'&&(state==='play'||state==='duelbreak'||state==='duelover'))drawMyAvatar();ctx.restore();if(viewMode==='first'&&(state==='play'||state==='pause'))gun();drawFlameStream();
  if(clock<phaseFlashUntil){ctx.save();ctx.fillStyle='rgba(255,16,65,'+(.12+.12*Math.sin(clock*17)**2)+')';ctx.fillRect(0,0,sceneW,sceneH);ctx.restore();}
  drawBossCinematic();drawInk();drawDrillBlind();
 }
@@ -1259,6 +1269,87 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='p
 window.addEventListener('contextmenu',e=>e.preventDefault());
 showMenu('menu');
 })();
+
+// Global ranking: optional Supabase anonymous auth; never embed a service_role key.
+let rankClient=null,rankUser=null,rankTab='clear',rankRunStarted=0;
+const rankSettings={url:localStorage.getItem('neon_rank_url')||'',key:localStorage.getItem('neon_rank_key')||'',nick:localStorage.getItem('neon_rank_nick')||''};
+$('rankUrl').value=rankSettings.url;$('rankKey').value=rankSettings.key;$('rankNickname').value=rankSettings.nick;
+function rankStatus(t){$('rankStatus').textContent=t;}
+function rankNick(){return (rankSettings.nick||'').trim();}
+function rankError(e){rankStatus('⚠ '+(e?.message||String(e)));}
+async function rankLoadLibrary(){
+ if(window.supabase?.createClient)return;
+ await new Promise((resolve,reject)=>{const tag=document.createElement('script');tag.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';tag.onload=resolve;tag.onerror=()=>reject(Error('Supabase 라이브러리를 불러오지 못했습니다.'));document.head.appendChild(tag)});
+}
+async function rankConnect(){
+ try{
+  const url=$('rankUrl').value.trim(),key=$('rankKey').value.trim();
+  if(!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(url))throw Error('Supabase 프로젝트 URL을 확인해 주세요.');
+  if(!key)throw Error('Publishable 또는 anon 키를 입력하세요.');
+  if(/service_role|sb_secret_/i.test(key))throw Error('비밀 키는 게임에 넣으면 안 됩니다.');
+  rankStatus('연결 중...');await rankLoadLibrary();
+  rankClient=window.supabase.createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true}});
+  let {data:{session},error}=await rankClient.auth.getSession();if(error)throw error;
+  if(!session){const r=await rankClient.auth.signInAnonymously();if(r.error)throw r.error;session=r.data.session;}
+  rankUser=session?.user?.id;if(!rankUser)throw Error('익명 로그인에 실패했습니다. Supabase Anonymous Sign-ins를 켜 주세요.');
+  rankSettings.url=url;rankSettings.key=key;localStorage.setItem('neon_rank_url',url);localStorage.setItem('neon_rank_key',key);
+  rankStatus('🟢 온라인 연결됨 · 익명 플레이어 ID 생성됨');
+  await rankSyncGold();await rankRefresh();
+ }catch(e){rankClient=null;rankUser=null;rankError(e);}
+}
+async function rankSaveNickname(){
+ const nick=$('rankNickname').value.trim();
+ if(nick.length<2||nick.length>16){rankStatus('닉네임은 2~16자로 입력해 주세요.');return;}
+ rankSettings.nick=nick;localStorage.setItem('neon_rank_nick',nick);
+ rankStatus('닉네임 저장됨'+(rankClient?' · 서버에 반영 중':''));
+ if(rankClient)await rankSyncGold();
+}
+async function rankSyncGold(){
+ if(!rankClient||!rankUser){rankStatus('먼저 서버에 연결하세요.');return;}
+ if(!rankNick()){rankStatus('먼저 닉네임을 저장하세요.');return;}
+ try{
+  const {error}=await rankClient.from('neon_leaderboard').upsert({user_id:rankUser,nickname:rankNick(),gold:Math.max(0,Math.floor(save.gold)),updated_at:new Date().toISOString()},{onConflict:'user_id'});
+  if(error)throw error;rankStatus('🟢 골드 기록이 서버에 갱신되었습니다.');
+  if(document.querySelector('#rankingScreen.active'))await rankRefresh();
+ }catch(e){rankError(e)}
+}
+async function rankSubmitClear(){
+ if(gameMode!=='survival'||!rankRunStarted)return;
+ const seconds=Math.max(1,Math.round((performance.now()-rankRunStarted)/1000));rankRunStarted=0;
+ if(!rankClient||!rankUser||!rankNick())return;
+ try{
+  const {data:old,error:readErr}=await rankClient.from('neon_leaderboard').select('best_clear_seconds').eq('user_id',rankUser).maybeSingle();
+  if(readErr)throw readErr;
+  const best=old?.best_clear_seconds==null?seconds:Math.min(old.best_clear_seconds,seconds);
+  const {error}=await rankClient.from('neon_leaderboard').upsert({user_id:rankUser,nickname:rankNick(),gold:Math.floor(save.gold),best_clear_seconds:best,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+  if(error)throw error;
+  rankStatus('🏆 최종 클리어 기록 '+seconds+'초 등록 완료!');
+ }catch(e){rankError(e)}
+}
+async function rankRefresh(){
+ if(!rankClient){$('rankList').textContent='먼저 서버에 연결하세요.';return;}
+ $('rankList').textContent='순위를 불러오는 중...';
+ try{
+  let q=rankClient.from('neon_leaderboard').select('nickname,gold,best_clear_seconds,updated_at');
+  q=rankTab==='clear'?q.not('best_clear_seconds','is',null).order('best_clear_seconds',{ascending:true}):q.order('gold',{ascending:false});
+  const {data,error}=await q.limit(50);if(error)throw error;
+  const root=$('rankList');root.replaceChildren();
+  if(!data?.length){root.textContent='아직 등록된 기록이 없습니다.';return;}
+  data.forEach((r,i)=>{
+   const line=document.createElement('div');line.style.cssText='display:flex;justify-content:space-between;gap:12px;padding:9px;border-bottom:1px solid #39506b';
+   const name=document.createElement('span');name.textContent=(i+1)+'위 · '+r.nickname;
+   const score=document.createElement('strong');score.textContent=rankTab==='clear'?Math.floor(r.best_clear_seconds/60)+'분 '+r.best_clear_seconds%60+'초':Number(r.gold).toLocaleString()+' G';
+   line.append(name,score);root.appendChild(line);
+  });
+ }catch(e){$('rankList').textContent='랭킹 불러오기 실패';rankError(e)}
+}
+$('rankingBtn').addEventListener('click',()=>{openScreen('rankingScreen');if(rankClient)rankRefresh()});
+$('rankSaveNick').addEventListener('click',rankSaveNickname);
+$('rankConnect').addEventListener('click',rankConnect);
+$('rankRefresh').addEventListener('click',rankRefresh);
+$('rankGoldSync').addEventListener('click',rankSyncGold);
+$('rankTabClear').addEventListener('click',()=>{rankTab='clear';$('rankTabClear').classList.add('primary-btn');$('rankTabGold').classList.remove('primary-btn');rankRefresh()});
+$('rankTabGold').addEventListener('click',()=>{rankTab='gold';$('rankTabGold').classList.add('primary-btn');$('rankTabClear').classList.remove('primary-btn');rankRefresh()});
 </script>
 </body>
 </html>
