@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#070c1b">
-<title>NEON ARENA v3.4 — 오류 수정</title>
+<title>NEON ARENA v3.7 — 오류 수정</title>
 <style>
 :root{--cyan:#5beeff;--blue:#5b8cff;--pink:#ff5cad;--ink:#080e1e;--line:rgba(145,219,255,.24)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -197,7 +197,7 @@ h1 span{color:#69eaff}
   <div id="controls"><button id="jumpBtn" aria-label="점프">⬆<small>JUMP</small></button><button id="slideBtn" aria-label="슬라이딩">➤<small>SLIDE</small></button><button id="swapBtn" aria-label="결투 무기 변경">⚔<small>무기</small></button><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
   <section id="menu" role="dialog" aria-modal="true" aria-label="게임 메뉴"><div class="menu-inner">
     <div id="homeScreen" class="menu-screen active"><button id="adminCornerBtn" aria-label="운영자 모드" title="운영자 모드" style="position:absolute;right:12px;top:12px;z-index:8;background:#11253b;border:1px solid #426783;border-radius:8px;color:#aac7d8;font-size:12px;padding:7px 10px;cursor:pointer">⚙ ADMIN</button>
-      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 3.4</div>
+      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 3.7</div>
       <h1>NEON<br><span>ARENA</span></h1>
       <p id="menuDesc">우주 정거장 생존전 · 3인칭 시점 · 온라인 1:1 아레나</p>
       <div id="menuMeta"><span class="meta">◉ 1인칭 / 3인칭</span><span class="meta">◈ 웨이브 강화</span><span class="meta" id="bestScoreText">🏆 최고 0점</span></div>
@@ -212,7 +212,7 @@ h1 span{color:#69eaff}
       <div id="menuFoot">📱 가로 화면 · 생존전(로봇) / 사격장(PVP, 로봇 없음) · V 키로 시점 전환<br>PC: WASD · 마우스 · 클릭/Space · R · V · Esc</div>
     </div>
     <div id="rankingScreen" class="menu-screen">
-      <div class="eyebrow">GLOBAL LEADERBOARD · VERSION 3.4</div>
+      <div class="eyebrow">GLOBAL LEADERBOARD · VERSION 3.7</div>
       <h2 class="menu-title">🏆 전체 유저 랭킹</h2>
       <p class="menu-sub">최종 클리어 시간 / 현재 보유 골드 · 보스 연습 기록 제외 · 클라이언트 기록은 조작 가능</p>
       <div class="settings-stack">
@@ -222,7 +222,7 @@ h1 span{color:#69eaff}
       </div><button class="menu-button" data-back>← 메인 메뉴로</button>
     </div>
     <div id="practiceScreen" class="menu-screen">
- <div class="eyebrow">BOSS TRAINING · VERSION 3.4</div>
+ <div class="eyebrow">BOSS TRAINING · VERSION 3.7</div>
  <h2 class="menu-title">🎯 보스 연습장</h2>
  <p class="menu-sub">원하는 보스를 선택해 바로 연습하세요. 일반 웨이브는 생략하며, 연습 기록은 생존전 보상에 반영되지 않습니다.</p>
  <div class="settings-stack">
@@ -234,7 +234,7 @@ h1 span{color:#69eaff}
  <div class="menu-buttons"><button id="practiceStartBtn" class="menu-button primary-btn">▶ 연습 시작</button><button id="practiceBackBtn" class="menu-button">← 메인 메뉴</button></div>
  </div>
  <div id="settingsScreen" class="menu-screen">
-      <div class="eyebrow">CUSTOMIZE · VERSION 3.4</div><h2 class="menu-title">⚙️ 게임 설정</h2>
+      <div class="eyebrow">CUSTOMIZE · VERSION 3.7</div><h2 class="menu-title">⚙️ 게임 설정</h2>
       <p class="menu-sub">우주 정거장 그래픽과 카메라 감도를 조절합니다. 자동으로 저장됩니다.</p>
       <div class="settings-stack">
         <div class="setting-card"><label for="graphicsSelect">그래픽 품질</label><select id="graphicsSelect"><option value="low">낮음 · 프레임 우선</option><option value="medium">보통 · 균형</option><option value="high">높음 · 화질 우선</option></select><p>낮음: 빠르게 · 높음: 고해상도·디테일·조명 강화 (성능에 따라 조절)</p></div>
@@ -885,8 +885,8 @@ function abyssAnswer(ans){const g=abyssTrial;if(!g||g.locked||g.kind==='memory')
 $('abyssSubmit').onclick=()=>abyssAnswer($('abyssInput').value);
 $('abyssInput').addEventListener('keydown',e=>{if(e.key==='Enter')abyssAnswer(e.target.value);});
 function tickAbyss(){const g=abyssTrial;if(!g)return;abyssStatus();if(g.kind!=='memory'&&performance.now()>=g.deadline)abyssLoseLife();}
-function startAbyssThree(boss){clearAbyssTrials();boss.phaseTwo=false;boss.phaseThree=true;boss.abyssStage=3;boss.abyssHits=0;boss.hp=1;boss.maxhp=1;boss.abyssCrystalRound=0;boss.abyssCrystals=[];boss.abyssTransitionUntil=clock+3.2;boss.abyssLaserAt=clock+6;boss.abyssSummonAt=clock+9;boss.abyssSoilAt=clock+5;boss.abyssWarningAt=0;boss.abyssWarningZones=[];boss.abyssLaserUntil=0;boss.abyssLaserHit=false;boss.abyssOrbitAt=clock;boss.x=10;boss.y=9;bossIntroUntil=0;state='play';controls.classList.add('active');showNotice('👁 PHASE 3 · 구조물 붕괴 · 수정 출현!',3);}
-function spawnAbyssCrystals(boss){boss.abyssCrystals=[{x:5,y:5,hp:150},{x:15,y:5,hp:150},{x:5,y:13,hp:150},{x:15,y:13,hp:150}];boss.abyssCrystalRound++;showNotice('💎 수정 4개를 파괴하세요! 각 150 HP',2.4);}
+function startAbyssThree(boss){clearAbyssTrials();boss.phaseTwo=false;boss.phaseThree=true;boss.abyssStage=3;boss.abyssHits=0;boss.abyssGuardian=null;boss.abyssShieldNoticeAt=0;boss.hp=1;boss.maxhp=1;boss.abyssCrystalRound=0;boss.abyssCrystals=[];boss.abyssTransitionUntil=clock+3.2;boss.abyssLaserAt=clock+6;boss.abyssSummonAt=clock+9;boss.abyssSoilAt=clock+5;boss.abyssWarningAt=0;boss.abyssWarningZones=[];boss.abyssLaserUntil=0;boss.abyssLaserHit=false;boss.abyssOrbitAt=clock;boss.x=10;boss.y=9;bossIntroUntil=0;state='play';controls.classList.add('active');showNotice('👁 PHASE 3 · 구조물 붕괴 · 수정 출현!',3);}
+function spawnAbyssCrystals(boss){boss.abyssCrystals=[{x:5,y:5,hp:400},{x:15,y:5,hp:400},{x:5,y:13,hp:400},{x:15,y:13,hp:400}];boss.abyssCrystalRound++;showNotice('💎 수정 4개를 파괴하세요! 각 400 HP',2.4);}
 function hitAbyss(boss,amount){
  if(!enemies.includes(boss)||boss.phaseTwo)return;
  if(boss.phaseThree){
@@ -923,11 +923,48 @@ $('abyssFinalSubmit').addEventListener('click',submitAbyssFinalQuiz);
 $('abyssFinalAnswer').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();submitAbyssFinalQuiz();}});
 function finishAbyss(boss){rankSubmitClear();abyssMusicActive=false;abyssMusicNext=0;enemies.splice(enemies.indexOf(boss),1);for(let i=enemies.length-1;i>=0;i--)if(enemies[i].octoMinion)enemies.splice(i,1);state='abyssEnding';fireHeld=false;controls.classList.remove('active');$('abyssEnding').style.display='flex';player.score+=5000;updateHUD();}
 $('abyssEndingClose').onclick=()=>showMenu('menu');
-function abyssCrystalHit(x,y,damage){const boss=enemies.find(e=>e.type==='abyss'&&e.phaseThree);if(!boss||!boss.abyssCrystals.length)return false;const c=boss.abyssCrystals.find(c=>Math.hypot(c.x-x,c.y-y)<.58);if(!c)return false;c.hp-=damage;if(c.hp<=0){boss.abyssCrystals.splice(boss.abyssCrystals.indexOf(c),1);showNotice('💎 수정 파괴! 남은 수정 '+boss.abyssCrystals.length,1.1);if(!boss.abyssCrystals.length)showNotice('👁 방어 해제! 보스를 한 번 공격하면 최종 시험!',2.5);}return true;}
+function spawnAbyssGuardian(boss,stage){
+ const type=stage===1?'boss':stage===2?'octopus':'drill';
+ const label=stage===1?'폭격자':stage===2?'심연의 문어':'드릴라이너';
+ const x=stage===1?10:stage===2?6:14,y=stage===1?4:stage===2?9:9;
+ const hp=stage===1?1040:stage===2?1240:1440;
+ const guardian={x,y,hp,maxhp:hp,phaseOneMax:hp,speed:.36,type,phase:0,hitAt:0,
+ attackAt:clock-4,stunUntil:0,blastAt:0,blastX:0,blastY:0,blastZones:[],
+ phaseTwo:false,phaseThree:false,chargeAt:clock+3,chargeUntil:0,
+ inkAt:clock+8,tentacleAt:clock+3,laserAt:clock+5,summonAt:clock+7,
+ eyeAt:0,lashUntil:0,drillAt:clock+3,soilAt:clock+10,
+ drillZones:[],drillBlastAt:0,drillMode:'',buriedUntil:0,
+ drillDiveStart:0,drillEmergeUntil:0,drillTargetX:x,drillTargetY:y,
+ abyssGuardian:true};
+ boss.abyssGuardian=guardian;
+ enemies.push(guardian);
+ boss.abyssLaserUntil=0;boss.abyssWarningAt=0;boss.abyssWarningZones=[];
+ showNotice('⚠ '+label+' 등장! 처치하기 전까지 수정 무적!',3);
+ updateBossHUD();
+}
+function abyssCrystalHit(x,y,damage){
+ const boss=enemies.find(e=>e.type==='abyss'&&e.phaseThree);
+ if(!boss||!boss.abyssCrystals.length)return false;
+ const c=boss.abyssCrystals.find(c=>Math.hypot(c.x-x,c.y-y)<.58);
+ if(!c)return false;
+ if(boss.abyssGuardian&&enemies.includes(boss.abyssGuardian)){
+  if(clock-(boss.abyssShieldNoticeAt||0)>1.5){boss.abyssShieldNoticeAt=clock;showNotice('🛡 소환된 보스를 먼저 처치하세요!',1.2);}
+  return true;
+ }
+ c.hp-=damage;
+ if(c.hp<=0){
+  boss.abyssCrystals.splice(boss.abyssCrystals.indexOf(c),1);
+  const destroyed=4-boss.abyssCrystals.length;
+  if(destroyed<=3)spawnAbyssGuardian(boss,destroyed);
+  else showNotice('👁 방어 해제! 심연의 눈을 한 번 공격하세요!',2.5);
+ }
+ return true;
+}
 function updateAbyss(boss){if(boss.phaseTwo)return;if(boss.phaseThree){
   // Phase 3: the Eye remains at the arena center regardless of camera direction.
   boss.x=10;boss.y=9;
   if(!boss.abyssFinalStarted&&!boss.abyssCrystals.length&&clock>=boss.abyssTransitionUntil&&boss.abyssCrystalRound===0)spawnAbyssCrystals(boss);
+  if(boss.abyssGuardian&&enemies.includes(boss.abyssGuardian)){boss.abyssLaserUntil=0;boss.abyssWarningAt=0;boss.abyssWarningZones=[];return;}
   if(clock>=boss.abyssLaserAt){boss.abyssLaserAt=clock+6;boss.abyssLaserUntil=clock+1.5;boss.abyssLaserAngle=Math.atan2(player.y-boss.y,player.x-boss.x);boss.abyssLaserHit=false;showNotice('⚠ 심연 레이저 예고! 발사 순간 점프하세요!',1.5);}
   if(boss.abyssLaserUntil>clock&&!boss.abyssLaserHit&&clock>=boss.abyssLaserUntil-.4){const dx=player.x-boss.x,dy=player.y-boss.y,along=dx*Math.cos(boss.abyssLaserAngle)+dy*Math.sin(boss.abyssLaserAngle),across=Math.abs(-dx*Math.sin(boss.abyssLaserAngle)+dy*Math.cos(boss.abyssLaserAngle));if(along>0&&along<16&&across<.8){if(jumpZ<.38)damage(18);else showNotice('✨ 점프 회피 성공!',.75);boss.abyssLaserHit=true;}}
   if(clock>=boss.abyssSummonAt){boss.abyssSummonAt=clock+12;for(let i=0;i<2;i++){const a=i*Math.PI+clock,x=clamp(player.x+Math.cos(a)*3,1,18),y=clamp(player.y+Math.sin(a)*3,1,17);if(canStand(x,y,.3))enemies.push({x,y,hp:14,maxhp:14,speed:1.25,type:'pink',phase:0,hitAt:0,attackAt:0,stunUntil:0,octoMinion:true});}showNotice('👁 폭주 미니언 소환!',1.3);}
@@ -944,8 +981,26 @@ function updateAbyss(boss){if(boss.phaseTwo)return;if(boss.phaseThree){
 }
 function drawAbyss(){const boss=enemies.find(e=>e.type==='abyss');if(!boss)return;if(boss.abyssWarningAt){for(const z of boss.abyssWarningZones){const p=projected(z.x,z.y);if(p.cd<=.2||Math.abs(p.alpha)>FOV*.75)continue;ctx.save();ctx.strokeStyle='#bd88ff';ctx.fillStyle='rgba(128,48,228,.35)';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(p.sx,sceneH*.69,clamp(sceneH/p.cd*.7,10,sceneW),clamp(sceneH/p.cd*.2,5,sceneH),0,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.restore();}}
  if(boss.abyssLaserUntil>clock){const a=projected(boss.x,boss.y),end=visibleRayEnd(boss.x,boss.y,boss.abyssLaserAngle,12),b=projected(end.x,end.y);ctx.save();const firing=(boss.abyssLaserUntil-clock)<.4;ctx.strokeStyle=firing?'#f1b7ff':'rgba(220,110,255,.6)';ctx.lineWidth=firing?14:3;ctx.shadowColor='#b046ff';ctx.shadowBlur=firing?25:8;ctx.beginPath();ctx.moveTo(a.sx,sceneH*.5);ctx.lineTo(b.sx,sceneH*.55);ctx.stroke();if(!firing){ctx.fillStyle='#ffe0ff';ctx.font='bold 18px sans-serif';ctx.textAlign='center';ctx.fillText('⚠ '+Math.max(0,boss.abyssLaserUntil-clock-.4).toFixed(1)+'초 후 발사 · 점프!',sceneW*.5,sceneH*.22);}ctx.restore();}
- if(boss.phaseThree){for(const c of boss.abyssCrystals){const p=projected(c.x,c.y);if(p.cd<.2||Math.abs(p.alpha)>FOV*.7)continue;const h=clamp(sceneH/p.cd*.95,20,sceneH*2),w=h*.48;ctx.save();ctx.shadowColor='#b57dff';ctx.shadowBlur=24;ctx.fillStyle='#aa80ff';ctx.beginPath();ctx.moveTo(p.sx,sceneH*.5-h*.7);ctx.lineTo(p.sx+w*.5,sceneH*.5);ctx.lineTo(p.sx,sceneH*.5+h*.3);ctx.lineTo(p.sx-w*.5,sceneH*.5);ctx.closePath();ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 15px sans-serif';ctx.textAlign='center';ctx.fillText(Math.ceil(c.hp)+'/150',p.sx,sceneH*.5-h*.7-10);ctx.restore();}}}
-function hitEnemy(e,amount){if(e.type==='abyss'){hitAbyss(e,amount);return;}if(!enemies.includes(e)||e.type==='drill'&&e.phaseTwo)return;
+ if(boss.phaseThree){for(const c of boss.abyssCrystals){const p=projected(c.x,c.y);if(p.cd<.2||Math.abs(p.alpha)>FOV*.7)continue;const h=clamp(sceneH/p.cd*.95,20,sceneH*2),w=h*.48;ctx.save();ctx.shadowColor='#b57dff';ctx.shadowBlur=24;ctx.fillStyle='#aa80ff';ctx.beginPath();ctx.moveTo(p.sx,sceneH*.5-h*.7);ctx.lineTo(p.sx+w*.5,sceneH*.5);ctx.lineTo(p.sx,sceneH*.5+h*.3);ctx.lineTo(p.sx-w*.5,sceneH*.5);ctx.closePath();ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 15px sans-serif';ctx.textAlign='center';ctx.fillText(Math.ceil(c.hp)+'/400',p.sx,sceneH*.5-h*.7-10);ctx.restore();}}}
+function hitEnemy(e,amount){if(e.type==='abyss'){hitAbyss(e,amount);return;}
+ if(e.abyssGuardian){
+  if(!enemies.includes(e))return;
+  e.hp-=amount;e.hitAt=clock+.18;
+  $('crosshair').classList.add('hit');hitUntil=clock+.17;
+  if(e.hp<=0){
+   enemies.splice(enemies.indexOf(e),1);
+   for(let j=enemies.length-1;j>=0;j--)if(enemies[j].octoMinion)enemies.splice(j,1);
+   const eye=enemies.find(b=>b.type==='abyss'&&b.phaseThree);
+   if(eye&&eye.abyssGuardian===e){
+    eye.abyssGuardian=null;
+    eye.abyssLaserAt=clock+5;eye.abyssSummonAt=clock+8;eye.abyssSoilAt=clock+6;
+    showNotice('💥 소환 보스 격파! 수정 공격 재개!',2.4);
+   }
+   player.kills++;player.score+=400;updateHUD();
+  }
+  return;
+ }
+if(!enemies.includes(e)||e.type==='drill'&&e.phaseTwo)return;
  if(e.type==='drill'&&e.phaseThree&&!e.memoryTriggered&&e.hp-amount<=e.maxhp*.5){e.hp=e.maxhp*.5;e.memoryTriggered=true;e.drillZones=[];e.drillBlastAt=0;e.drillBursts=[];startDrillMemory(e);updateBossHUD();return;}
  if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&!e.phaseTwo&&!e.phaseThree&&e.hp-amount<=0){
   if(e.type==='drill'){e.phaseTwo=true;e.hp=1;e.maxhp=1;e.drillZones=[];e.drillBlastAt=0;startDrillShellGame(e);updateBossHUD();return;}
@@ -1018,7 +1073,7 @@ if(e.type==='octopus'){
  if(gameMode!=='duel'&&roundDelay&&clock>roundDelay)endWave();$('swapBtn').style.display=gameMode==='duel'?'block':'none';if(gameMode==='duel'&&clock-duelSentAt>.07){duelSentAt=clock;netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:Math.ceil(player.hp),w:save.equipped});}$('freezeHud').style.display=clock<freezeUntil?'block':'none';if(clock<freezeUntil)$('freezeTime').textContent=Math.max(0,freezeUntil-clock).toFixed(1);
  if(clock>noticeUntil)$('centerNotice').style.opacity='0';if(clock>hitUntil)$('crosshair').classList.remove('hit');$('hurt').style.opacity=clock<hurtUntil?String(Math.min(.82,.18+(hurtUntil-clock)*.95)):'0';$('flash').style.opacity=clock<flashUntil?'1':'0';}
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
-function cast(dx,dy){let mx=Math.floor(viewCam.x),my=Math.floor(viewCam.y);const deltaX=Math.abs(1/dx),deltaY=Math.abs(1/dy);let stepX=dx<0?-1:1,stepY=dy<0?-1:1;let sx=dx<0?(viewCam.x-mx)*deltaX:(mx+1-viewCam.x)*deltaX;let sy=dy<0?(viewCam.y-my)*deltaY:(my+1-viewCam.y)*deltaY;let side=0;for(let i=0;i<40;i++){if(sx<sy){sx+=deltaX;mx+=stepX;side=0}else{sy+=deltaY;my+=stepY;side=1}if(mx<0||my<0||mx>=W||my>=H||MAP[my][mx]!=='0')break}let dist=side===0?(mx-viewCam.x+(1-stepX)*.5)/dx:(my-viewCam.y+(1-stepY)*.5)/dy;dist=Math.max(.08,dist);let texture=side===0?viewCam.y+dist*dy:viewCam.x+dist*dx;texture-=Math.floor(texture);return {dist,side,texture,mx,my,tile:MAP[my]?.[mx]||'1'}}
+function cast(dx,dy){let mx=Math.floor(viewCam.x),my=Math.floor(viewCam.y);const deltaX=Math.abs(dx)>1e-8?Math.abs(1/dx):1e10,deltaY=Math.abs(dy)>1e-8?Math.abs(1/dy):1e10;let stepX=dx<0?-1:1,stepY=dy<0?-1:1;let sx=dx<0?(viewCam.x-mx)*deltaX:(mx+1-viewCam.x)*deltaX;let sy=dy<0?(viewCam.y-my)*deltaY:(my+1-viewCam.y)*deltaY;let side=0;for(let i=0;i<40;i++){if(sx<sy){sx+=deltaX;mx+=stepX;side=0}else{sy+=deltaY;my+=stepY;side=1}if(mx<0||my<0||mx>=W||my>=H||MAP[my][mx]!=='0')break}let dist=side===0?(mx-viewCam.x+(1-stepX)*.5)/dx:(my-viewCam.y+(1-stepY)*.5)/dy;dist=Number.isFinite(dist)?Math.max(.08,dist):40;let texture=side===0?viewCam.y+dist*dy:viewCam.x+dist*dx;texture-=Math.floor(texture);return {dist,side,texture,mx,my,tile:MAP[my]?.[mx]||'1'}}
 // Procedural material maps and orbital window art: self-contained, no internet assets
 function texCanvas(w=256,h=256){const c=document.createElement('canvas');c.width=w;c.height=h;return [c,c.getContext('2d')]}
 function wallMaterial(kind){const [c,g]=texCanvas();let metal=g.createLinearGradient(0,0,256,256);metal.addColorStop(0,kind==='core'?'#222b58':'#243b5c');metal.addColorStop(.48,kind==='core'?'#10183d':'#0b1c32');metal.addColorStop(1,'#091427');g.fillStyle=metal;g.fillRect(0,0,256,256);
@@ -1042,7 +1097,7 @@ function background(){const w=sceneW,h=sceneH,mid=h*.5;const sky=ctx.createLinea
  for(const st of spaceStars){const x=((st.x*2.4-player.angle/(Math.PI*2)*2.4)%1+1)%1*w,yy=st.y*mid;ctx.fillStyle=st.size>1?'rgba(221,248,255,.8)':'rgba(130,207,252,.52)';ctx.fillRect(x,yy,st.size,st.size)}const planetX=w*.68-player.angle*w*.11;const glow=ctx.createRadialGradient(planetX,mid*.75,3,planetX,mid*.75,h*.57);glow.addColorStop(0,'rgba(133,130,231,.42)');glow.addColorStop(1,'transparent');ctx.fillStyle=glow;ctx.fillRect(0,0,w,mid);ctx.save();ctx.translate(planetX,mid*.7);ctx.rotate(-.3);ctx.fillStyle='#294e89';ctx.beginPath();ctx.arc(0,0,h*.24,0,Math.PI*2);ctx.fill();ctx.strokeStyle='rgba(122,224,251,.54)';ctx.lineWidth=h*.018;ctx.beginPath();ctx.ellipse(0,0,h*.36,h*.073,0,0,Math.PI*2);ctx.stroke();ctx.restore();
  floorRender();ctx.fillStyle='rgba(91,243,255,.17)';ctx.fillRect(0,mid-2,w,3);}
 function walls(){const w=sceneW,h=sceneH,colWidth=zStep,n=Math.ceil(w/colWidth);zBuffer=new Float32Array(n);const sin=Math.sin(player.angle),cos=Math.cos(player.angle),px=-sin*TAN,py=cos*TAN;
- for(let i=0;i<n;i++){const cameraX=2*(i+.5)/n-1,dx=cos+px*cameraX,dy=sin+py*cameraX,r=cast(dx,dy),dist=r.dist;zBuffer[i]=dist;const wallH=Math.min(h*7,h/dist),top=(h-wallH)*.5;const tex=wallsArt[r.tile]||wallsArt['1'];let tx=Math.floor(r.texture*(tex.width-1));if((r.side===0&&dx>0)||(r.side===1&&dy<0))tx=tex.width-1-tx;const x=i*colWidth;ctx.drawImage(tex,tx,0,1,tex.height,x,top,colWidth+1,wallH);
+ for(let i=0;i<n;i++){const cameraX=2*(i+.5)/n-1,dx=cos+px*cameraX,dy=sin+py*cameraX,r=cast(dx,dy),dist=r.dist;zBuffer[i]=dist;const wallH=Math.min(h*7,h/dist),top=(h-wallH)*.5;const tex=wallsArt[r.tile]||wallsArt['1'];let tx=Math.floor(r.texture*(tex.width-1));if((r.side===0&&dx>0)||(r.side===1&&dy<0))tx=tex.width-1-tx;const x=i*colWidth;try{ctx.drawImage(tex,tx,0,1,tex.height,x,top,colWidth+1,wallH)}catch(e){ctx.fillStyle='#245575';ctx.fillRect(x,top,colWidth+1,wallH)}
  const black=clamp(dist*.058+(r.side?.13:0),0,.83);ctx.fillStyle=`rgba(1,5,22,${r.tile==='2'?black*.6:black})`;ctx.fillRect(x,top,colWidth+1,wallH);
  if(r.tile!=='2'&&dist<17){const light=clamp(.60-dist*.025,.10,.65),phase=1+Math.sin(clock*1.2+r.mx*2+r.my)*.24;ctx.fillStyle=`rgba(${r.tile==='3'?'188,108,255':'84,231,252'},${light*phase})`;ctx.fillRect(x,top+wallH*.102,colWidth+1,Math.max(.5,wallH*.013));ctx.fillRect(x,top+wallH*.875,colWidth+1,Math.max(.5,wallH*.011))}
  }
@@ -1095,16 +1150,17 @@ function drawDrillWarnings(){
  }
 }
 function drawEnemySprites(){const visible=[...enemies].sort((a,b)=>Math.hypot(b.x-player.x,b.y-player.y)-Math.hypot(a.x-player.x,a.y-player.y));for(let e of visible){const p=projected(e.x,e.y);if(Math.abs(p.alpha)>FOV*.69||p.cd<.22||e.type==='drill'&&e.buriedUntil>clock+.55)continue;const img=e.type==='abyss'?abyssEyeSprite:e.type==='octopus'?octopusSprite:e.type==='drill'?drillSprite:e.type==='boss'?bossSprite:spriteVariants[(e.type==='yellow'?4:e.type==='pink'?1:0)+(clock<e.hitAt? (e.type==='yellow'?1:2):0)];const botHeight=clamp(sceneH/p.cd*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')?1.9:.91),10,sceneH*3),botWidth=botHeight*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')?.92:.763),center=p.sx,x0=center-botWidth/2,y0=sceneH/2-botHeight*.56+Math.sin(clock*3+(e.phase||0))*Math.min(7,botHeight*.025)+(e.type==='drill'&&e.buriedUntil>clock?botHeight*Math.min(1,(clock-e.drillDiveStart)/.55):e.type==='drill'&&e.drillEmergeUntil>clock?botHeight*Math.max(0,(e.drillEmergeUntil-clock)/.65):0);
- const chunk=Math.max(2,Math.ceil(botWidth/25));for(let x=Math.floor(x0);x<Math.ceil(x0+botWidth);x+=chunk){const index=Math.floor(x/zStep);if(index<0||index>=zBuffer.length)continue;if(p.cd>zBuffer[index]+.13){if(!(['boss','octopus','drill'].includes(e.type)&&clearLineOfSight(viewCam.x,viewCam.y,e.x,e.y)))continue;}const srcX=(x-x0)/botWidth*img.width,srcW=chunk/botWidth*img.width;try{if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree)){ctx.save();ctx.shadowColor='#ff244c';ctx.shadowBlur=22;ctx.filter='saturate(1.8) hue-rotate(-22deg)';}ctx.drawImage(img,clamp(srcX,0,img.width-1),0,Math.min(srcW,img.width-clamp(srcX,0,img.width-1)),img.height,x,y0,chunk+.5,botHeight);if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}catch(err){if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}}
+ const chunk=Math.max(2,Math.ceil(botWidth/25));for(let x=Math.floor(x0);x<Math.ceil(x0+botWidth);x+=chunk){const index=Math.floor(x/zStep);if(index<0||index>=zBuffer.length)continue;if(Number.isFinite(zBuffer[index])&&p.cd>zBuffer[index]+.13&&!clearLineOfSight(viewCam.x,viewCam.y,e.x,e.y))continue;const srcX=(x-x0)/botWidth*img.width,srcW=chunk/botWidth*img.width;try{if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree)){ctx.save();ctx.shadowColor='#ff244c';ctx.shadowBlur=22;ctx.filter='saturate(1.8) hue-rotate(-22deg)';}ctx.drawImage(img,clamp(srcX,0,img.width-1),0,Math.min(srcW,img.width-clamp(srcX,0,img.width-1)),img.height,x,y0,chunk+.5,botHeight);if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}catch(err){if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}}
  if(p.cd<5.1){const barW=botWidth*.65;ctx.fillStyle='rgba(10,17,36,.8)';ctx.fillRect(center-barW*.5,y0-8,barW,4);ctx.fillStyle=e.type==='abyss'?'#b36cff':e.type==='pink'?'#ff6eaf':'#6afaff';ctx.fillRect(center-barW*.5,y0-8,barW*Math.max(0,e.hp/e.maxhp),4)}if(clock<freezeUntil){ctx.strokeStyle='rgba(137,255,255,.7)';ctx.lineWidth=Math.max(1,botHeight*.02);ctx.beginPath();ctx.ellipse(center,y0+botHeight*.5,botWidth*.4,botHeight*.4,0,0,Math.PI*2);ctx.stroke()}
  }}
 function updateBossHUD(){
- const b=gameMode!=='duel'?enemies.find(e=>e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss'):null,el=$('bossStatus');
+ const eye=enemies.find(e=>e.type==='abyss'&&e.phaseThree);
+ const b=gameMode!=='duel'?(eye?.abyssGuardian&&enemies.includes(eye.abyssGuardian)?eye.abyssGuardian:enemies.find(e=>e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')):null,el=$('bossStatus');
  if(!el)return;
  el.style.display=b&&state==='play'?'block':'none';
  if(!b)return;
  el.classList.toggle('phase2',!!b.phaseTwo);
- $('bossHeading').firstChild.textContent=b.type==='abyss'?'👁 심연의 눈 ':b.type==='octopus'?'⚠ 심연의 문어 ':b.type==='drill'?'⚠ 드릴라이너 ':'⚠ 폭격자 ';$('bossPhaseLabel').textContent=b.phaseThree?(b.type==='abyss'?'PHASE 3 · 수정 방어':'PHASE 3 · 폭주'):b.phaseTwo?(b.type==='abyss'?'PHASE 2 · 차원 시험':b.type==='drill'?'PHASE 2 · 최면 야바위':'PHASE 2 · 폭주'):'PHASE 1';
+ $('bossHeading').firstChild.textContent=b.type==='abyss'?'👁 심연의 눈 ':b.type==='octopus'?'⚠ 심연의 문어 ':b.type==='drill'?'⚠ 드릴라이너 ':'⚠ 폭격자 ';$('bossPhaseLabel').textContent=b.phaseThree?(b.type==='abyss'?'PHASE 3 · 수정 방어':'PHASE 3 · 폭주'):b.phaseTwo?(b.type==='abyss'?'PHASE 2 · 차원 시험':b.type==='drill'?'PHASE 2 · 최면 야바위':'PHASE 2 · 폭주'):(b.abyssGuardian?'소환 보스 · 수정 보호':'PHASE 1');
  const pct=clamp(b.hp/Math.max(1,b.maxhp)*100,0,100);
  $('bossBarFill').style.width=pct.toFixed(1)+'%';
  $('bossHpText').textContent=Math.ceil(b.hp)+' / '+Math.ceil(b.maxhp)+' HP';
@@ -1287,7 +1343,7 @@ function onDuelData(d){if(!d||typeof d!=='object'||gameMode!=='duel')return;
  if(d.t==='rematch'){rematchThem=true;$('rematchStatus').textContent='상대가 재대결을 신청했습니다. 재대결 신청을 누르세요.';tryRematch();return}
  if(d.t==='leave'){leaveDuel();gameMode='survival';MAP=SURVIVAL_MAP;showMenu('menu');hud.classList.remove('show');toast('상대방이 결투에서 나갔습니다.');}}
 
-function frame(t){tickAbyss();tickDrillMemory();const dt=Math.min(.045,Math.max(0,(t-lastTime)/1000));lastTime=t;if(state==='play')update(dt);else if(state==='duelbreak'||state==='duelover'){clock+=dt;if(clock>noticeUntil)$('centerNotice').style.opacity='0';}render();requestAnimationFrame(frame)}requestAnimationFrame(frame);
+function frame(t){tickAbyss();tickDrillMemory();const dt=Math.min(.045,Math.max(0,(t-lastTime)/1000));lastTime=t;if(state==='play')update(dt);else if(state==='duelbreak'||state==='duelover'){clock+=dt;if(clock>noticeUntil)$('centerNotice').style.opacity='0';}try{render()}catch(e){console.error('NEON render failure',e)}requestAnimationFrame(frame)}requestAnimationFrame(frame);
 // Touch controls
 const moveZone=$('moveZone'),stickEl=$('stick'),nub=$('nub'),lookZone=$('lookZone'),fireBtn=$('fireBtn');
 function stickCenter(){let r=stickEl.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2}}
