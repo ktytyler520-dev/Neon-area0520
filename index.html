@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#070c1b">
-<title>NEON ARENA v3.3 — 오류 수정</title>
+<title>NEON ARENA v3.4 — 오류 수정</title>
 <style>
 :root{--cyan:#5beeff;--blue:#5b8cff;--pink:#ff5cad;--ink:#080e1e;--line:rgba(145,219,255,.24)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -13,7 +13,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#060a14;col
 #view{position:absolute;width:100%;height:100%;object-fit:fill;inset:0;display:block}
 #game:before{content:"";pointer-events:none;position:absolute;inset:0;z-index:2;background:repeating-linear-gradient(to bottom,rgba(0,0,0,.04),rgba(0,0,0,.04) 1px,transparent 1px,transparent 5px);mix-blend-mode:multiply}
 #vignette{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,10,.3) 100%)}
-#hurt{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;background:radial-gradient(ellipse at center,transparent 35%,rgba(255,52,114,.6) 100%);transition:opacity .09s}
+#hurt{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;background:radial-gradient(ellipse at center,rgba(255,0,0,.34) 0%,rgba(210,0,0,.35) 40%,rgba(255,0,0,.94) 100%);mix-blend-mode:screen;transition:opacity .08s}
 #flash{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;background:radial-gradient(ellipse at 53% 76%,rgba(105,248,255,.23),transparent 57%)}
 #hud{position:absolute;inset:0;z-index:11;pointer-events:none;display:none}
 #hud.show{display:block}
@@ -197,7 +197,7 @@ h1 span{color:#69eaff}
   <div id="controls"><button id="jumpBtn" aria-label="점프">⬆<small>JUMP</small></button><button id="slideBtn" aria-label="슬라이딩">➤<small>SLIDE</small></button><button id="swapBtn" aria-label="결투 무기 변경">⚔<small>무기</small></button><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
   <section id="menu" role="dialog" aria-modal="true" aria-label="게임 메뉴"><div class="menu-inner">
     <div id="homeScreen" class="menu-screen active"><button id="adminCornerBtn" aria-label="운영자 모드" title="운영자 모드" style="position:absolute;right:12px;top:12px;z-index:8;background:#11253b;border:1px solid #426783;border-radius:8px;color:#aac7d8;font-size:12px;padding:7px 10px;cursor:pointer">⚙ ADMIN</button>
-      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 3.3</div>
+      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 3.4</div>
       <h1>NEON<br><span>ARENA</span></h1>
       <p id="menuDesc">우주 정거장 생존전 · 3인칭 시점 · 온라인 1:1 아레나</p>
       <div id="menuMeta"><span class="meta">◉ 1인칭 / 3인칭</span><span class="meta">◈ 웨이브 강화</span><span class="meta" id="bestScoreText">🏆 최고 0점</span></div>
@@ -212,7 +212,7 @@ h1 span{color:#69eaff}
       <div id="menuFoot">📱 가로 화면 · 생존전(로봇) / 사격장(PVP, 로봇 없음) · V 키로 시점 전환<br>PC: WASD · 마우스 · 클릭/Space · R · V · Esc</div>
     </div>
     <div id="rankingScreen" class="menu-screen">
-      <div class="eyebrow">GLOBAL LEADERBOARD · VERSION 3.3</div>
+      <div class="eyebrow">GLOBAL LEADERBOARD · VERSION 3.4</div>
       <h2 class="menu-title">🏆 전체 유저 랭킹</h2>
       <p class="menu-sub">최종 클리어 시간 / 현재 보유 골드 · 보스 연습 기록 제외 · 클라이언트 기록은 조작 가능</p>
       <div class="settings-stack">
@@ -222,7 +222,7 @@ h1 span{color:#69eaff}
       </div><button class="menu-button" data-back>← 메인 메뉴로</button>
     </div>
     <div id="practiceScreen" class="menu-screen">
- <div class="eyebrow">BOSS TRAINING · VERSION 3.3</div>
+ <div class="eyebrow">BOSS TRAINING · VERSION 3.4</div>
  <h2 class="menu-title">🎯 보스 연습장</h2>
  <p class="menu-sub">원하는 보스를 선택해 바로 연습하세요. 일반 웨이브는 생략하며, 연습 기록은 생존전 보상에 반영되지 않습니다.</p>
  <div class="settings-stack">
@@ -234,7 +234,7 @@ h1 span{color:#69eaff}
  <div class="menu-buttons"><button id="practiceStartBtn" class="menu-button primary-btn">▶ 연습 시작</button><button id="practiceBackBtn" class="menu-button">← 메인 메뉴</button></div>
  </div>
  <div id="settingsScreen" class="menu-screen">
-      <div class="eyebrow">CUSTOMIZE · VERSION 3.3</div><h2 class="menu-title">⚙️ 게임 설정</h2>
+      <div class="eyebrow">CUSTOMIZE · VERSION 3.4</div><h2 class="menu-title">⚙️ 게임 설정</h2>
       <p class="menu-sub">우주 정거장 그래픽과 카메라 감도를 조절합니다. 자동으로 저장됩니다.</p>
       <div class="settings-stack">
         <div class="setting-card"><label for="graphicsSelect">그래픽 품질</label><select id="graphicsSelect"><option value="low">낮음 · 프레임 우선</option><option value="medium">보통 · 균형</option><option value="high">높음 · 화질 우선</option></select><p>낮음: 빠르게 · 높음: 고해상도·디테일·조명 강화 (성능에 따라 조절)</p></div>
@@ -336,6 +336,25 @@ h1 span{color:#69eaff}
   <div id="toast" role="status" aria-live="polite"></div>
   <div id="portrait"><div class="rotate">📱↻</div><strong>가로 화면으로 돌려주세요</strong><p>이 게임은 모바일 가로 모드에 맞춰 제작됐습니다.</p><button id="portraitStart">전체 화면 켜기</button></div>
 </div>
+
+<script>
+// Ranking navigation resilience: independent of the 3D game's initialization.
+(function(){
+ function openRankingSafely(ev){
+  var button=ev.target&&ev.target.closest&&ev.target.closest('#rankingBtn');
+  if(!button)return;
+  ev.preventDefault();
+  ev.stopImmediatePropagation();
+  var screen=document.getElementById('rankingScreen');
+  if(!screen)return;
+  document.querySelectorAll('.menu-screen').forEach(function(el){el.classList.toggle('active',el===screen)});
+  var list=document.getElementById('rankList');
+  if(list&&!list.textContent.trim())list.textContent='서버를 연결하면 온라인 순위를 볼 수 있습니다.';
+  try{if(typeof rankClient!=='undefined'&&rankClient&&typeof rankRefresh==='function')rankRefresh();}catch(e){console.warn('Ranking refresh:',e)}
+ }
+ document.addEventListener('click',openRankingSafely,true);
+})();
+</script>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id), game=$('game'),canvas=$('view'),ctx=canvas.getContext('2d',{alpha:false}), hud=$('hud'),controls=$('controls'),menu=$('menu');
@@ -400,6 +419,8 @@ const WAVE_GOLD=[10,30,40,50,60,80,100,120,140,150,200,250,280,350];
 const STORE_KEY='neon_arena_save_v13',OLD_STORE_KEY='neon_arena_save_v12'; // v1.5: preserve v1.3 saves
 function loadSave(){let value={};try{value=JSON.parse(localStorage.getItem(STORE_KEY)||localStorage.getItem(OLD_STORE_KEY)||localStorage.getItem('neon_arena_save_v11')||'{}')||{}}catch(e){}const owned={cannon:true,bazooka:!!value.owned?.bazooka,k7:!!value.owned?.k7,ak74:!!value.owned?.ak74,bat:!!value.owned?.bat,tommy:!!value.owned?.tommy,minigun:!!value.owned?.minigun,laser:!!value.owned?.laser,flame:!!value.owned?.flame,supermini:!!value.owned?.supermini,katana:!!value.owned?.katana,burst:!!value.owned?.burst};return {gold:Number.isFinite(value.gold)?Math.max(0,Math.floor(value.gold)):0,graphics:['low','medium','high'].includes(value.graphics)?value.graphics:'high',camera:['first','third'].includes(value.camera)?value.camera:'third',sensitivity:Number.isFinite(value.sensitivity)?Math.min(2.5,Math.max(.4,value.sensitivity)):1,owned,equipped:owned[value.equipped]?value.equipped:'cannon',best:Number.isFinite(value.best)?value.best:0};}
 const save=loadSave();
+window.neonRankingGold=()=>save.gold;
+window.neonRankingMode=()=>gameMode;
 let adminUnlocked=false;
 function openAdmin(){
  $('adminOverlay').style.display='flex';
@@ -938,7 +959,7 @@ function impact(p){if(abyssCrystalHit(p.x,p.y,p.damage))return;explosions.push({
 function shoot(){if(state!=='play'||reloadingUntil>clock)return;const weapon=activeWeapon();if(clock-shootLast<weapon.delay/upgrades.fireRate)return;if(weapon.melee){meleeStrike();return;}if(!weapon.infinite&&player.ammo<=0){reload();return}shootLast=clock;if(!weapon.infinite)player.ammo--;flashUntil=clock+.11;shakeUntil=clock+.12;sound(save.equipped==='bazooka'?210:save.equipped==='ak74'?175:save.equipped==='k7'?780:470,save.equipped==='bazooka'?.2:.12,'sawtooth',.06,95);
  const num=upgrades.projectiles;if(weapon.burst){for(let k=0;k<3;k++)burstQueue.push({at:clock+k*.095,weapon:save.equipped});}else for(let i=0;i<num;i++){const angle=player.angle+(i-(num-1)/2)*Math.min(.115,.17/Math.max(1,num-1)),cx=player.x+Math.cos(angle)*.4,cy=player.y+Math.sin(angle)*.4;projectiles.push({x:cx,y:cy,px:cx,py:cy,dx:Math.cos(angle),dy:Math.sin(angle),age:0,weapon:save.equipped,color:weapon.color,speed:weapon.speed,damage:weapon.damage*upgrades.damage,ttl:2.1});}
  if(projectiles.length>140)projectiles.splice(0,projectiles.length-140);if(gameMode==='duel')netSend({t:'shot',x:player.x,y:player.y,angle:player.angle,weapon:save.equipped,number:num});if(!weapon.infinite&&player.ammo===0)reload();updateHUD()}
-function damage(n){if(state!=='play')return;player.hp=Math.max(0,player.hp-n*upgrades.defense);hurtUntil=clock+.4;shakeUntil=clock+.24;sound(95,.22,'triangle',.07,50);updateHUD();if(player.hp<=0){if(gameMode==='duel'){netSend({t:'defeated'});finishDuelRound(false)}else showMenu('over')}}
+function damage(n){if(state!=='play')return;player.hp=Math.max(0,player.hp-n*upgrades.defense);hurtUntil=clock+.7;shakeUntil=clock+.24;sound(95,.22,'triangle',.07,50);updateHUD();if(player.hp<=0){if(gameMode==='duel'){netSend({t:'defeated'});finishDuelRound(false)}else showMenu('over')}}
 function moveProjectiles(dt){for(let i=projectiles.length-1;i>=0;i--){const p=projectiles[i],total=p.speed*dt,steps=Math.max(1,Math.ceil(total/.15));let collided=false;for(let k=0;k<steps;k++){p.px=p.x;p.py=p.y;p.x+=p.dx*total/steps;p.y+=p.dy*total/steps;if(solid(p.x,p.y)){p.x=p.px;p.y=p.py;collided=true;break}if(enemies.some(e=>e.type!=='abyss'||!e.phaseThree||(!e.abyssCrystals.length&&clock>=e.abyssTransitionUntil)?Math.hypot(e.x-p.x,e.y-p.y)<.32:false)||enemies.some(e=>e.type==='abyss'&&e.phaseThree&&e.abyssCrystals.some(c=>Math.hypot(c.x-p.x,c.y-p.y)<.38))||gameMode==='duel'&&!p.fromRemote&&Math.hypot(remote.x-p.x,remote.y-p.y)<.37){collided=true;break}}p.age+=dt;if(collided){projectiles.splice(i,1);impact(p)}else if(p.age>p.ttl){projectiles.splice(i,1)}}for(let i=explosions.length-1;i>=0;i--){explosions[i].age+=dt;if(explosions[i].age>explosions[i].ttl)explosions.splice(i,1)}for(let i=impactSparks.length-1;i>=0;i--){const p=impactSparks[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.age+=dt;if(p.age>p.ttl)impactSparks.splice(i,1)}}
 function update(dt){clock+=dt;updateBossHUD();if(clock<bossIntroUntil){fireHeld=false;return;} if(jumpZ>0||jumpVelocity>0){jumpZ=Math.max(0,jumpZ+jumpVelocity*dt);jumpVelocity-=15*dt;if(jumpZ===0)jumpVelocity=0;}if(slideRemaining>0)slideRemaining=Math.max(0,slideRemaining-dt);if(reloadingUntil>0&&clock>=reloadingUntil){reloadingUntil=0;player.ammo=activeWeapon().mag;sound(620,.18,'triangle',.07,900);updateHUD()}if(fireHeld)shoot();for(let j=burstQueue.length-1;j>=0;j--){const b=burstQueue[j];if(clock>=b.at){burstQueue.splice(j,1);if(state==='play'&&save.equipped===b.weapon){const w=WEAPONS[b.weapon];for(let k=0;k<upgrades.projectiles;k++){const angle=player.angle+(k-(upgrades.projectiles-1)/2)*.08;projectiles.push({x:player.x+Math.cos(angle)*.4,y:player.y+Math.sin(angle)*.4,px:player.x,py:player.y,dx:Math.cos(angle),dy:Math.sin(angle),age:0,weapon:b.weapon,color:w.color,speed:w.speed,damage:w.damage*upgrades.damage,ttl:2.1});}flashUntil=clock+.07;sound(390,.07,'sawtooth',.035,150);}}}
  let forward=0,strafe=0;if(keys.KeyW||keys.ArrowUp)forward++;if(keys.KeyS||keys.ArrowDown)forward--;if(keys.KeyA)strafe--;if(keys.KeyD)strafe++;forward-=stick.y;strafe+=stick.x;let len=Math.hypot(forward,strafe);if(len>1){forward/=len;strafe/=len}// Jumping onto the small blocks: a block is solid until the player is high enough.
@@ -995,7 +1016,7 @@ if(e.type==='octopus'){
  }
  continue;}const dist=Math.hypot(player.x-e.x,player.y-e.y);if(dist>1.04&&clock>e.stunUntil){const dx=(player.x-e.x)/dist*dt*e.speed,dy=(player.y-e.y)/dist*dt*e.speed;const beforeX=e.x,beforeY=e.y;moveEntity(e,dx,dy,.27);if(Math.hypot(beforeX-e.x,beforeY-e.y)<dt*.07){const sign=Math.sin(clock*1.7+e.phase)>0?1:-1;moveEntity(e,-dy*sign,dx*sign,.27)}}else if(dist<1.15&&clock-e.attackAt>1.25){e.attackAt=clock;damage(player.wave>6?14:9);if(state!=='play')break}}}
  if(gameMode!=='duel'&&roundDelay&&clock>roundDelay)endWave();$('swapBtn').style.display=gameMode==='duel'?'block':'none';if(gameMode==='duel'&&clock-duelSentAt>.07){duelSentAt=clock;netSend({t:'pos',x:player.x,y:player.y,a:player.angle,hp:Math.ceil(player.hp),w:save.equipped});}$('freezeHud').style.display=clock<freezeUntil?'block':'none';if(clock<freezeUntil)$('freezeTime').textContent=Math.max(0,freezeUntil-clock).toFixed(1);
- if(clock>noticeUntil)$('centerNotice').style.opacity='0';if(clock>hitUntil)$('crosshair').classList.remove('hit');$('hurt').style.opacity=clock<hurtUntil?String(.25+(hurtUntil-clock)*.7):'0';$('flash').style.opacity=clock<flashUntil?'1':'0';}
+ if(clock>noticeUntil)$('centerNotice').style.opacity='0';if(clock>hitUntil)$('crosshair').classList.remove('hit');$('hurt').style.opacity=clock<hurtUntil?String(Math.min(.82,.18+(hurtUntil-clock)*.95)):'0';$('flash').style.opacity=clock<flashUntil?'1':'0';}
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
 function cast(dx,dy){let mx=Math.floor(viewCam.x),my=Math.floor(viewCam.y);const deltaX=Math.abs(1/dx),deltaY=Math.abs(1/dy);let stepX=dx<0?-1:1,stepY=dy<0?-1:1;let sx=dx<0?(viewCam.x-mx)*deltaX:(mx+1-viewCam.x)*deltaX;let sy=dy<0?(viewCam.y-my)*deltaY:(my+1-viewCam.y)*deltaY;let side=0;for(let i=0;i<40;i++){if(sx<sy){sx+=deltaX;mx+=stepX;side=0}else{sy+=deltaY;my+=stepY;side=1}if(mx<0||my<0||mx>=W||my>=H||MAP[my][mx]!=='0')break}let dist=side===0?(mx-viewCam.x+(1-stepX)*.5)/dx:(my-viewCam.y+(1-stepY)*.5)/dy;dist=Math.max(.08,dist);let texture=side===0?viewCam.y+dist*dy:viewCam.x+dist*dx;texture-=Math.floor(texture);return {dist,side,texture,mx,my,tile:MAP[my]?.[mx]||'1'}}
 // Procedural material maps and orbital window art: self-contained, no internet assets
@@ -1206,7 +1227,28 @@ function makeAvatar(color,back){const [c,g]=texCanvas(238,320);const c1=color===
  g.strokeStyle='#849db5';g.lineWidth=2;g.beginPath();g.moveTo(-40,86);g.lineTo(-25,92);g.lineTo(25,92);g.lineTo(40,86);g.stroke();g.restore();return c;}
 const localAvatar=makeAvatar('cyan',true),rivalAvatar=makeAvatar('pink',false);
 function drawMyAvatar(){const bob=-jumpZ*sceneH*.19+Math.sin(clock*11)*Math.min(4,Math.abs(stick.x)+Math.abs(stick.y))*Math.min(1.4,sceneH/230),scale=sceneH/355,h=sceneH*.67,w=h*.744;
- ctx.save();ctx.translate(sceneW*.36,sceneH*.97+bob);ctx.shadowColor='rgba(55,220,255,.45)';ctx.shadowBlur=save.graphics==='high'?12:4;ctx.drawImage(localAvatar,-w*.5,-h,w,h);ctx.restore();ctx.save();const ws=sceneH/1450;ctx.translate(sceneW*.36+sceneH*.24,sceneH*.86+bob);ctx.rotate(-.20);ctx.shadowColor=activeWeapon().color;ctx.shadowBlur=save.graphics==='high'?10:3;ctx.drawImage(gunTextures[save.equipped],-150*ws,-265*ws,330*ws,280*ws);ctx.restore();
+ ctx.save();ctx.translate(sceneW*.36,sceneH*.97+bob);ctx.shadowColor='rgba(55,220,255,.45)';ctx.shadowBlur=save.graphics==='high'?12:4;ctx.drawImage(localAvatar,-w*.5,-h,w,h);
+ // Third-person run animation: alternating armored legs and swinging arms.
+ const moving=state==='play'&&jumpZ===0&&(Math.hypot(stick.x,stick.y)>.16||keys['w']||keys['a']||keys['s']||keys['d']||keys['arrowup']||keys['arrowdown']||keys['arrowleft']||keys['arrowright']);
+ if(moving){
+  const stride=Math.sin(clock*13),stride2=Math.sin(clock*13+Math.PI);
+  const legTop=-h*.36,legBottom=-h*.045,hip=w*.17;
+  ctx.shadowBlur=3;ctx.lineCap='round';
+  for(const [side,phase] of [[-1,stride],[1,stride2]]){
+   const x=side*hip,step=phase*w*.20,lift=Math.max(0,phase)*h*.105;
+   ctx.strokeStyle='#071626';ctx.lineWidth=Math.max(6,w*.17);
+   ctx.beginPath();ctx.moveTo(x,legTop);ctx.lineTo(x+step*.45,-h*.19-lift*.35);ctx.lineTo(x+step,legBottom-lift);ctx.stroke();
+   ctx.strokeStyle='#60c9ef';ctx.lineWidth=Math.max(2,w*.04);
+   ctx.beginPath();ctx.moveTo(x,legTop);ctx.lineTo(x+step*.45,-h*.19-lift*.35);ctx.stroke();
+   ctx.fillStyle='#132b44';ctx.fillRect(x+step-w*.09,legBottom-lift,w*.18,h*.055);
+  }
+  for(const [side,phase] of [[-1,stride2],[1,stride]]){
+   ctx.strokeStyle='#152c46';ctx.lineWidth=Math.max(5,w*.12);
+   ctx.beginPath();ctx.moveTo(side*w*.36,-h*.76);ctx.lineTo(side*w*.39+phase*w*.09,-h*.55);ctx.stroke();
+   ctx.strokeStyle='#67dfff';ctx.lineWidth=Math.max(2,w*.025);ctx.stroke();
+  }
+ }
+ ctx.restore();ctx.save();const ws=sceneH/1450;ctx.translate(sceneW*.36+sceneH*.24,sceneH*.86+bob);ctx.rotate(-.20);ctx.shadowColor=activeWeapon().color;ctx.shadowBlur=save.graphics==='high'?10:3;ctx.drawImage(gunTextures[save.equipped],-150*ws,-265*ws,330*ws,280*ws);ctx.restore();
  if(clock<flashUntil){ctx.save();ctx.globalCompositeOperation='lighter';ctx.fillStyle=activeWeapon().melee?'rgba(105,255,187,.44)':'rgba(118,227,255,.32)';ctx.beginPath();ctx.ellipse(sceneW*.56,sceneH*.48,sceneH*.15,sceneH*.26,-.42,0,Math.PI*2);ctx.fill();ctx.restore()}}
 function drawRival(){if(gameMode!=='duel'||!remote.connected)return;const e=remote,p=projected(e.x,e.y);if(Math.abs(p.alpha)>FOV*.70||p.cd<.12)return;const img=rivalAvatar,h=clamp(sceneH/p.cd*1.05,7,sceneH*3),w=h*.744,x0=p.sx-w*.5,y0=sceneH*.5-h*.62;
  const chunk=Math.max(2,Math.ceil(w/34));for(let x=Math.floor(x0);x<x0+w;x+=chunk){const zi=Math.floor(x/zStep);if(zi<0||zi>=zBuffer.length||p.cd>zBuffer[zi]+.13)continue;const srcX=clamp((x-x0)/w*img.width,0,img.width-1);ctx.drawImage(img,srcX,0,Math.max(1,Math.min(img.width-srcX,chunk/w*img.width)),img.height,x,y0,chunk+.75,h)}
@@ -1270,11 +1312,12 @@ window.addEventListener('contextmenu',e=>e.preventDefault());
 showMenu('menu');
 })();
 
+const $rank = id => document.getElementById(id);
 // Global ranking: optional Supabase anonymous auth; never embed a service_role key.
 let rankClient=null,rankUser=null,rankTab='clear',rankRunStarted=0;
 const rankSettings={url:localStorage.getItem('neon_rank_url')||'',key:localStorage.getItem('neon_rank_key')||'',nick:localStorage.getItem('neon_rank_nick')||''};
-$('rankUrl').value=rankSettings.url;$('rankKey').value=rankSettings.key;$('rankNickname').value=rankSettings.nick;
-function rankStatus(t){$('rankStatus').textContent=t;}
+$rank('rankUrl').value=rankSettings.url;$rank('rankKey').value=rankSettings.key;$rank('rankNickname').value=rankSettings.nick;
+function rankStatus(t){$rank('rankStatus').textContent=t;}
 function rankNick(){return (rankSettings.nick||'').trim();}
 function rankError(e){rankStatus('⚠ '+(e?.message||String(e)));}
 async function rankLoadLibrary(){
@@ -1283,7 +1326,7 @@ async function rankLoadLibrary(){
 }
 async function rankConnect(){
  try{
-  const url=$('rankUrl').value.trim(),key=$('rankKey').value.trim();
+  const url=$rank('rankUrl').value.trim(),key=$rank('rankKey').value.trim();
   if(!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(url))throw Error('Supabase 프로젝트 URL을 확인해 주세요.');
   if(!key)throw Error('Publishable 또는 anon 키를 입력하세요.');
   if(/service_role|sb_secret_/i.test(key))throw Error('비밀 키는 게임에 넣으면 안 됩니다.');
@@ -1298,7 +1341,7 @@ async function rankConnect(){
  }catch(e){rankClient=null;rankUser=null;rankError(e);}
 }
 async function rankSaveNickname(){
- const nick=$('rankNickname').value.trim();
+ const nick=$rank('rankNickname').value.trim();
  if(nick.length<2||nick.length>16){rankStatus('닉네임은 2~16자로 입력해 주세요.');return;}
  rankSettings.nick=nick;localStorage.setItem('neon_rank_nick',nick);
  rankStatus('닉네임 저장됨'+(rankClient?' · 서버에 반영 중':''));
@@ -1308,32 +1351,32 @@ async function rankSyncGold(){
  if(!rankClient||!rankUser){rankStatus('먼저 서버에 연결하세요.');return;}
  if(!rankNick()){rankStatus('먼저 닉네임을 저장하세요.');return;}
  try{
-  const {error}=await rankClient.from('neon_leaderboard').upsert({user_id:rankUser,nickname:rankNick(),gold:Math.max(0,Math.floor(save.gold)),updated_at:new Date().toISOString()},{onConflict:'user_id'});
+  const {error}=await rankClient.from('neon_leaderboard').upsert({user_id:rankUser,nickname:rankNick(),gold:Math.max(0,Math.floor(window.neonRankingGold?.() ?? 0)),updated_at:new Date().toISOString()},{onConflict:'user_id'});
   if(error)throw error;rankStatus('🟢 골드 기록이 서버에 갱신되었습니다.');
   if(document.querySelector('#rankingScreen.active'))await rankRefresh();
  }catch(e){rankError(e)}
 }
 async function rankSubmitClear(){
- if(gameMode!=='survival'||!rankRunStarted)return;
+ if(window.neonRankingMode?.()!=='survival'||!rankRunStarted)return;
  const seconds=Math.max(1,Math.round((performance.now()-rankRunStarted)/1000));rankRunStarted=0;
  if(!rankClient||!rankUser||!rankNick())return;
  try{
   const {data:old,error:readErr}=await rankClient.from('neon_leaderboard').select('best_clear_seconds').eq('user_id',rankUser).maybeSingle();
   if(readErr)throw readErr;
   const best=old?.best_clear_seconds==null?seconds:Math.min(old.best_clear_seconds,seconds);
-  const {error}=await rankClient.from('neon_leaderboard').upsert({user_id:rankUser,nickname:rankNick(),gold:Math.floor(save.gold),best_clear_seconds:best,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+  const {error}=await rankClient.from('neon_leaderboard').upsert({user_id:rankUser,nickname:rankNick(),gold:Math.floor(window.neonRankingGold?.() ?? 0),best_clear_seconds:best,updated_at:new Date().toISOString()},{onConflict:'user_id'});
   if(error)throw error;
   rankStatus('🏆 최종 클리어 기록 '+seconds+'초 등록 완료!');
  }catch(e){rankError(e)}
 }
 async function rankRefresh(){
- if(!rankClient){$('rankList').textContent='먼저 서버에 연결하세요.';return;}
- $('rankList').textContent='순위를 불러오는 중...';
+ if(!rankClient){$rank('rankList').textContent='먼저 서버에 연결하세요.';return;}
+ $rank('rankList').textContent='순위를 불러오는 중...';
  try{
   let q=rankClient.from('neon_leaderboard').select('nickname,gold,best_clear_seconds,updated_at');
   q=rankTab==='clear'?q.not('best_clear_seconds','is',null).order('best_clear_seconds',{ascending:true}):q.order('gold',{ascending:false});
   const {data,error}=await q.limit(50);if(error)throw error;
-  const root=$('rankList');root.replaceChildren();
+  const root=$rank('rankList');root.replaceChildren();
   if(!data?.length){root.textContent='아직 등록된 기록이 없습니다.';return;}
   data.forEach((r,i)=>{
    const line=document.createElement('div');line.style.cssText='display:flex;justify-content:space-between;gap:12px;padding:9px;border-bottom:1px solid #39506b';
@@ -1341,15 +1384,15 @@ async function rankRefresh(){
    const score=document.createElement('strong');score.textContent=rankTab==='clear'?Math.floor(r.best_clear_seconds/60)+'분 '+r.best_clear_seconds%60+'초':Number(r.gold).toLocaleString()+' G';
    line.append(name,score);root.appendChild(line);
   });
- }catch(e){$('rankList').textContent='랭킹 불러오기 실패';rankError(e)}
+ }catch(e){$rank('rankList').textContent='랭킹 불러오기 실패';rankError(e)}
 }
-$('rankingBtn').addEventListener('click',()=>{openScreen('rankingScreen');if(rankClient)rankRefresh()});
-$('rankSaveNick').addEventListener('click',rankSaveNickname);
-$('rankConnect').addEventListener('click',rankConnect);
-$('rankRefresh').addEventListener('click',rankRefresh);
-$('rankGoldSync').addEventListener('click',rankSyncGold);
-$('rankTabClear').addEventListener('click',()=>{rankTab='clear';$('rankTabClear').classList.add('primary-btn');$('rankTabGold').classList.remove('primary-btn');rankRefresh()});
-$('rankTabGold').addEventListener('click',()=>{rankTab='gold';$('rankTabGold').classList.add('primary-btn');$('rankTabClear').classList.remove('primary-btn');rankRefresh()});
+// Ranking button navigation handled by the independent capture listener.
+$rank('rankSaveNick').addEventListener('click',rankSaveNickname);
+$rank('rankConnect').addEventListener('click',rankConnect);
+$rank('rankRefresh').addEventListener('click',rankRefresh);
+$rank('rankGoldSync').addEventListener('click',rankSyncGold);
+$rank('rankTabClear').addEventListener('click',()=>{rankTab='clear';$rank('rankTabClear').classList.add('primary-btn');$rank('rankTabGold').classList.remove('primary-btn');rankRefresh()});
+$rank('rankTabGold').addEventListener('click',()=>{rankTab='gold';$rank('rankTabGold').classList.add('primary-btn');$rank('rankTabClear').classList.remove('primary-btn');rankRefresh()});
 </script>
 </body>
 </html>
