@@ -198,9 +198,16 @@ h1 span{color:#69eaff}
     <div id="bottomHint">LEFT: MOVE &nbsp;·&nbsp; RIGHT: LOOK &nbsp;·&nbsp; FIRE / RELOAD</div>
   </div>
   <button id="utilityBtn" aria-label="시간 정지 사용" style="display:none;position:absolute;right:max(12px,env(safe-area-inset-right));top:max(150px,calc(env(safe-area-inset-top) + 145px));bottom:auto;z-index:35;pointer-events:auto;touch-action:manipulation;flex-direction:column;align-items:center;justify-content:center;border:2px solid #7cd7ff;border-radius:12px;background:#15375c;color:#fff;font-weight:900;padding:8px;min-width:85px">⏳ 정지<small id="utilityCooldown" style="display:block;font-size:10px">준비 완료</small></button><div id="controls"><button id="jumpBtn" aria-label="점프">⬆<small>JUMP</small></button><button id="slideBtn" aria-label="슬라이딩">➤<small>SLIDE</small></button><button id="swapBtn" aria-label="결투 무기 변경">⚔<small>무기</small></button><div id="moveZone"><div id="stick"><div id="nub"></div></div></div><div id="lookZone"></div><button id="reloadBtn" aria-label="재장전">↻<small style="font-size:9px;margin-left:1px">R</small></button><button id="fireBtn" aria-label="발사"><span class="symbol">✦</span>FIRE</button></div>
+  <div id="lilyPuzzle" style="display:none;position:absolute;inset:0;z-index:350;background:linear-gradient(150deg,#103b42,#0a1a2e);color:white;align-items:center;justify-content:center;flex-direction:column;gap:6px;padding:8px;box-sizing:border-box">
+ <div style="font-weight:900;font-size:clamp(15px,3vw,23px)">🦎 카멜레온 릴리 · 숨은 그림 찾기</div>
+ <div id="lilyPuzzleInfo" style="font-size:14px">작고 반투명한 릴리를 찾아 클릭하세요!</div>
+ <canvas id="lilyPuzzleCanvas" width="900" height="420" style="width:min(96vw,900px);height:min(58vh,420px);border:3px solid #b3f6db;border-radius:12px;touch-action:manipulation;background:#e4f5ff"></canvas>
+ <div id="lilyPuzzleFeedback" style="font-size:13px;color:#e6f4ff">총 3라운드 · 전체 제한 시간 30초</div>
+</div>
+
   <section id="menu" role="dialog" aria-modal="true" aria-label="게임 메뉴"><div class="menu-inner">
     <div id="homeScreen" class="menu-screen active"><button id="adminCornerBtn" aria-label="운영자 모드" title="운영자 모드" style="position:absolute;right:12px;top:12px;z-index:8;background:#11253b;border:1px solid #426783;border-radius:8px;color:#aac7d8;font-size:12px;padding:7px 10px;cursor:pointer">⚙ ADMIN</button>
-      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 4.4</div>
+      <div class="eyebrow">● &nbsp; ORBITAL COMBAT · VERSION 4.5.2</div>
       <h1>NEON<br><span>ARENA</span></h1>
       <p id="menuDesc">우주 정거장 생존전 · 3인칭 시점 · 온라인 1:1 아레나</p>
       <div id="menuMeta"><span class="meta">◉ 1인칭 / 3인칭</span><span class="meta">◈ 웨이브 강화</span><span class="meta" id="bestScoreText">🏆 최고 0점</span></div>
@@ -216,7 +223,7 @@ h1 span{color:#69eaff}
     </div>
     <div id="bestiaryScreen" class="menu-screen"><div class="eyebrow">MONSTER ENCYCLOPEDIA</div><h2 class="menu-title">📖 몬스터 도감</h2><p class="menu-sub">직접 만난 몬스터만 기록됩니다. 이름을 누르면 생김새와 특징을 볼 수 있어요.</p><div id="bestiaryBook" class="bestiary-book"><div id="bestiaryIndex"></div><div id="bestiaryPage">몬스터를 선택하세요.</div></div><button class="menu-button" data-back>← 메인 메뉴</button></div><div id="statShopScreen" class="menu-screen"><div class="eyebrow">PERMANENT UPGRADES · CHAPTER <span class="chapterLabel">1</span></div><h2 class="menu-title">📈 영구 스탯 업그레이드</h2><p class="menu-sub">체력 · 방어력 · 공격력, 각각 최대 10레벨 · 레벨마다 기본 능력치의 15%씩 증가</p><div class="menu-row"><span class="gold-pill">🪙 <span class="goldAmount">0</span> 골드</span></div><div id="statShopCards" class="stat-shop-cards"></div><button class="menu-button" data-back>← 메인 메뉴</button></div>
 <div id="rankingScreen" class="menu-screen">
-      <div class="eyebrow">GLOBAL LEADERBOARD · VERSION 4.4</div>
+      <div class="eyebrow">GLOBAL LEADERBOARD · VERSION 4.5.2</div>
       <h2 class="menu-title">🏆 전체 유저 랭킹</h2>
       <p class="menu-sub">최종 클리어 시간 / 현재 보유 골드 · 보스 연습 기록 제외 · 클라이언트 기록은 조작 가능</p>
       <div class="settings-stack">
@@ -231,7 +238,7 @@ h1 span{color:#69eaff}
  <p class="menu-sub">원하는 보스를 선택해 바로 연습하세요. 일반 웨이브는 생략하며, 연습 기록은 생존전 보상에 반영되지 않습니다.</p>
  <div class="settings-stack">
  <div class="setting-card"><label for="practiceBossSelect">연습할 보스</label>
- <select id="practiceBossSelect"><option value="boss">폭격자 · 5웨이브</option><option value="billy">❄ 스노우맨 빌리 · 챕터 2 / 5웨이브</option><option value="octopus">심연의 문어 · 10웨이브</option><option value="abyss">심연의 눈 (20웨이브)</option><option value="drill">드릴라이너 · 15웨이브</option></select>
+ <select id="practiceBossSelect"><option value="boss">폭격자 · 5웨이브</option><option value="billy">❄ 스노우맨 빌리 · 챕터 2 / 5웨이브</option><option value="lily">🦎 카멜레온 릴리 · 챕터 2 / 10웨이브</option><option value="octopus">심연의 문어 · 10웨이브</option><option value="abyss">심연의 눈 (20웨이브)</option><option value="drill">드릴라이너 · 15웨이브</option></select>
  <p>보스별로 시작 페이즈를 선택할 수 있어요.</p></div>
  <div class="setting-card"><label for="practicePhaseSelect">시작 페이즈</label><select id="practicePhaseSelect"><option value="1">1페이즈 · 처음부터</option><option value="2">2페이즈 · 강화 상태</option></select><p id="practicePhaseHint">선택한 페이즈에서 바로 시작합니다.</p></div>
  </div>
@@ -423,7 +430,7 @@ const WEAPONS={
  tommy:{name:'토미건',grade:'희귀',mag:45,delay:.095,damage:2.6,reload:1.8,speed:12,icon:'💠',ammo:'RETRO ION',color:'#70c5ff'},
  minigun:{name:'미니건',grade:'에픽',mag:110,delay:.052,damage:2.2,reload:3.1,speed:15,icon:'🌀',ammo:'STORM CELLS',color:'#c78dff'},
  laser:{name:'레이저 건',grade:'전설',mag:26,delay:.19,damage:8,reload:1.8,speed:23,icon:'🌟',ammo:'LASER CORE',color:'#ffe87a'},
- blackhole:{name:'블랙홀 건',grade:'얼티밋',mag:8,delay:1.1,damage:165,reload:3.2,speed:14,icon:'🕳️',ammo:'SINGULARITY CORE',color:'#a76aff',splash:2.3},
+ blackhole:{name:'블랙홀 건',grade:'얼티밋',mag:8,delay:0.7,damage:165,reload:3.2,speed:14,icon:'🕳️',ammo:'SINGULARITY CORE',color:'#a76aff',splash:2.3},
  supermini:{name:'슈퍼 미니건',grade:'얼티밋',mag:Infinity,delay:.1,damage:7.5,reload:0,speed:19,icon:'💥',ammo:'∞ · UNLIMITED',color:'#ffe26a',infinite:true},
  katana:{name:'카타나',grade:'희귀',mag:1,delay:.34,damage:7.5,reload:0,speed:0,icon:'🗡️',ammo:'KATANA · 무한',color:'#8efff0',melee:true},
  burst:{name:'점사소총',grade:'고급',mag:36,delay:.56,damage:2.3,reload:1.5,speed:16,icon:'🔫',ammo:'3-ROUND BURST',color:'#a2c7ff',burst:true},
@@ -627,42 +634,43 @@ const BESTIARY=[
  ["drill", "드릴라이너", "외형: 거대한 굴착 드릴과 금속 장갑을 갖춘 지하 돌격형 기계 보스.\n등장: 챕터 1 · 15웨이브.\n지하 돌격: 약 7초 주기로 땅속에 들어가 플레이어 위치에 큰 위험 원을 표시한다. 기본 예고는 약 3초, 3페이즈는 약 1.7초다.\n흙 폭발: 약 10초 주기로 여러 위험 원을 만든다. 기본 9개, 3페이즈 16개이며 예고는 약 3초다.\n2페이즈: 드릴 위치를 추적하는 껍데기 선택 미니게임이 진행된다.\n3페이즈: 더 많은 흙 공격과 시야 왜곡이 추가된다. 시야 왜곡은 약 10초마다 발생하고 약 3.2초간 지속된다.\n심연의 눈 수호 보스: 3페이즈로 등장하며 흙 위험 원 19개, 예고 2초; 지하 돌격 예고 1초.\n공략: 원이 생성되면 끝까지 한곳에 서 있지 말고 빈 공간으로 이동한다."],
  ["abyss", "심연의 눈", "외형: 심연의 중심에 떠 있는 거대한 눈 형태의 최종 보스. 어두운 공간과 보랏빛·붉은빛 공격 효과가 특징이다.\n등장: 챕터 1 · 20웨이브.\n1페이즈: 약 7초마다 위치 이동·돌진 및 레이저 공격을 사용한다. 약 10초마다 하수인 3마리를 소환하고 약 10초마다 9개의 위험 원을 만들며 약 3초 뒤 폭발시킨다.\n2페이즈: 기억력·수학·무기 등급을 묻는 미니게임이 진행된다.\n3페이즈: 눈의 체력은 2. 수정 4개를 파괴해야 눈을 공격할 수 있다. 수정 1~3개를 깰 때마다 폭격자·심연의 문어·드릴라이너가 차례로 소환되며 수호 보스를 먼저 처치해야 다음 수정을 공격할 수 있다.\n3페이즈 공격: 약 6초마다 레이저(예고 약 1.5초), 약 12초마다 하수인 2마리, 약 9초마다 7개 위험 원(예고 약 2.5초). 수호 보스가 살아 있는 동안 눈의 공격은 멈춘다.\n두 번째 수정 라운드: 눈을 한 번 공격하면 수정이 재생성되고, 수호 보스들이 강화 페이즈로 다시 등장한다. 두 번째 방어를 뚫고 마지막 공격을 성공시키면 최종 퀴즈가 열린다."],
  ["snowman", "눈사람", "외형: 하얀 눈으로 만든 둥근 몸과 머리, 검은 모자, 당근 코, 나뭇가지 팔을 지닌 겨울 몬스터.\n등장: 챕터 2 일반 웨이브.\n행동: 플레이어를 추격한다.\n공격: 근거리 접촉 공격. 약 1.25초 간격으로 타격한다.\n특징: 설원 배경과 색이 비슷하므로 움직임을 주의 깊게 살펴야 한다."],
- ["billy", "스노우맨 빌리", "외형: 일반 눈사람보다 거대한 몸집, 검은 모자, 주황색 당근 코, 나뭇가지 팔을 지닌 눈사람 보스. 기본 체력 900 HP.\n등장: 챕터 2 · 5웨이브.\n1페이즈 — 눈덩이: 약 5초마다 플레이어 방향으로 눈덩이를 발사한다.\n1페이즈 — 당근: 약 7초마다 플레이어 위치에 당근을 꽂아 위험 원을 만든다. 1초 뒤 폭발하므로 원 밖으로 피해야 한다.\n2페이즈: 체력이 절반 이하가 되면 시작. 빌리가 모자 안에 숨어 약 3초 동안 맵을 빠르게 지그재그로 이동한다.\n모자에서 등장: 사방으로 나뭇가지 탄환 16개를 발사한다. 이 패턴은 모자에서 나온 뒤 약 7초 간격으로 다시 시도된다.\n특징: 2페이즈에도 눈덩이·당근 공격을 유지한다. 모자가 움직일 때는 거리를 확보하고 나뭇가지 사이로 회피한다."]
+ ["lily", "카멜레온 릴리", "외형: 녹색과 청록색의 비늘, 커다란 회전 눈, 꼬불꼬불한 꼬리, 길게 뻗는 분홍색 혀를 가진 거대한 카멜레온. 기본 체력 8000 HP.\n등장: 챕터 2 · 10웨이브.\n1페이즈: 넓은 직사각형 형태의 혀 공격이 맵 끝까지 뻗는다. 공격 방향과 경고 영역을 보고 옆으로 피해야 한다.\n투명화: 5초 동안 투명해지고 맵의 다른 위치로 순간이동한다. 투명화 종료 후 7초를 기다린 다음 다시 투명해진다. 다시 나타날 때 12방향 혀 탄막을 발사한다.\n2페이즈: 체력이 소진되면 숨은 그림 찾기. 보스들이 모인 그림 속 작고 반투명한 릴리를 총 3번 찾는다. 제한 시간은 전체 30초, 마지막 문제는 어렵지만 릴리가 조금 더 크고 선명하게 보인다.\n성공: 릴리를 즉시 격파한다."],
+ ["billy", "스노우맨 빌리", "외형: 일반 눈사람보다 거대한 몸집, 검은 모자, 주황색 당근 코, 나뭇가지 팔을 지닌 눈사람 보스. 기본 체력 6000 HP.\n등장: 챕터 2 · 5웨이브.\n1페이즈 — 눈덩이: 약 5초마다 플레이어 방향으로 눈덩이를 발사한다.\n1페이즈 — 당근: 약 7초마다 플레이어 위치에 당근을 꽂아 위험 원을 만든다. 1초 뒤 폭발하므로 원 밖으로 피해야 한다.\n2페이즈: 체력이 절반 이하가 되면 시작. 빌리가 모자 안에 숨어 약 3초 동안 맵을 빠르게 지그재그로 이동한다.\n모자에서 등장: 사방으로 나뭇가지 탄환 16개를 발사한다. 이 패턴은 모자에서 나온 뒤 약 7초 간격으로 다시 시도된다.\n특징: 2페이즈에도 눈덩이·당근 공격을 유지한다. 모자가 움직일 때는 거리를 확보하고 나뭇가지 사이로 회피한다."]
 ];
 function encounterMonster(type){if(!BESTIARY.some(e=>e[0]===type)||save.discovered.includes(type))return;save.discovered.push(type);persist();}
-function bestiaryImage(type){return type==='boss'?bossSprite:type==='octopus'?octopusSprite:type==='drill'?drillSprite:type==='abyss'?abyssEyeSprite:type==='billy'?billySprite:type==='snowman'?snowmanSprite:spriteVariants[type==='yellow'?4:type==='pink'?1:0];}
+function bestiaryImage(type){return type==='boss'?bossSprite:type==='octopus'?octopusSprite:type==='drill'?drillSprite:type==='abyss'?abyssEyeSprite:type==='billy'?billySprite:type==='lily'?lilySprite:type==='snowman'?snowmanSprite:spriteVariants[type==='yellow'?4:type==='pink'?1:0];}
 function paintBestiary(){const index=$('bestiaryIndex'),page=$('bestiaryPage');index.innerHTML='';page.textContent='왼쪽에서 발견한 몬스터를 선택하세요.';
  BESTIARY.forEach(([type,name,desc],i)=>{const found=save.discovered.includes(type),btn=document.createElement('button');btn.textContent='#'+(i+1)+' '+(found?name:'??? · 미발견');btn.disabled=!found;
  btn.onclick=()=>{page.innerHTML='';const h=document.createElement('h3');h.textContent='#'+(i+1)+' '+name;const img=bestiaryImage(type);if(img){const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);page.appendChild(c);}const p=document.createElement('p');p.style.whiteSpace='pre-line';p.style.textAlign='left';p.style.fontSize='13px';p.style.lineHeight='1.75';p.textContent=desc;page.append(h,p);};index.append(btn);});}
 $('bestiaryBtn').addEventListener('click',()=>openScreen('bestiaryScreen'));
-function spawnWave(){const bossType=gameMode==='practice'?practiceBoss:(activeChapter===2&&player.wave===5)?'billy':player.wave===20?'abyss':player.wave%20===15?'drill':player.wave%10===0?'octopus':'boss';const n=player.wave%5===0?0:Math.min(4+player.wave*2,22);enemies=[];let attempts=0;while(enemies.length<n&&attempts<1400){attempts++;const x=rand(1.6,18.4),y=rand(1.6,17.4),dis=Math.hypot(x-player.x,y-player.y);if(!canStand(x,y,.38)||dis<4.3||enemies.some(e=>Math.hypot(x-e.x,y-e.y)<1.15))continue;const baseHp=2.5+Math.floor(player.wave/4)*.8,baseSpeed=rand(.53,.75)+player.wave*.023;
+function spawnWave(){const bossType=gameMode==='practice'?practiceBoss:(activeChapter===2&&player.wave===5)?'billy':(activeChapter===2&&player.wave===10)?'lily':player.wave===20?'abyss':player.wave%20===15?'drill':player.wave%10===0?'octopus':'boss';const n=player.wave%5===0?0:Math.min(4+player.wave*2,22);enemies=[];let attempts=0;while(enemies.length<n&&attempts<1400){attempts++;const x=rand(1.6,18.4),y=rand(1.6,17.4),dis=Math.hypot(x-player.x,y-player.y);if(!canStand(x,y,.38)||dis<4.3||enemies.some(e=>Math.hypot(x-e.x,y-e.y)<1.15))continue;const chapterTwoMobs=activeChapter===2&&(gameMode==='survival'||gameMode==='practice');const baseHp=(2.5+Math.floor(player.wave/4)*.8)*(chapterTwoMobs?4:1),baseSpeed=rand(.53,.75)+player.wave*.023;
  const yellow=player.wave>=10&&Math.random()<.28;
- enemies.push({x,y,hp:baseHp*(yellow?2:1),maxhp:baseHp*(yellow?2:1),speed:baseSpeed*(yellow?1.4:1),type:(activeChapter===2&&gameMode==='survival'||gameMode==='practice'&&practiceBoss==='billy')?'snowman':yellow?'yellow':Math.random()<.27?'pink':'cyan',phase:rand(0,6),hitAt:0,attackAt:0,stunUntil:0});}for(const e of enemies)encounterMonster(e.type);if(player.wave%5===0){const octo=bossType==='octopus';const hp=bossType==='billy'?900:(2.5+Math.floor(player.wave/4)*.8)*168;const bx=10,by=8.5; /* central arena spawn */enemies.push({x:bx,y:by,hp,maxhp:hp,phaseOneMax:hp,speed:.36,type:bossType,phase:0,hitAt:0,attackAt:0,stunUntil:0,blastAt:0,blastX:0,blastY:0,blastZones:[],phaseTwo:false,chargeAt:0,chargeUntil:0,inkAt:clock+10,tentacleAt:clock+3,laserAt:clock+5,summonAt:clock+6,eyeAt:0,lashUntil:0,lashAngle:0,drillAt:clock+3,soilAt:clock+10,drillZones:[],drillBlastAt:0,drillMode:'',buriedUntil:0,drillDiveStart:0,drillEmergeUntil:0,drillTargetX:bx,drillTargetY:by,phaseThree:false,billySnowAt:clock+5,billyCarrotAt:clock+3,billyCarrots:[],billySnowballs:[],billyPhaseStartAt:0,billyHatUntil:0,billyHatNextAt:0,billyHatDirection:0,billyBranches:[],billyBranchAt:0,abyssStage:0,abyssHits:0,abyssCrystals:[],abyssCrystalRound:0,abyssTransitionUntil:0,abyssChargeAt:clock+5,abyssLaserAt:clock+7,abyssSummonAt:clock+8,abyssSoilAt:clock+9,abyssWarningAt:0,abyssWarningZones:[],abyssLaserUntil:0,abyssLaserAngle:0,drillBursts:[],memoryTriggered:false,blindAt:clock+10,blindUntil:0});encounterMonster(bossType);bossIntroUntil=clock+5.0;bossIntroStart=clock;phaseFlashUntil=0;}else{bossIntroUntil=0;}roundDelay=0;showNotice('WAVE '+String(player.wave).padStart(2,'0')+(player.wave%5===0?(bossType==='billy'?' · ❄ 스노우맨 빌리 보스전':bossType==='abyss'?' · 👁 심연의 눈 · 최종 보스':bossType==='drill'?' · ⚠ 드릴라이너 보스전':bossType==='octopus'?' · ⚠ 심연의 문어 보스전':' · ⚠ BULLDOZER 보스전'):' · 보안 로봇 '+enemies.length+'대'),2.1);updateHUD();sound(450,.35,'sine',.1,160)}
+ enemies.push({x,y,hp:baseHp*(yellow?2:1),maxhp:baseHp*(yellow?2:1),speed:baseSpeed*(yellow?1.4:1),type:(activeChapter===2&&gameMode==='survival'||gameMode==='practice'&&(practiceBoss==='billy'||practiceBoss==='lily'))?'snowman':yellow?'yellow':Math.random()<.27?'pink':'cyan',phase:rand(0,6),hitAt:0,attackAt:0,stunUntil:0});}for(const e of enemies)encounterMonster(e.type);if(player.wave%5===0){const octo=bossType==='octopus';const hp=bossType==='billy'?6000:bossType==='lily'?8000:(2.5+Math.floor(player.wave/4)*.8)*168;const bx=10,by=8.5; /* central arena spawn */enemies.push({x:bx,y:by,hp,maxhp:hp,phaseOneMax:hp,speed:.36,type:bossType,phase:0,hitAt:0,attackAt:0,stunUntil:0,blastAt:0,blastX:0,blastY:0,blastZones:[],phaseTwo:false,chargeAt:0,chargeUntil:0,inkAt:clock+10,tentacleAt:clock+3,laserAt:clock+5,summonAt:clock+6,eyeAt:0,lashUntil:0,lashAngle:0,drillAt:clock+3,soilAt:clock+10,drillZones:[],drillBlastAt:0,drillMode:'',buriedUntil:0,drillDiveStart:0,drillEmergeUntil:0,drillTargetX:bx,drillTargetY:by,phaseThree:false,billySnowAt:clock+5,billyCarrotAt:clock+3,billyCarrots:[],billySnowballs:[],billyPhaseStartAt:0,billyHatUntil:0,billyHatNextAt:0,billyHatDirection:0,billyBranches:[],billyBranchAt:0,lilyTongueAt:clock+2.5,lilyInvisibleAt:clock+7,lilyInvisibleUntil:0,lilyTongues:[],lilyPhaseStart:false,abyssStage:0,abyssHits:0,abyssCrystals:[],abyssCrystalRound:0,abyssTransitionUntil:0,abyssChargeAt:clock+5,abyssLaserAt:clock+7,abyssSummonAt:clock+8,abyssSoilAt:clock+9,abyssWarningAt:0,abyssWarningZones:[],abyssLaserUntil:0,abyssLaserAngle:0,drillBursts:[],memoryTriggered:false,blindAt:clock+10,blindUntil:0});encounterMonster(bossType);bossIntroUntil=clock+5.0;bossIntroStart=clock;phaseFlashUntil=0;}else{bossIntroUntil=0;}roundDelay=0;showNotice('WAVE '+String(player.wave).padStart(2,'0')+(player.wave%5===0?(bossType==='billy'?' · ❄ 스노우맨 빌리 보스전':bossType==='lily'?' · 🦎 카멜레온 릴리 보스전':bossType==='abyss'?' · 👁 심연의 눈 · 최종 보스':bossType==='drill'?' · ⚠ 드릴라이너 보스전':bossType==='octopus'?' · ⚠ 심연의 문어 보스전':' · ⚠ BULLDOZER 보스전'):' · 보안 로봇 '+enemies.length+'대'),2.1);updateHUD();sound(450,.35,'sine',.1,160)}
 function showNotice(msg,dur=1.3){$('centerNotice').textContent=msg;noticeUntil=clock+dur;$('centerNotice').style.opacity='1'}
 function updateHUD(){const hp=upgrades.maxHP;$('healthNum').textContent=Math.ceil(player.hp)+' / '+hp;$('healthFill').style.width=clamp(player.hp/hp*100,0,100)+'%';$('healthFill').style.background=player.hp/hp<=.3?'linear-gradient(90deg,#ff517d,#ffb569)':'linear-gradient(90deg,#4ff8d7,#63e7ff)';$('ammoCount').textContent=activeWeapon().melee||activeWeapon().infinite?'∞':player.ammo;$('ammoMax').textContent=activeWeapon().melee?' / MELEE':activeWeapon().infinite?' / ∞':reloadingUntil>clock?' / RELOADING':' / '+activeWeapon().mag;$('ammoTitle').textContent=activeWeapon().ammo;$('weaponHud').textContent=activeWeapon().icon+' '+activeWeapon().name;$('goldHud').textContent=save.gold.toLocaleString();$('scoreText').textContent=String(player.score).padStart(4,'0');$('waveText').textContent=gameMode==='duel'?String(duelRound).padStart(2,'0'):String(player.wave).padStart(2,'0');$('botsText').textContent=gameMode==='duel'?duelWins+' : '+duelLosses:String(enemies.length).padStart(2,'0');$('enemyLabel').textContent=gameMode==='duel'?'WIN : LOSS':'BOTS';$('waveText').parentElement.querySelector('.small-label').textContent=gameMode==='duel'?'ROUND':gameMode==='practice'?'PRACTICE':'WAVE';
  $('buffHud').textContent=['ATK ×'+upgrades.damage.toFixed(2),'SPD ×'+upgrades.speed.toFixed(2),'DEF -'+Math.round((1-upgrades.defense)*100)+'%','×'+upgrades.projectiles+' SHOT','ROF ×'+upgrades.fireRate.toFixed(2)].join('  ·  ');}
-function startGame(){adminBonusChoices=0;adminTestRun=false;activeChapter=save.selectedChapter;rankRunStarted=performance.now();abyssFinalBoss=null;$('abyssFinalQuiz').style.display='none';abyssMusicActive=false;abyssMusicNext=0;clearAbyssTrials();$('abyssEnding').style.display='none';clearDrillShell();drillMemory=null;$('drillMemoryOverlay').style.display='none';leaveDuel();gameMode='survival';MAP=SURVIVAL_MAP;viewMode=save.camera;$('pauseBtn').textContent='Ⅱ';player={x:3.5,y:8,angle:0,hp:Math.round(100*statMultiplier('hp')),ammo:activeWeapon().mag,score:0,wave:1,kills:0};upgrades={damage:statMultiplier('damage'),speed:1,defense:1/statMultiplier('defense'),maxHP:Math.round(100*statMultiplier('hp')),projectiles:1,fireRate:1};freezeUntil=0;utilityReadyAt=0;medkitReadyWave=1;pendingFreeze=false;projectiles=[];explosions=[];impactSparks=[];burstQueue=[];clock=0;lookPitch=0;rampElevation=0;jumpZ=0;jumpVelocity=0;lastTime=performance.now();reloadingUntil=0;shootLast=-100;fireHeld=false;stick={x:0,y:0};movePointer=null;lookPointer=null;state='play';$('upgradeOverlay').classList.remove('active');menu.classList.add('hidden');hud.classList.add('show');controls.classList.add('active');$('bottomHint').style.display=touchDevice?'none':'block';updateCameraButton();spawnWave();updateHUD();updateUtilityButton();try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}if(touchDevice){try{game.requestFullscreen?.().then(()=>screen.orientation?.lock?.('landscape')).catch(()=>{})}catch(e){}}}
+function startGame(){stopLilyPuzzle();adminBonusChoices=0;adminTestRun=false;activeChapter=save.selectedChapter;rankRunStarted=performance.now();abyssFinalBoss=null;$('abyssFinalQuiz').style.display='none';abyssMusicActive=false;abyssMusicNext=0;clearAbyssTrials();$('abyssEnding').style.display='none';clearDrillShell();drillMemory=null;$('drillMemoryOverlay').style.display='none';leaveDuel();gameMode='survival';MAP=SURVIVAL_MAP;viewMode=save.camera;$('pauseBtn').textContent='Ⅱ';player={x:3.5,y:8,angle:0,hp:Math.round(100*statMultiplier('hp')),ammo:activeWeapon().mag,score:0,wave:1,kills:0};upgrades={damage:statMultiplier('damage'),speed:1,defense:1/statMultiplier('defense'),maxHP:Math.round(100*statMultiplier('hp')),projectiles:1,fireRate:1};freezeUntil=0;utilityReadyAt=0;medkitReadyWave=1;pendingFreeze=false;projectiles=[];explosions=[];impactSparks=[];burstQueue=[];clock=0;lookPitch=0;rampElevation=0;jumpZ=0;jumpVelocity=0;lastTime=performance.now();reloadingUntil=0;shootLast=-100;fireHeld=false;stick={x:0,y:0};movePointer=null;lookPointer=null;state='play';$('upgradeOverlay').classList.remove('active');menu.classList.add('hidden');hud.classList.add('show');controls.classList.add('active');$('bottomHint').style.display=touchDevice?'none':'block';updateCameraButton();spawnWave();updateHUD();updateUtilityButton();try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume()}catch(e){}if(touchDevice){try{game.requestFullscreen?.().then(()=>screen.orientation?.lock?.('landscape')).catch(()=>{})}catch(e){}}}
 function refreshPracticePhases(){
  const boss=$('practiceBossSelect').value,select=$('practicePhaseSelect'),prev=Number(select.value)||1;
- select.innerHTML='<option value="1">1페이즈 · 처음부터</option><option value="2">2페이즈 · '+(boss==='abyss'?'차원 시험':boss==='drill'?'야바위 미니게임':'강화 보스전')+'</option>'+((boss==='drill'||boss==='abyss')?'<option value="3">3페이즈 · 폭주 보스전</option>':'');
+ select.innerHTML='<option value="1">1페이즈 · 처음부터</option><option value="2">2페이즈 · '+(boss==='abyss'?'차원 시험':boss==='drill'?'야바위 미니게임':boss==='lily'?'숨은 그림 찾기':'강화 보스전')+'</option>'+((boss==='drill'||boss==='abyss')?'<option value="3">3페이즈 · 폭주 보스전</option>':'');
  select.value=String(boss==='billy'?1:Math.min(prev,(boss==='drill'||boss==='abyss')?3:2));for(const o of select.options)if(boss==='billy'&&o.value!=='1')o.remove();
- $('practicePhaseHint').textContent=boss==='billy'?'눈덩이 5초 간격 발사 · 당근 위험 원 1초 예고 후 발사':boss==='abyss'?'2페이즈는 차원 시험, 3페이즈는 수정 파괴부터 시작합니다.':boss==='drill'?'2페이즈는 야바위부터, 3페이즈는 폭주 전투부터 시작합니다.':'2페이즈는 강화된 보스와 바로 전투합니다.';
+ $('practicePhaseHint').textContent=boss==='lily'?'혀 공격 · 투명화 5초 후 대기 7초 · 2페이즈 숨은 그림 찾기':boss==='billy'?'눈덩이 5초 간격 발사 · 당근 위험 원 1초 예고 후 발사':boss==='abyss'?'2페이즈는 차원 시험, 3페이즈는 수정 파괴부터 시작합니다.':boss==='drill'?'2페이즈는 야바위부터, 3페이즈는 폭주 전투부터 시작합니다.':'2페이즈는 강화된 보스와 바로 전투합니다.';
 }
 $('practiceBossSelect').addEventListener('change',refreshPracticePhases);
 refreshPracticePhases();
 function startBossPractice(){
  const choice=$('practiceBossSelect').value;
- practiceBoss=['boss','octopus','drill','abyss','billy'].includes(choice)?choice:'boss';
+ practiceBoss=['boss','octopus','drill','abyss','billy','lily'].includes(choice)?choice:'boss';
  practicePhase=practiceBoss==='billy'?1:Math.max(1,Math.min((practiceBoss==='drill'||practiceBoss==='abyss')?3:2,Number($('practicePhaseSelect').value)||1));
  startGame();
- gameMode='practice';activeChapter=practiceBoss==='billy'?2:1;player.wave=practiceBoss==='abyss'?20:practiceBoss==='drill'?15:practiceBoss==='octopus'?10:5;
+ gameMode='practice';activeChapter=(practiceBoss==='billy'||practiceBoss==='lily')?2:1;player.wave=practiceBoss==='abyss'?20:practiceBoss==='drill'?15:(practiceBoss==='octopus'||practiceBoss==='lily')?10:5;
  enemies=[];roundDelay=0;projectiles=[];explosions=[];inkUntil=0;zBuffer=new Float32Array(Math.ceil(sceneW/zStep)).fill(999);
  spawnWave();
  if(practicePhase>1){
   const boss=enemies.find(e=>e.type===practiceBoss);
   if(boss){
    bossIntroUntil=0;bossIntroStart=0;
-   if(practiceBoss==='billy'&&practicePhase===2){boss.phaseTwo=true;boss.hp=boss.maxhp*.75;boss.maxhp=boss.hp;boss.billyPhaseStartAt=clock;boss.billyHatNextAt=clock+.7;boss.billyHatUntil=0;boss.billyBranches=[];bossIntroUntil=0;showNotice('❄ 빌리 2페이즈 연습 시작',2);}else if(practiceBoss==='abyss'){if(practicePhase===2)startAbyssTrials(boss);else startAbyssThree(boss);}else if(practiceBoss==='drill'){
+   if(practiceBoss==='lily'&&practicePhase===2){startLilyPuzzle(boss);}else if(practiceBoss==='billy'&&practicePhase===2){boss.phaseTwo=true;boss.hp=boss.maxhp*.75;boss.maxhp=boss.hp;boss.billyPhaseStartAt=clock;boss.billyHatNextAt=clock+.7;boss.billyHatUntil=0;boss.billyBranches=[];bossIntroUntil=0;showNotice('❄ 빌리 2페이즈 연습 시작',2);}else if(practiceBoss==='abyss'){if(practicePhase===2)startAbyssTrials(boss);else startAbyssThree(boss);}else if(practiceBoss==='drill'){
     if(practicePhase===2){boss.phaseTwo=true;boss.hp=1;boss.maxhp=1;boss.drillZones=[];boss.drillBlastAt=0;boss.drillBursts=[];startDrillShellGame(boss);}
     else startDrillPhaseThree(boss);
    }else{
@@ -685,7 +693,7 @@ function jump(){
 function slide(){if(state!=='play'||slideRemaining>0||jumpZ>0)return;slideRemaining=.75;showNotice('➤ SLIDE',.4)}
 function refreshMenu(){document.querySelectorAll('.goldAmount').forEach(e=>e.textContent=save.gold.toLocaleString());$('equippedSummary').textContent='장착 · '+activeWeapon().name;$('bestScoreText').textContent='🏆 최고 '+save.best.toLocaleString()+'점';$('graphicsSelect').value=save.graphics;$('cameraSelect').value=save.camera;$('sensitivitySlider').value=save.sensitivity;$('sensitivityValue').textContent=save.sensitivity.toFixed(1)+'×';$('rollBtn').disabled=save.gold<100;$('roll10Btn').disabled=save.gold<1000;$('roll25Btn').disabled=save.gold<2500;}
 function openScreen(id){document.querySelectorAll('.menu-screen').forEach(e=>e.classList.toggle('active',e.id===id));refreshMenu();if(id==='armoryScreen'){paintArmory();paintUtilities();}if(id==='statShopScreen')paintStatShop();if(id==='bestiaryScreen')paintBestiary();syncChapterUI();}
-function showMenu(kind){if(kind==='over'||kind==='menu')adminBonusChoices=0;if(kind==='over'){fireHeld=false;roundDelay=0;bossIntroUntil=0;projectiles=[];explosions=[];burstQueue=[];enemies=[];}$('adminOverlay').style.display='none';abyssFinalBoss=null;$('abyssFinalQuiz').style.display='none';clearAbyssTrials();$('abyssEnding').style.display='none';if(drillShell)clearDrillShell();drillMemory=null;$('drillMemoryOverlay').style.display='none';state=kind;$('upgradeOverlay').classList.remove('active');fireHeld=false;stick.x=stick.y=0;resetStick();controls.classList.remove('active');menu.classList.remove('hidden');hud.classList.toggle('show',kind==='pause');$('utilityBtn').style.display='none';$('bossStatus').style.display='none';$('centerNotice').style.opacity='0';if(document.pointerLockElement)document.exitPointerLock?.();
+function showMenu(kind){stopLilyPuzzle();if(kind==='over'||kind==='menu')adminBonusChoices=0;if(kind==='over'){fireHeld=false;roundDelay=0;bossIntroUntil=0;projectiles=[];explosions=[];burstQueue=[];enemies=[];}$('adminOverlay').style.display='none';abyssFinalBoss=null;$('abyssFinalQuiz').style.display='none';clearAbyssTrials();$('abyssEnding').style.display='none';if(drillShell)clearDrillShell();drillMemory=null;$('drillMemoryOverlay').style.display='none';state=kind;$('upgradeOverlay').classList.remove('active');fireHeld=false;stick.x=stick.y=0;resetStick();controls.classList.remove('active');menu.classList.remove('hidden');hud.classList.toggle('show',kind==='pause');$('utilityBtn').style.display='none';$('bossStatus').style.display='none';$('centerNotice').style.opacity='0';if(document.pointerLockElement)document.exitPointerLock?.();
  if(kind==='over'){if(gameMode!=='practice'){save.best=Math.max(save.best,player.score);persist();}$('menuDesc').textContent='게임 종료! '+player.score.toLocaleString()+'점 · 웨이브 '+player.wave+' · 로봇 '+player.kills+'대';$('startBtn').textContent=gameMode==='practice'?'↻ 보스 다시 연습':'↻ 다시 도전';}
  else if(kind==='pause'){$('menuDesc').textContent='일시 정지 · 웨이브 '+player.wave+' · 언제든 이어하기 가능';$('startBtn').textContent='▶ 이어하기';}
  else{$('menuDesc').textContent='로봇 생존전 또는 친구와 온라인 1:1 결투에 도전하세요!';$('startBtn').textContent='▶ 게임 시작';}
@@ -792,7 +800,7 @@ function endWave(){if(state!=='play')return;roundDelay=0;
  if(gameMode==='practice'){
   fireHeld=false;state='practicewin';controls.classList.remove('active');
   hud.classList.remove('show');menu.classList.remove('hidden');
-  $('menuDesc').textContent='보스 연습 성공! · '+(practiceBoss==='drill'?'드릴라이너':practiceBoss==='octopus'?'심연의 문어':'폭격자')+' 격파';
+  $('menuDesc').textContent='보스 연습 성공! · '+(practiceBoss==='drill'?'드릴라이너':practiceBoss==='octopus'?'심연의 문어':practiceBoss==='lily'?'카멜레온 릴리':practiceBoss==='billy'?'스노우맨 빌리':'폭격자')+' 격파';
   $('startBtn').textContent='↻ 같은 보스 다시 연습';
   $('returnMainBtn').style.display='inline-flex';openScreen('homeScreen');
   return;
@@ -995,6 +1003,54 @@ function startDrillTapChallenge(g){
 }
 let abyssTrial=null;
 const abyssTrialWeapons=Object.keys(WEAPONS);
+
+let lilyPuzzle=null;
+function stopLilyPuzzle(){if(lilyPuzzle?.timer)clearInterval(lilyPuzzle.timer);lilyPuzzle=null;const el=$('lilyPuzzle');if(el)el.style.display='none';}
+function startLilyPuzzle(boss){
+ if(lilyPuzzle)return;
+ state='lilyPuzzle';fireHeld=false;controls.classList.remove('active');hud.classList.remove('show');$('utilityBtn').style.display='none';$('bossStatus').style.display='none';if(document.pointerLockElement)document.exitPointerLock?.();
+ $('centerNotice').style.opacity='0';$('lilyPuzzle').style.display='flex';
+ lilyPuzzle={boss,round:0,deadline:performance.now()+30000,timer:null,target:null};
+ drawLilyPuzzle();
+ lilyPuzzle.timer=setInterval(()=>{
+  if(!lilyPuzzle)return;
+  const remain=Math.max(0,Math.ceil((lilyPuzzle.deadline-performance.now())/1000));
+  $('lilyPuzzleInfo').textContent='찾기 '+(lilyPuzzle.round+1)+'/3 · 남은 시간 '+remain+'초';
+  if(remain===0){player.hp=0;stopLilyPuzzle();showMenu('over');$('menuDesc').textContent='🦎 숨은 그림 찾기 시간 초과! · 30초 제한';}
+ },100);
+}
+function drawLilyPuzzle(){
+ if(!lilyPuzzle)return;
+ const c=$('lilyPuzzleCanvas'),g=c.getContext('2d'),r=lilyPuzzle.round,w=c.width,h=c.height;
+ const sky=g.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#b1d8ea');sky.addColorStop(1,'#eaf9ff');g.fillStyle=sky;g.fillRect(0,0,w,h);
+ g.fillStyle='#f9ffff';g.fillRect(0,h*.78,w,h*.22);
+ const sprites=[bossSprite,octopusSprite,drillSprite,abyssEyeSprite,billySprite,snowmanSprite,lilySprite];
+ // Large crowd with overlapping boss illustrations and extra decoys.
+ const count=[18,35,55][r],size=[140,110,86][r];
+ for(let i=0;i<count;i++){
+  const xx=(i*137+Math.sin(i*91+r)*70+13)%w,yy=(i*73+Math.cos(i*47+r)*50+40)%(h-45);
+  const img=sprites[(i*3+i%5)%sprites.length];
+  g.save();g.globalAlpha=.7+(i%3)*.1;g.drawImage(img,xx-size*.45,yy-size*.5,size,size);g.restore();
+ }
+ const targetSize=[48,25,24][r],x=30+Math.random()*(w-60),y=25+Math.random()*(h-55);
+ g.save();g.globalAlpha=[.52,.30,.38][r];g.drawImage(lilySprite,x-targetSize/2,y-targetSize/2,targetSize,targetSize);g.restore();
+ lilyPuzzle.target={x,y,size:targetSize};
+ $('lilyPuzzleFeedback').textContent=['1단계 · 작은 반투명 릴리를 찾아주세요','2단계 · 릴리가 더 작고 희미해졌습니다','3단계 · 어려움! 조금 더 크고 선명한 릴리'][r];
+}
+$('lilyPuzzleCanvas').addEventListener('pointerdown',e=>{
+ if(!lilyPuzzle)return;
+ const c=e.currentTarget,rect=c.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width*c.width,y=(e.clientY-rect.top)/rect.height*c.height,t=lilyPuzzle.target;
+ const radius=Math.max(15,t.size*.65);
+ if(Math.hypot(x-t.x,y-t.y)>radius){$('lilyPuzzleFeedback').textContent='❌ 다른 그림이에요! 릴리를 다시 찾아보세요.';return;}
+ lilyPuzzle.round++;
+ if(lilyPuzzle.round===3){
+  const boss=lilyPuzzle.boss;stopLilyPuzzle();enemies=enemies.filter(e=>e!==boss);player.kills++;player.score+=1500;
+  state='play';hud.classList.add('show');controls.classList.add('active');updateUtilityButton();showNotice('🦎 카멜레온 릴리 격파! 숨은 그림 찾기 성공!',3);
+  if(!enemies.length)roundDelay=clock+.7;
+  updateBossHUD();updateHUD();return;
+ }
+ drawLilyPuzzle();
+});
 function clearAbyssTrials(){if(abyssTrial?.timers)abyssTrial.timers.forEach(clearTimeout);abyssTrial=null;$('abyssTrial').style.display='none';}
 function abyssFail(){clearAbyssTrials();player.hp=0;updateHUD();showMenu('over');}
 function abyssLoseLife(){const g=abyssTrial;if(!g||g.locked)return;g.locked=true;g.lives--;if(g.lives<=0){abyssFail();return;}$('abyssFeedback').textContent='오답! 남은 목숨 '+g.lives;setTimeout(()=>{if(abyssTrial===g)abyssNext();},650);}
@@ -1152,7 +1208,8 @@ function hitEnemy(e,amount){if(e.type==='abyss'){hitAbyss(e,amount);return;}
   }
   return;
  }
-if(!enemies.includes(e)||e.type==='drill'&&e.phaseTwo)return;
+if(!enemies.includes(e)||e.type==='drill'&&e.phaseTwo||e.type==='lily'&&e.lilyInvisibleUntil>clock)return;
+ if(e.type==='lily'&&e.hp-amount<=0){e.phaseTwo=true;e.hp=1;startLilyPuzzle(e);return;}
  if(e.type==='billy'&&!e.phaseTwo&&e.hp-amount<=e.maxhp*.5){e.phaseTwo=true;e.hp=e.maxhp*.75;e.maxhp=e.hp;e.billyPhaseStartAt=clock;e.billyHatNextAt=clock+1.5;e.billyHatUntil=0;e.billyBranches=[];e.billySnowballs=[];e.billyCarrots=[];phaseFlashUntil=clock+2;showNotice('❄ 스노우맨 빌리 · 2페이즈! 모자 속으로 숨는다!',2.6);updateBossHUD();return;}
 
  if(e.type==='drill'&&e.phaseThree&&!e.memoryTriggered&&e.hp-amount<=e.maxhp*.5){e.hp=e.maxhp*.5;e.memoryTriggered=true;e.drillZones=[];e.drillBlastAt=0;e.drillBursts=[];startDrillMemory(e);updateBossHUD();return;}
@@ -1177,6 +1234,31 @@ function update(dt){clock+=dt;updateBossHUD();if(clock<bossIntroUntil){fireHeld=
  if(keys.ArrowLeft)player.angle-=dt*1.8*save.sensitivity;if(keys.ArrowRight)player.angle+=dt*1.8*save.sensitivity;player.angle=normalize(player.angle);
  moveProjectiles(dt);
  if(gameMode!=='duel'&&clock>=freezeUntil){for(const e of enemies){if(e.type==='abyss'){updateAbyss(e);continue;}
+ if(e.type==='lily'){
+  if(clock>=e.lilyInvisibleAt&&clock>=e.lilyInvisibleUntil){
+   e.lilyInvisibleAt=clock+12;e.lilyInvisibleUntil=clock+5;
+   for(let tries=0;tries<60;tries++){const nx=rand(1.5,18.5),ny=rand(1.5,17.5);if(canStand(nx,ny,.5)&&Math.hypot(nx-player.x,ny-player.y)>3){e.x=nx;e.y=ny;break;}}
+   showNotice('🦎 릴리 투명화! 5초 뒤 12방향 혀 공격!',2);
+  }
+  if(e.lilyInvisibleUntil>0&&clock>=e.lilyInvisibleUntil){
+   e.lilyInvisibleUntil=0;
+   for(let k=0;k<12;k++){const a=k*Math.PI/6;e.lilyTongues.push({x:e.x,y:e.y,dx:Math.cos(a),dy:Math.sin(a),ttl:4,hit:false});}
+   showNotice('🦎 릴리 등장! 12방향 혀 탄막!',1.5);
+  }
+  if(clock>=e.lilyTongueAt){
+   e.lilyTongueAt=clock+4.5;e.lilyLashAngle=Math.atan2(player.y-e.y,player.x-e.x);e.lilyLashUntil=clock+1.25;e.lilyLashHit=false;
+   showNotice('⚠ 릴리의 초장거리 혀 공격! 넓은 직사각형 경고!',1.3);
+  }
+  if(e.lilyLashUntil>clock&&!e.lilyLashHit&&clock>e.lilyLashUntil-.25){
+   const dx=player.x-e.x,dy=player.y-e.y,a=e.lilyLashAngle,along=dx*Math.cos(a)+dy*Math.sin(a),across=Math.abs(-dx*Math.sin(a)+dy*Math.cos(a));
+   if(along>0&&along<28&&across<1.35){damage(32);e.lilyLashHit=true;}
+  }
+  for(let j=e.lilyTongues.length-1;j>=0;j--){const t=e.lilyTongues[j];t.x+=t.dx*dt*7;t.y+=t.dy*dt*7;t.ttl-=dt;
+   if(Math.hypot(t.x-player.x,t.y-player.y)<.65){damage(20);e.lilyTongues.splice(j,1);}
+   else if(t.ttl<=0||solid(t.x,t.y))e.lilyTongues.splice(j,1);
+  }
+  continue;
+ }
  if(e.type==='billy'){
   if(e.phaseTwo){
    if(e.billyHatUntil>clock){
@@ -1198,14 +1280,14 @@ function update(dt){clock+=dt;updateBossHUD();if(clock<bossIntroUntil){fireHeld=
     showNotice('🎩 빌리가 모자에 숨었다! 3초 동안 이동!',2.1);
    }
    for(let j=e.billyBranches.length-1;j>=0;j--){const b=e.billyBranches[j];b.x+=b.dx*dt*5.5;b.y+=b.dy*dt*5.5;b.ttl-=dt;
-    if(Math.hypot(b.x-player.x,b.y-player.y)<.42){damage(12);e.billyBranches.splice(j,1)}else if(b.ttl<=0||solid(b.x,b.y))e.billyBranches.splice(j,1);
+    if(Math.hypot(b.x-player.x,b.y-player.y)<.42){damage(24);e.billyBranches.splice(j,1)}else if(b.ttl<=0||solid(b.x,b.y))e.billyBranches.splice(j,1);
    }
    if(e.billyHatUntil>clock)continue;
   }
   if(clock>=e.billySnowAt){e.billySnowAt=clock+5;const a=Math.atan2(player.y-e.y,player.x-e.x);e.billySnowballs.push({x:e.x,y:e.y,dx:Math.cos(a),dy:Math.sin(a),ttl:5});showNotice('❄ 빌리의 눈덩이 발사!',1.2);}
-  for(let j=e.billySnowballs.length-1;j>=0;j--){const b=e.billySnowballs[j];b.x+=b.dx*dt*5;b.y+=b.dy*dt*5;b.ttl-=dt;if(Math.hypot(b.x-player.x,b.y-player.y)<.55){damage(16);e.billySnowballs.splice(j,1)}else if(b.ttl<=0||solid(b.x,b.y))e.billySnowballs.splice(j,1);}
+  for(let j=e.billySnowballs.length-1;j>=0;j--){const b=e.billySnowballs[j];b.x+=b.dx*dt*5;b.y+=b.dy*dt*5;b.ttl-=dt;if(Math.hypot(b.x-player.x,b.y-player.y)<.55){damage(32);e.billySnowballs.splice(j,1)}else if(b.ttl<=0||solid(b.x,b.y))e.billySnowballs.splice(j,1);}
   if(clock>=e.billyCarrotAt){e.billyCarrotAt=clock+7;e.billyCarrots.push({x:player.x,y:player.y,at:clock+1});showNotice('🥕 당근이 땅에 꽂혔다! 1초 안에 원 밖으로!',1.1);}
-  for(let j=e.billyCarrots.length-1;j>=0;j--){const c=e.billyCarrots[j];if(clock>=c.at){explosions.push({x:c.x,y:c.y,age:0,ttl:.65,radius:1.65,color:'#ff9c3d'});if(Math.hypot(player.x-c.x,player.y-c.y)<1.65)damage(24);e.billyCarrots.splice(j,1);sound(210,.25,'sawtooth',.08,65);}}
+  for(let j=e.billyCarrots.length-1;j>=0;j--){const c=e.billyCarrots[j];if(clock>=c.at){explosions.push({x:c.x,y:c.y,age:0,ttl:.65,radius:1.65,color:'#ff9c3d'});if(Math.hypot(player.x-c.x,player.y-c.y)<1.65)damage(48);e.billyCarrots.splice(j,1);sound(210,.25,'sawtooth',.08,65);}}
   continue;
  }
  if(e.type==='drill'){
@@ -1278,7 +1360,7 @@ const wallsArt={'1':wallMaterial('metal'),'2':windowMaterial(),'3':wallMaterial(
 const [floorLayer,floorCtx]=texCanvas(64,64);
 function floorRender(){const scale=save.graphics==='low'?3.15:save.graphics==='medium'?1.9:1.50,fw=Math.ceil(sceneW/scale),fh=Math.ceil(sceneH/(2*scale));if(floorLayer.width!==fw||floorLayer.height!==fh){floorLayer.width=fw;floorLayer.height=fh}const data=floorCtx.createImageData(fw,fh),d=data.data,ca=Math.cos(player.angle),sa=Math.sin(player.angle),r0x=ca+sa*TAN,r0y=sa-ca*TAN,r1x=ca-sa*TAN,r1y=sa+ca*TAN;
  for(let y=0;y<fh;y++){const sy=(y+.6)*sceneH/(2*fh),dist=sceneH/(2*Math.max(.8,sy)),dx=dist*(r1x-r0x)/fw,dy=dist*(r1y-r0y)/fw;let px=viewCam.x+dist*r0x,py=viewCam.y+dist*r0y,lum=clamp(.95-dist*.075,.14,.95);for(let x=0;x<fw;x++){const tx=(Math.floor(((px%1+1)%1)*128))&127,ty=(Math.floor(((py%1+1)%1)*128))&127,i=(ty*128+tx)*4,j=(y*fw+x)*4;d[j]=Math.min(255,floorPixels[i]*lum);d[j+1]=Math.min(255,floorPixels[i+1]*lum);d[j+2]=Math.min(255,floorPixels[i+2]*lum+7);d[j+3]=255;px+=dx;py+=dy}}floorCtx.putImageData(data,0,0);ctx.drawImage(floorLayer,0,sceneH*.5,sceneW,sceneH*.5)}
-function background(){if((activeChapter===2&&gameMode==='survival'||gameMode==='practice'&&practiceBoss==='billy')){
+function background(){if((activeChapter===2&&gameMode==='survival'||gameMode==='practice'&&(practiceBoss==='billy'||practiceBoss==='lily'))){
  const w=sceneW,h=sceneH,mid=h*.5;
  const sky=ctx.createLinearGradient(0,0,0,mid);sky.addColorStop(0,'#f0faff');sky.addColorStop(1,'#ffffff');ctx.fillStyle=sky;ctx.fillRect(0,0,w,mid);
  ctx.fillStyle='#ffffff';ctx.fillRect(0,mid,w,h-mid);
@@ -1291,8 +1373,8 @@ function background(){if((activeChapter===2&&gameMode==='survival'||gameMode==='
 function walls(){const w=sceneW,h=sceneH,colWidth=zStep,n=Math.ceil(w/colWidth);zBuffer=new Float32Array(n);const sin=Math.sin(player.angle),cos=Math.cos(player.angle),px=-sin*TAN,py=cos*TAN;
  for(let i=0;i<n;i++){const cameraX=2*(i+.5)/n-1,dx=cos+px*cameraX,dy=sin+py*cameraX,r=cast(dx,dy),dist=r.dist;zBuffer[i]=dist;const wallH=Math.min(h*7,h/dist),top=(h-wallH)*.5;const tex=wallsArt[r.tile]||wallsArt['1'];let tx=Math.floor(r.texture*(tex.width-1));if((r.side===0&&dx>0)||(r.side===1&&dy<0))tx=tex.width-1-tx;const x=i*colWidth;try{ctx.drawImage(tex,tx,0,1,tex.height,x,top,colWidth+1,wallH)}catch(e){ctx.fillStyle='#245575';ctx.fillRect(x,top,colWidth+1,wallH)}
  const black=clamp(dist*.058+(r.side?.13:0),0,.83);ctx.fillStyle=`rgba(1,5,22,${r.tile==='2'?black*.6:black})`;ctx.fillRect(x,top,colWidth+1,wallH);
- if((activeChapter===2&&gameMode==='survival'||gameMode==='practice'&&practiceBoss==='billy')){ctx.fillStyle='rgba(255,255,255,.96)';ctx.fillRect(x,top,colWidth+1,wallH);ctx.fillStyle='rgba(220,236,244,.45)';ctx.fillRect(x,top,colWidth+1,Math.max(2,wallH*.035));}
- if(!(activeChapter===2&&gameMode==='survival'||gameMode==='practice'&&practiceBoss==='billy')&&r.tile!=='2'&&dist<17){const light=clamp(.60-dist*.025,.10,.65),phase=1+Math.sin(clock*1.2+r.mx*2+r.my)*.24;ctx.fillStyle=`rgba(${r.tile==='3'?'188,108,255':'84,231,252'},${light*phase})`;ctx.fillRect(x,top+wallH*.102,colWidth+1,Math.max(.5,wallH*.013));ctx.fillRect(x,top+wallH*.875,colWidth+1,Math.max(.5,wallH*.011))}
+ if((activeChapter===2&&gameMode==='survival'||gameMode==='practice'&&(practiceBoss==='billy'||practiceBoss==='lily'))){ctx.fillStyle='rgba(255,255,255,.96)';ctx.fillRect(x,top,colWidth+1,wallH);ctx.fillStyle='rgba(220,236,244,.45)';ctx.fillRect(x,top,colWidth+1,Math.max(2,wallH*.035));}
+ if(!(activeChapter===2&&gameMode==='survival'||gameMode==='practice'&&(practiceBoss==='billy'||practiceBoss==='lily'))&&r.tile!=='2'&&dist<17){const light=clamp(.60-dist*.025,.10,.65),phase=1+Math.sin(clock*1.2+r.mx*2+r.my)*.24;ctx.fillStyle=`rgba(${r.tile==='3'?'188,108,255':'84,231,252'},${light*phase})`;ctx.fillRect(x,top+wallH*.102,colWidth+1,Math.max(.5,wallH*.013));ctx.fillRect(x,top+wallH*.875,colWidth+1,Math.max(.5,wallH*.011))}
  }
 }
 const decorProps=[{x:3.5,y:3.4,type:'console'},{x:16.5,y:3.4,type:'console'},{x:3.5,y:15.8,type:'console'},{x:16.5,y:15.8,type:'console'},{x:10.0,y:2.5,type:'hologram'},{x:10.0,y:16.5,type:'hologram'}];
@@ -1357,6 +1439,21 @@ function createSnowmanSprite(){
 const snowmanSprite=createSnowmanSprite();
 function createBillySprite(){const [c,g]=texCanvas(220,260);g.shadowColor='#93dafa';g.shadowBlur=18;g.fillStyle='#e9faff';g.beginPath();g.arc(110,172,77,0,Math.PI*2);g.fill();g.beginPath();g.arc(110,78,60,0,Math.PI*2);g.fill();g.shadowBlur=0;g.fillStyle='#20364d';g.fillRect(58,20,104,20);g.fillRect(75,0,70,45);for(const x of [88,131]){g.beginPath();g.arc(x,73,10,0,Math.PI*2);g.fill()}g.fillStyle='#fa872b';g.beginPath();g.moveTo(111,91);g.lineTo(202,111);g.lineTo(111,109);g.fill();g.strokeStyle='#6d4d34';g.lineWidth=12;g.beginPath();g.moveTo(44,167);g.lineTo(3,117);g.moveTo(177,167);g.lineTo(215,120);g.stroke();g.fillStyle='#d63758';g.fillRect(60,129,100,19);g.fillStyle='#1d3146';for(const y of [167,196,225]){g.beginPath();g.arc(110,y,8,0,Math.PI*2);g.fill()}g.font='bold 20px sans-serif';g.fillStyle='#286b95';g.fillText('BILLY',79,250);return c}
 const billySprite=createBillySprite();
+function createLilySprite(){
+ const [c,g]=texCanvas(240,250);
+ g.strokeStyle='#278e71';g.lineWidth=21;g.lineCap='round';
+ g.beginPath();g.moveTo(171,169);g.bezierCurveTo(255,172,233,235,183,229);g.bezierCurveTo(147,220,199,191,200,206);g.stroke();
+ g.fillStyle='#49c48a';g.strokeStyle='#1c806a';g.lineWidth=7;
+ g.beginPath();g.ellipse(117,160,88,65,-.1,0,Math.PI*2);g.fill();g.stroke();
+ g.beginPath();g.ellipse(111,86,78,62,0,0,Math.PI*2);g.fill();g.stroke();
+ g.fillStyle='#e5ffbc';
+ for(const x of [67,148]){g.beginPath();g.arc(x,59,27,0,Math.PI*2);g.fill();g.fillStyle='#102c36';g.beginPath();g.arc(x+7,60,11,0,Math.PI*2);g.fill();g.fillStyle='#e5ffbc';}
+ g.strokeStyle='#f86e9e';g.lineWidth=13;g.beginPath();g.moveTo(130,119);g.bezierCurveTo(180,105,210,119,234,88);g.stroke();
+ g.strokeStyle='#247f63';g.lineWidth=16;g.beginPath();g.moveTo(73,195);g.lineTo(50,235);g.moveTo(154,195);g.lineTo(175,237);g.stroke();
+ g.fillStyle='#166451';g.font='bold 21px sans-serif';g.fillText('LILY',90,245);return c;
+}
+const lilySprite=createLilySprite();
+
 function createBillyHatSprite(){const [c,g]=texCanvas(128,170);g.shadowColor='#b6eaff';g.shadowBlur=10;g.fillStyle='#172c42';g.fillRect(25,90,78,18);g.fillRect(43,42,42,58);g.fillStyle='#b8edff';g.fillRect(43,78,42,12);g.shadowBlur=0;return c;}
 const billyHatSprite=createBillyHatSprite();
 
@@ -1365,18 +1462,18 @@ function drawBillyAttacks(){for(const e of enemies){if(e.type!=='billy')continue
    for(const b of e.billyBranches||[]){const p=projected(b.x,b.y);if(p.cd<=.2||Math.abs(p.alpha)>FOV*.75)continue;const r=clamp(sceneH/p.cd*.12,4,45);ctx.save();ctx.strokeStyle='#78512e';ctx.lineWidth=Math.max(3,r*.22);ctx.lineCap='round';ctx.beginPath();ctx.moveTo(p.sx-r*.7,sceneH*.52-r*.35);ctx.lineTo(p.sx+r*.7,sceneH*.52+r*.35);ctx.stroke();ctx.strokeStyle='#caa36b';ctx.lineWidth=Math.max(1,r*.09);ctx.beginPath();ctx.moveTo(p.sx-r*.4,sceneH*.52-r*.28);ctx.lineTo(p.sx+r*.4,sceneH*.52+r*.18);ctx.stroke();ctx.restore();}
 for(const ball of e.billySnowballs||[]){const p=projected(ball.x,ball.y);if(p.cd<=.2||Math.abs(p.alpha)>FOV*.75)continue;const r=clamp(sceneH/p.cd*.19,5,80);ctx.save();ctx.fillStyle='#f7ffff';ctx.shadowColor='#a1e6ff';ctx.shadowBlur=18;ctx.beginPath();ctx.arc(p.sx,sceneH*.51,r,0,Math.PI*2);ctx.fill();ctx.restore();}
 }}
-function drawEnemySprites(){const visible=[...enemies].sort((a,b)=>Math.hypot(b.x-player.x,b.y-player.y)-Math.hypot(a.x-player.x,a.y-player.y));for(let e of visible){const p=projected(e.x,e.y);if(Math.abs(p.alpha)>FOV*.69||p.cd<.22||e.type==='drill'&&e.buriedUntil>clock+.55)continue;const img=e.type==='billy'?(e.billyHatUntil>clock?billyHatSprite:billySprite):e.type==='abyss'?abyssEyeSprite:e.type==='octopus'?octopusSprite:e.type==='drill'?drillSprite:e.type==='boss'?bossSprite:e.type==='snowman'?snowmanSprite:spriteVariants[(e.type==='yellow'?4:e.type==='pink'?1:0)+(clock<e.hitAt? (e.type==='yellow'?1:2):0)];const botHeight=clamp(sceneH/p.cd*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss'||e.type==='billy')?1.9:.91),10,sceneH*3),botWidth=botHeight*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss'||e.type==='billy')?.92:.763),center=p.sx,x0=center-botWidth/2,y0=sceneH/2-botHeight*.56+Math.sin(clock*3+(e.phase||0))*Math.min(7,botHeight*.025)+(e.type==='drill'&&e.buriedUntil>clock?botHeight*Math.min(1,(clock-e.drillDiveStart)/.55):e.type==='drill'&&e.drillEmergeUntil>clock?botHeight*Math.max(0,(e.drillEmergeUntil-clock)/.65):0);
+function drawEnemySprites(){const visible=[...enemies].sort((a,b)=>Math.hypot(b.x-player.x,b.y-player.y)-Math.hypot(a.x-player.x,a.y-player.y));for(let e of visible){const p=projected(e.x,e.y);if(Math.abs(p.alpha)>FOV*.69||p.cd<.22||e.type==='drill'&&e.buriedUntil>clock+.55||e.type==='lily'&&e.lilyInvisibleUntil>clock)continue;const img=e.type==='billy'?(e.billyHatUntil>clock?billyHatSprite:billySprite):e.type==='lily'?lilySprite:e.type==='abyss'?abyssEyeSprite:e.type==='octopus'?octopusSprite:e.type==='drill'?drillSprite:e.type==='boss'?bossSprite:e.type==='snowman'?snowmanSprite:spriteVariants[(e.type==='yellow'?4:e.type==='pink'?1:0)+(clock<e.hitAt? (e.type==='yellow'?1:2):0)];const botHeight=clamp(sceneH/p.cd*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss'||e.type==='billy'||e.type==='lily')?1.9:.91),10,sceneH*3),botWidth=botHeight*((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss'||e.type==='billy'||e.type==='lily')?.92:.763),center=p.sx,x0=center-botWidth/2,y0=sceneH/2-botHeight*.56+Math.sin(clock*3+(e.phase||0))*Math.min(7,botHeight*.025)+(e.type==='drill'&&e.buriedUntil>clock?botHeight*Math.min(1,(clock-e.drillDiveStart)/.55):e.type==='drill'&&e.drillEmergeUntil>clock?botHeight*Math.max(0,(e.drillEmergeUntil-clock)/.65):0);
  const chunk=Math.max(2,Math.ceil(botWidth/25));for(let x=Math.floor(x0);x<Math.ceil(x0+botWidth);x+=chunk){const index=Math.floor(x/zStep);if(index<0||index>=zBuffer.length)continue;if(Number.isFinite(zBuffer[index])&&p.cd>zBuffer[index]+.13&&!clearLineOfSight(viewCam.x,viewCam.y,e.x,e.y))continue;const srcX=(x-x0)/botWidth*img.width,srcW=chunk/botWidth*img.width;try{if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree)){ctx.save();ctx.shadowColor='#ff244c';ctx.shadowBlur=22;ctx.filter='saturate(1.8) hue-rotate(-22deg)';}ctx.drawImage(img,clamp(srcX,0,img.width-1),0,Math.min(srcW,img.width-clamp(srcX,0,img.width-1)),img.height,x,y0,chunk+.5,botHeight);if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}catch(err){if((e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss')&&(e.phaseTwo||e.phaseThree))ctx.restore()}}
  if(p.cd<5.1){const barW=botWidth*.65;ctx.fillStyle='rgba(10,17,36,.8)';ctx.fillRect(center-barW*.5,y0-8,barW,4);ctx.fillStyle=e.type==='abyss'?'#b36cff':e.type==='pink'?'#ff6eaf':'#6afaff';ctx.fillRect(center-barW*.5,y0-8,barW*Math.max(0,e.hp/e.maxhp),4)}if(clock<freezeUntil){ctx.strokeStyle='rgba(137,255,255,.7)';ctx.lineWidth=Math.max(1,botHeight*.02);ctx.beginPath();ctx.ellipse(center,y0+botHeight*.5,botWidth*.4,botHeight*.4,0,0,Math.PI*2);ctx.stroke()}
  }}
 function updateBossHUD(){
  const eye=enemies.find(e=>e.type==='abyss'&&e.phaseThree);
- const b=gameMode!=='duel'?(eye?.abyssGuardian&&enemies.includes(eye.abyssGuardian)?eye.abyssGuardian:enemies.find(e=>e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss'||e.type==='billy')):null,el=$('bossStatus');
+ const b=gameMode!=='duel'?(eye?.abyssGuardian&&enemies.includes(eye.abyssGuardian)?eye.abyssGuardian:enemies.find(e=>e.type==='boss'||e.type==='octopus'||e.type==='drill'||e.type==='abyss'||e.type==='billy'||e.type==='lily')):null,el=$('bossStatus');
  if(!el)return;
  el.style.display=b&&state==='play'?'block':'none';
  if(!b)return;
  el.classList.toggle('phase2',!!b.phaseTwo);
- $('bossHeading').firstChild.textContent=b.type==='billy'?'❄ 스노우맨 빌리 ':b.type==='abyss'?'👁 심연의 눈 ':b.type==='octopus'?'⚠ 심연의 문어 ':b.type==='drill'?'⚠ 드릴라이너 ':'⚠ 폭격자 ';$('bossPhaseLabel').textContent=b.phaseThree?(b.type==='abyss'?'PHASE 3 · 수정 방어':'PHASE 3 · 폭주'):b.phaseTwo?(b.type==='abyss'?'PHASE 2 · 차원 시험':b.type==='drill'?'PHASE 2 · 최면 야바위':b.type==='billy'?'PHASE 2 · 모자 질주와 나뭇가지 탄막':'PHASE 2 · 폭주'):(b.abyssGuardian?'소환 보스 · 수정 보호':'PHASE 1');
+ $('bossHeading').firstChild.textContent=b.type==='lily'?'🦎 카멜레온 릴리 ':b.type==='billy'?'❄ 스노우맨 빌리 ':b.type==='abyss'?'👁 심연의 눈 ':b.type==='octopus'?'⚠ 심연의 문어 ':b.type==='drill'?'⚠ 드릴라이너 ':'⚠ 폭격자 ';$('bossPhaseLabel').textContent=b.phaseThree?(b.type==='abyss'?'PHASE 3 · 수정 방어':'PHASE 3 · 폭주'):b.phaseTwo?(b.type==='abyss'?'PHASE 2 · 차원 시험':b.type==='drill'?'PHASE 2 · 최면 야바위':b.type==='lily'?'PHASE 2 · 숨은 그림 찾기':b.type==='billy'?'PHASE 2 · 모자 질주와 나뭇가지 탄막':'PHASE 2 · 폭주'):(b.abyssGuardian?'소환 보스 · 수정 보호':'PHASE 1');
  const pct=clamp(b.hp/Math.max(1,b.maxhp)*100,0,100);
  $('bossBarFill').style.width=pct.toFixed(1)+'%';
  $('bossHpText').textContent=Math.ceil(b.hp)+' / '+Math.ceil(b.maxhp)+' HP';
@@ -1422,7 +1519,10 @@ function drawBossCinematic(){
 }
 function drawOctopusAttacks(){for(const e of enemies){if(e.type!=='octopus')continue;const origin=projected(e.x,e.y);if(origin.cd<.2)continue;const ray=(angle,color)=>{const stop=visibleRayEnd(e.x,e.y,angle,9),end=projected(stop.x,stop.y);ctx.save();ctx.strokeStyle=color;ctx.lineWidth=Math.max(4,sceneH*.025);ctx.shadowColor=color;ctx.shadowBlur=16;ctx.beginPath();ctx.moveTo(origin.sx,sceneH*.50);ctx.lineTo(end.sx,sceneH*.55);ctx.stroke();ctx.restore();};if(e.lashUntil>clock)ray(e.lashAngle,'rgba(83,219,228,.8)');if(e.phaseTwo&&e.eyeAt>clock)ray(e.laserAngle,'rgba(255,72,204,.83)');}}
 function drawInk(){if(clock>=inkUntil)return;const t=Math.min(1,(inkUntil-clock)/.65);ctx.save();ctx.fillStyle='rgba(5,2,22,'+(t*.78)+')';ctx.fillRect(0,0,sceneW,sceneH);for(let i=0;i<18;i++){const x=(Math.sin(i*43+clock*.6)*.5+.5)*sceneW,y=(Math.cos(i*19+clock*.3)*.5+.5)*sceneH;ctx.fillStyle='rgba(29,12,63,'+(t*.27)+')';ctx.beginPath();ctx.arc(x,y,sceneH*(.09+(i%4)*.03),0,Math.PI*2);ctx.fill();}ctx.restore();}
-function drawBossWarnings(){for(const e of enemies){if(e.type!=='boss'||!e.blastAt)continue;for(const z of (e.blastZones?.length?e.blastZones:[{x:e.blastX,y:e.blastY}])){const p=projected(z.x,z.y);if(p.cd<=.2||Math.abs(p.alpha)>FOV*.72){ctx.save();ctx.fillStyle='#ffcc81';ctx.textAlign='center';ctx.font=`bold ${Math.max(15,sceneH*.055)}px sans-serif`;ctx.fillText('⚠ 폭격 '+Math.max(0,e.blastAt-clock).toFixed(1)+'초 · 이동!',sceneW/2,sceneH*.22);ctx.restore();continue;}const r=clamp(sceneH/p.cd*.82,12,sceneW);const yy=sceneH*.68;ctx.save();ctx.globalAlpha=.5+.4*Math.sin(clock*12)**2;ctx.fillStyle='rgba(255,48,30,.23)';ctx.strokeStyle='#ff5e35';ctx.lineWidth=Math.max(2,sceneH*.007);ctx.beginPath();ctx.ellipse(p.sx,yy,r,r*.3,0,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#fff2a2';ctx.font=`bold ${Math.max(14,sceneH*.045)}px sans-serif`;ctx.textAlign='center';ctx.fillText('⚠ '+Math.max(0,e.blastAt-clock).toFixed(1)+'s',p.sx,yy-r*.32);ctx.restore();}}}
+function drawBossWarnings(){for(const e of enemies){if(e.type==='lily'){
+ if(e.lilyLashUntil>clock){const p=projected(e.x,e.y);ctx.save();ctx.globalAlpha=.32+.14*Math.sin(clock*14);ctx.fillStyle='#ff5588';ctx.fillRect(0,sceneH*.43,sceneW,sceneH*.19);ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='bold 17px sans-serif';ctx.fillText('⚠ 릴리 혀 공격 · '+Math.max(0,e.lilyLashUntil-clock).toFixed(1)+'초',sceneW*.5,sceneH*.4);ctx.restore();}
+ for(const t of e.lilyTongues){const p=projected(t.x,t.y);if(p.cd>.2&&Math.abs(p.alpha)<FOV*.7){ctx.save();ctx.fillStyle='#ff77a9';ctx.beginPath();ctx.arc(p.sx,sceneH*.55,Math.max(3,sceneH/p.cd*.075),0,Math.PI*2);ctx.fill();ctx.restore();}}
+ } }for(const e of enemies){if(e.type!=='boss'||!e.blastAt)continue;for(const z of (e.blastZones?.length?e.blastZones:[{x:e.blastX,y:e.blastY}])){const p=projected(z.x,z.y);if(p.cd<=.2||Math.abs(p.alpha)>FOV*.72){ctx.save();ctx.fillStyle='#ffcc81';ctx.textAlign='center';ctx.font=`bold ${Math.max(15,sceneH*.055)}px sans-serif`;ctx.fillText('⚠ 폭격 '+Math.max(0,e.blastAt-clock).toFixed(1)+'초 · 이동!',sceneW/2,sceneH*.22);ctx.restore();continue;}const r=clamp(sceneH/p.cd*.82,12,sceneW);const yy=sceneH*.68;ctx.save();ctx.globalAlpha=.5+.4*Math.sin(clock*12)**2;ctx.fillStyle='rgba(255,48,30,.23)';ctx.strokeStyle='#ff5e35';ctx.lineWidth=Math.max(2,sceneH*.007);ctx.beginPath();ctx.ellipse(p.sx,yy,r,r*.3,0,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#fff2a2';ctx.font=`bold ${Math.max(14,sceneH*.045)}px sans-serif`;ctx.textAlign='center';ctx.fillText('⚠ '+Math.max(0,e.blastAt-clock).toFixed(1)+'s',p.sx,yy-r*.32);ctx.restore();}}}
 function drawFlameStream(){
  if(state!=='play'||save.equipped!=='flame'||clock-shootLast>.20)return;
  const w=sceneW,h=sceneH,age=clock-shootLast;
